@@ -39,17 +39,20 @@ npm install base-mcp
 ### Option 2: Install from Source
 
 1. Clone this repository:
+
    ```bash
-   git clone https://github.com/yourusername/base-mcp.git
-   cd base-mcp
+   git clone https://github.com/dschlabach/base-mcp-alpha.git
+   cd base-mcp-alpha
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Build the project:
+
    ```bash
    npm run build
    ```
@@ -62,6 +65,7 @@ npm install base-mcp
 ## Configuration
 
 Create a `.env` file with your credentials:
+
 ```
 # Coinbase API credentials
 # You can obtain these from the Coinbase Developer Portal: https://cdp.coinbase.com/
@@ -76,6 +80,7 @@ SEED_PHRASE=your seed phrase here
 ## Testing
 
 Test the MCP server to verify it's working correctly:
+
 ```bash
 npm test
 ```
@@ -91,11 +96,13 @@ See the [examples.md](examples.md) file for detailed examples of how to interact
 To add this MCP server to Claude Desktop:
 
 1. Create or edit the Claude Desktop configuration file at:
+
    - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
    - Linux: `~/.config/Claude/claude_desktop_config.json`
 
 2. Add the following configuration:
+
    ```json
    {
      "mcpServers": {
@@ -123,6 +130,7 @@ To add this MCP server to Claude Desktop:
 Retrieves the address for your wallet.
 
 Example query to Claude:
+
 > "What's my wallet address?"
 
 ### get-testnet-eth
@@ -130,6 +138,7 @@ Example query to Claude:
 Gets testnet ETH for your wallet. This can only be called on the Base Sepolia network.
 
 Example query to Claude:
+
 > "Can you get me some testnet ETH for my wallet?"
 
 ### list-balances
@@ -137,6 +146,7 @@ Example query to Claude:
 Lists all balances for your wallet.
 
 Example query to Claude:
+
 > "Show me my wallet balances."
 
 ### transfer-funds
@@ -144,11 +154,13 @@ Example query to Claude:
 Transfers funds from your wallet to another address.
 
 Parameters:
+
 - `destination`: The address to which to transfer funds
 - `assetId`: The asset ID to transfer
 - `amount`: The amount of funds to transfer
 
 Example query to Claude:
+
 > "Transfer 0.01 ETH to 0x1234567890abcdef1234567890abcdef12345678."
 
 ### deploy-contract
@@ -156,12 +168,14 @@ Example query to Claude:
 Deploys a smart contract to the blockchain.
 
 Parameters:
+
 - `constructorArgs`: The arguments for the contract constructor
 - `contractName`: The name of the contract to deploy
 - `solidityInputJson`: The JSON input for the Solidity compiler containing contract source and settings
 - `solidityVersion`: The version of the solidity compiler
 
 Example query to Claude:
+
 > "Deploy a simple ERC20 token contract for me."
 
 ## Security Considerations
@@ -217,12 +231,14 @@ npm run submit
 ```
 
 This script will:
+
 1. Check if your package is published to npm
 2. Verify your GitHub repository information
 3. Generate a submission file with all the necessary information
 4. Guide you through the submission process
 
 Alternatively, you can manually submit by:
+
 1. Visiting the [MCP Directory Repository](https://github.com/modelcontextprotocol/directory)
 2. Following the contribution guidelines to add your MCP server
 
