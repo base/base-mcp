@@ -1,15 +1,35 @@
 {
   "name": "base-mcp",
+  "version": "1.0.0",
+  "description": "A Model Context Protocol (MCP) server that provides onchain tools for Claude AI, allowing it to interact with the Base blockchain and Coinbase API",
   "bin": {
-    "weather": "./build/index.js"
+    "base-mcp": "./build/index.js"
   },
   "scripts": {
     "run": "tsx src/index.ts",
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "test": "node test-mcp.js",
+    "submit": "node submit-to-directory.js"
   },
   "files": [
     "build"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dschlabach/base-mcp-alpha"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "base",
+    "blockchain",
+    "coinbase",
+    "ethereum",
+    "web3",
+    "ai"
+  ],
+  "author": "Dan Schlabach, Tina He",
+  "license": "MIT",
   "packageManager": "yarn@4.5.1",
   "dependencies": {
     "@coinbase/coinbase-sdk": "^0.21.0",
