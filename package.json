@@ -2,11 +2,10 @@
   "name": "base-mcp",
   "version": "1.0.0",
   "description": "A Model Context Protocol (MCP) server that provides onchain tools for Claude AI, allowing it to interact with the Base blockchain and Coinbase API",
-  "bin": {
-    "base-mcp": "./build/index.js"
-  },
+  "bin": "./build/index.js",
   "scripts": {
     "run": "tsx src/index.ts",
+    "dev": "nodemon --exec tsx src/index.ts",
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "test": "node scripts/test-mcp.js",
     "submit": "node scripts/submit-to-directory.js"

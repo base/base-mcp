@@ -80,10 +80,34 @@ const deployContractTool: Tool = {
   },
 };
 
+const deployNftTool: Tool = {
+  name: "deploy-nft",
+  description: "Deploy an NFT",
+  inputSchema: {
+    type: "object",
+    properties: {
+      baseURI: {
+        type: "string",
+        description:
+          "The base URI for the NFT. E.g. https://example.com/nft/{id}",
+      },
+      name: {
+        type: "string",
+        description: "The name of the NFT",
+      },
+      symbol: {
+        type: "string",
+        description: "The symbol of the NFT",
+      },
+    },
+  },
+};
+
 export const tools = [
   getAddressTool,
   getTestnetEthTool,
   listBalancesTool,
   transferFundsTool,
   deployContractTool,
+  deployNftTool,
 ];

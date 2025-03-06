@@ -7,7 +7,11 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { version } from "./version.js";
 import * as dotenv from "dotenv";
-import type { DeployContractParams, TransferFundsParams } from "./types.js";
+import type {
+  DeployContractParams,
+  DeployNftParams,
+  TransferFundsParams,
+} from "./tools/types.js";
 import { tools } from "./tools/index.js";
 
 async function main() {
@@ -161,6 +165,28 @@ async function main() {
               ],
             };
           }
+        }
+
+        case "deploy-nft": {
+          const { name, symbol, baseURI } = request.params
+            .arguments as unknown as unknown as DeployNftParams;
+
+          const nft = await wallet.deployNFT({
+            baseURI,
+            name,
+            symbol,
+          });
+
+          await nft.wait();
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: nft.toString(),
+              },
+            ],
+          };
         }
 
         default:
