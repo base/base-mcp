@@ -41,8 +41,8 @@ npm install base-mcp
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/dschlabach/base-mcp-alpha.git
-   cd base-mcp-alpha
+   git clone https://github.com/base/base-mcp.git
+   cd base-mcp
    ```
 
 2. Install dependencies:
