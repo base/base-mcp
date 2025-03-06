@@ -24,3 +24,7 @@ export type DeployTokenParams = {
   symbol: string;
   totalSupply: number;
 };
+
+export type DeployMultiTokenParams = {
+  uri: string;
+};

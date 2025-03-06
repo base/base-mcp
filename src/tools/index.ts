@@ -125,6 +125,20 @@ const deployTokenTool: Tool = {
   },
 };
 
+const deployMultiTokenTool: Tool = {
+  name: "deploy-multi-token",
+  description: "Deploy an ERC-1155 token",
+  inputSchema: {
+    type: "object",
+    properties: {
+      uri: {
+        type: "string",
+        description: "The URI for the tokens",
+      },
+    },
+  },
+};
+
 export const tools = [
   getAddressTool,
   getTestnetEthTool,
@@ -133,4 +147,5 @@ export const tools = [
   deployContractTool,
   deployNftTool,
   deployTokenTool,
+  deployMultiTokenTool,
 ];

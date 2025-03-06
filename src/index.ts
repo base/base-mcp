@@ -9,6 +9,7 @@ import { version } from "./version.js";
 import * as dotenv from "dotenv";
 import type {
   DeployContractParams,
+  DeployMultiTokenParams,
   DeployNftParams,
   DeployTokenParams,
   TransferFundsParams,
@@ -207,6 +208,24 @@ async function main() {
               {
                 type: "text",
                 text: token.toString(),
+              },
+            ],
+          };
+        }
+
+        case "deploy-multi-token": {
+          const { uri } = request.params
+            .arguments as unknown as DeployMultiTokenParams;
+
+          const tokens = await wallet.deployMultiToken({
+            uri,
+          });
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: tokens.toString(),
               },
             ],
           };
