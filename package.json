@@ -9,7 +9,7 @@
     "run": "tsx src/index.ts",
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "test": "node test-mcp.js",
-    "submit": "node submit-to-directory.js"
+    "submit": "node scripts/submit-to-directory.js"
   },
   "files": [
     "build"
