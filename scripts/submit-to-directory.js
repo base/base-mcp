@@ -90,7 +90,7 @@ rl.question('Do you want to proceed? (y/n): ', (answer) => {
   };
 
   // Save submission data to a file
-  const submissionFile = 'mcp-directory-submission.json';
+  const submissionFile = path.join(process.cwd(), 'mcp-directory-submission.json');
   fs.writeFileSync(submissionFile, JSON.stringify(submissionData, null, 2));
 
   console.log(`\n✅ Submission data saved to ${submissionFile}`);
