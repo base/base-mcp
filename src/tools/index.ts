@@ -103,6 +103,28 @@ const deployNftTool: Tool = {
   },
 };
 
+const deployTokenTool: Tool = {
+  name: "deploy-token",
+  description: "Deploy an ERC-20 token",
+  inputSchema: {
+    type: "object",
+    properties: {
+      name: {
+        type: "string",
+        description: "The name of the token",
+      },
+      symbol: {
+        type: "string",
+        description: "The symbol of the token",
+      },
+      totalSupply: {
+        type: "number",
+        description: "The total supply of the token",
+      },
+    },
+  },
+};
+
 export const tools = [
   getAddressTool,
   getTestnetEthTool,
@@ -110,4 +132,5 @@ export const tools = [
   transferFundsTool,
   deployContractTool,
   deployNftTool,
+  deployTokenTool,
 ];

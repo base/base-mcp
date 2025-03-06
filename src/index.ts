@@ -10,6 +10,7 @@ import * as dotenv from "dotenv";
 import type {
   DeployContractParams,
   DeployNftParams,
+  DeployTokenParams,
   TransferFundsParams,
 } from "./tools/types.js";
 import { tools } from "./tools/index.js";
@@ -184,6 +185,28 @@ async function main() {
               {
                 type: "text",
                 text: nft.toString(),
+              },
+            ],
+          };
+        }
+
+        case "deploy-token": {
+          const { name, symbol, totalSupply } = request.params
+            .arguments as unknown as DeployTokenParams;
+
+          const token = await wallet.deployToken({
+            name,
+            symbol,
+            totalSupply,
+          });
+
+          await token.wait();
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: token.toString(),
               },
             ],
           };

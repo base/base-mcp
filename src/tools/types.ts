@@ -18,3 +18,9 @@ export type DeployNftParams = {
   symbol: string;
   baseURI: string;
 };
+
+export type DeployTokenParams = {
+  name: string;
+  symbol: string;
+  totalSupply: number;
+};
