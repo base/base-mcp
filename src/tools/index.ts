@@ -139,6 +139,70 @@ const deployMultiTokenTool: Tool = {
   },
 };
 
+const getOnrampAssetsTool: Tool = {
+  name: "get-onramp-assets",
+  description:
+    "Get the assets available for onramping in a given country / subdivision",
+  inputSchema: {
+    type: "object",
+    properties: {
+      country: {
+        type: "string",
+        description:
+          "ISO 3166-1 two-digit country code string representing the purchasing user's country of residence, e.g., US.",
+      },
+      subdivision: {
+        type: "string",
+        description:
+          "ISO 3166-2 two-digit country subdivision code representing the purchasing user's subdivision of residence within their country, e.g. NY. Required if the country=“US” because certain states (e.g., NY) have state specific asset restrictions.",
+      },
+    },
+  },
+};
+
+const onrampTool: Tool = {
+  name: "onramp",
+  description: "Get a URL for onramping funds",
+  inputSchema: {
+    type: "object",
+    properties: {
+      amountUsd: {
+        type: "number",
+        description: "The amount of funds to onramp",
+      },
+      assetId: {
+        type: "string",
+        enum: Object.values(Coinbase.assets),
+        description: "The asset ID to onramp",
+      },
+    },
+  },
+};
+
+const tradeTool: Tool = {
+  name: "trade",
+  description: "Trade one asset for another",
+  inputSchema: {
+    type: "object",
+    properties: {
+      amount: {
+        type: "number",
+        description: "The amount of funds to trade",
+      },
+      fromAssetId: {
+        type: "string",
+        enum: Object.values(Coinbase.assets),
+        description: "The asset ID to trade from",
+      },
+      toAssetId: {
+        type: "string",
+        enum: Object.values(Coinbase.assets),
+        description: "The asset ID to trade to",
+      },
+    },
+  },
+};
+
 export const tools = [
   getAddressTool,
   getTestnetEthTool,
@@ -148,4 +212,7 @@ export const tools = [
   deployNftTool,
   deployTokenTool,
   deployMultiTokenTool,
+  getOnrampAssetsTool,
+  onrampTool,
+  tradeTool,
 ];

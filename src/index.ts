@@ -12,9 +12,14 @@ import type {
   DeployMultiTokenParams,
   DeployNftParams,
   DeployTokenParams,
+  GetOnrampConfigParams,
+  OnrampParams,
+  PatchedOnrampConfigResponseData,
+  TradeParams,
   TransferFundsParams,
 } from "./tools/types.js";
 import { tools } from "./tools/index.js";
+import { getOnrampBuyUrl } from "@coinbase/onchainkit/fund";
 
 async function main() {
   dotenv.config();
@@ -44,10 +49,14 @@ async function main() {
   Coinbase.configure({ apiKeyName, privateKey });
 
   // Initialize wallet with seed phrase
-  const wallet = await Wallet.import({
-    mnemonicPhrase: seedPhrase,
-    networkId: "base-sepolia",
-  });
+  const wallet = await Wallet.import(
+    {
+      mnemonicPhrase: seedPhrase,
+      network_id: Coinbase.networks.BaseMainnet, // ignored
+      networkId: Coinbase.networks.BaseMainnet, // also ignored
+    },
+    Coinbase.networks.BaseMainnet,
+  );
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     console.error("Received ListToolsRequest");
@@ -129,11 +138,6 @@ async function main() {
             solidityInputJson,
             solidityVersion,
           } = request.params.arguments as unknown as DeployContractParams;
-
-          console.error("constructorArgs:", constructorArgs);
-          console.error("contractName:", contractName);
-          console.error("solidityInputJson:", solidityInputJson);
-          console.error("solidityVersion:", solidityVersion);
 
           try {
             const contract = await wallet.deployContract({
@@ -226,6 +230,82 @@ async function main() {
               {
                 type: "text",
                 text: tokens.toString(),
+              },
+            ],
+          };
+        }
+
+        case "get-onramp-assets": {
+          const { country, subdivision } = request.params
+            .arguments as unknown as GetOnrampConfigParams;
+
+          const config: PatchedOnrampConfigResponseData = await fetch(
+            `https://api.developer.coinbase.com/onramp/v1/buy/options?country=${country}&subdivision=${subdivision}&networks=base`,
+            {
+              headers: {
+                Authorization: `Bearer ${process.env.COINBASE_PUBLIC_API_KEY}`,
+              },
+            },
+          ).then((res) => res.json());
+
+          console.error("config:", config);
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(config.purchase_currencies),
+              },
+            ],
+          };
+        }
+
+        case "onramp": {
+          const { amountUsd, assetId } = request.params
+            .arguments as unknown as OnrampParams;
+
+          const address = (await wallet.getDefaultAddress()).getId();
+
+          if (!process.env.COINBASE_PROJECT_ID) {
+            throw new Error("COINBASE_PROJECT_ID is not set");
+          }
+
+          const onrampUrl = getOnrampBuyUrl({
+            projectId: process.env.COINBASE_PROJECT_ID,
+            addresses: { [address]: ["base"] }, // Onramp only available on Base
+            assets: [assetId],
+            presetFiatAmount: amountUsd,
+            fiatCurrency: "USD",
+            redirectUrl: "",
+          });
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: onrampUrl,
+              },
+            ],
+          };
+        }
+
+        case "trade": {
+          const { amount, fromAssetId, toAssetId } = request.params
+            .arguments as unknown as TradeParams;
+
+          const trade = await wallet.createTrade({
+            amount,
+            fromAssetId,
+            toAssetId,
+          });
+
+          await trade.wait();
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: trade.toString(),
               },
             ],
           };
