@@ -1924,10 +1924,13 @@ __metadata:
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
     dotenv: "npm:^16.4.7"
+    graphql: "npm:^16.10.0"
+    graphql-request: "npm:^7.1.2"
     nodemon: "npm:^3.1.9"
     prettier: "npm:^3.5.3"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    reflect-metadata: "npm:^0.2.2"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.8.2"
     viem: "npm:^2.23.9"
@@ -3336,7 +3339,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^14 || ^15 || ^16":
+"graphql-request@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "graphql-request@npm:7.1.2"
+  dependencies:
+    "@graphql-typed-document-node/core": "npm:^3.2.0"
+  peerDependencies:
+    graphql: 14 - 16
+  checksum: 10c0/d87ae2a5603bf5e69a91ff9e2b7a3902ed285d6ea470daf7df37cfa48e71a674a8b026f3fe76881a450484b52e90eff43f950faa6851cd6c79bd5b4ab9d19451
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^14 || ^15 || ^16, graphql@npm:^16.10.0":
   version: 16.10.0
   resolution: "graphql@npm:16.10.0"
   checksum: 10c0/303730675538c8bd6c76b447dc6f03e61242e2d2596b408c34759666ec4877409e5593a7a0467d590ac5407b8c663b093b599556a77f24f281abea69ddc53de6

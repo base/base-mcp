@@ -13,10 +13,10 @@ import {
   compoundActionProvider,
   erc20ActionProvider,
   erc721ActionProvider,
-  farcasterActionProvider,
+  // farcasterActionProvider, - requires API key
   moonwellActionProvider,
   morphoActionProvider,
-  openseaActionProvider,
+  // openseaActionProvider, - requires API key
   pythActionProvider,
   ViemWalletProvider,
   walletActionProvider,
@@ -27,6 +27,7 @@ import { getMcpTools } from "@coinbase/agentkit-model-context-protocol";
 import { mnemonicToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
 import { createWalletClient, http } from "viem";
+import { baseMcpActionProvider } from "./action-providers/baseMcp/baseMcpActionProvider.js";
 
 async function main() {
   dotenv.config();
@@ -65,6 +66,7 @@ async function main() {
       wethActionProvider(),
       pythActionProvider(),
       wowActionProvider(),
+      baseMcpActionProvider(),
     ],
   });
 
