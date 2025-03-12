@@ -31,10 +31,13 @@
   "license": "MIT",
   "packageManager": "yarn@4.5.1",
   "dependencies": {
+    "@coinbase/agentkit": "0.2.3-nightly.20250311.32",
+    "@coinbase/agentkit-model-context-protocol": "^0.2.0",
     "@coinbase/coinbase-sdk": "^0.21.0",
     "@coinbase/onchainkit": "^0.37.6",
     "@modelcontextprotocol/sdk": "^1.6.1",
     "dotenv": "^16.4.7",
+    "viem": "^2.23.9",
     "zod": "^3.24.2"
   },
   "devDependencies": {
