@@ -69,6 +69,107 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** Your ERC20 token contract has been deployed successfully! The contract address is: 0xdef1234567890abcdef1234567890abcdef123456
 
+## Morpho Integration
+
+### Getting Morpho Vaults
+
+**You:** Show me the available Morpho vaults for USDC.
+
+**Claude:** I'll check the Morpho vaults for USDC.
+
+*Claude uses the `get_morpho_vaults` tool with the following parameters:*
+- assetSymbol: "USDC"
+
+**Claude:** Here are the available Morpho vaults for USDC:
+- Vault Name: USDC Yield Source
+  - Address: 0xabcdef1234567890abcdef1234567890abcdef12
+  - Liquidity: $10,000,000 (10,000,000 USDC)
+  - Risk Score: 85/100
+
+- Vault Name: USDC Stability Pool
+  - Address: 0x1234567890abcdef1234567890abcdef12345678
+  - Liquidity: $5,000,000 (5,000,000 USDC)
+  - Risk Score: 92/100
+
+## Contract Interactions
+
+### Calling Contract Functions
+
+**You:** Call the balanceOf function on the contract at 0x1234567890abcdef1234567890abcdef12345678 for my address.
+
+**Claude:** I'll call that contract function for you.
+
+*Claude uses the `call_contract` tool with the following parameters:*
+- contractAddress: "0x1234567890abcdef1234567890abcdef12345678"
+- functionName: "balanceOf"
+- functionArgs: ["0x9876543210abcdef9876543210abcdef98765432"]
+- abi: *[JSON containing the contract ABI]*
+
+**Claude:** The balanceOf function returned: 1000000000000000000 (1 token)
+
+### Managing ERC20 Tokens
+
+**You:** What's my balance of the USDC token?
+
+**Claude:** I'll check your USDC balance.
+
+*Claude uses the `erc20_balance` tool with the following parameters:*
+- contractAddress: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" (USDC contract address)
+
+**Claude:** Your USDC balance is: 100.0 USDC
+
+**You:** Transfer 10 USDC to 0x9876543210abcdef9876543210abcdef98765432
+
+**Claude:** I'll set up that USDC transfer for you.
+
+*Claude uses the `erc20_transfer` tool with the following parameters:*
+- contractAddress: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" (USDC contract address)
+- toAddress: "0x9876543210abcdef9876543210abcdef98765432"
+- amount: "10"
+
+**Claude:** I've initiated the transfer of 10 USDC to 0x9876543210abcdef9876543210abcdef98765432. The transaction hash is: 0xfedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+
+## Onramp and Payments
+
+### Checking Available Onramp Assets
+
+**You:** What assets can I onramp in the US, specifically in New York?
+
+**Claude:** I'll check what assets are available for onramping in New York.
+
+*Claude uses the `get_onramp_assets` tool with the following parameters:*
+- country: "US"
+- subdivision: "NY"
+
+**Claude:** Here are the assets available for onramping in New York, US:
+- ETH
+- USDC
+- DAI
+- WBTC
+
+### Onramping Funds
+
+**You:** I want to onramp $100 worth of ETH.
+
+**Claude:** I'll generate an onramp link for you.
+
+*Claude uses the `onramp` tool with the following parameters:*
+- amountUsd: 100
+- assetId: "eth"
+
+**Claude:** Here's your onramp link to purchase $100 worth of ETH: https://onramp.coinbase.com/buy?appId=abc123&destinationWallets=[address]&presetFiatAmount=100
+
+### Buying OpenRouter Credits
+
+**You:** Buy $20 worth of OpenRouter credits.
+
+**Claude:** I'll set up the purchase of OpenRouter credits for you.
+
+*Claude uses the `buy_openrouter_credits` tool with the following parameters:*
+- amountUsd: 20
+
+**Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.
@@ -78,3 +179,9 @@ This document provides examples of how to interact with the Base MCP tools throu
 3. **Use testnet for experiments** - Always use the Base Sepolia testnet for experimentation and development before moving to mainnet.
 
 4. **Keep your configuration secure** - Remember that your Claude Desktop configuration contains sensitive information. Keep it secure and don't share it.
+
+5. **Understand gas costs** - Be aware that blockchain transactions require gas fees. Make sure you have enough ETH to cover these fees.
+
+6. **Verify contract interactions** - When interacting with smart contracts, verify the contract address and function parameters before confirming transactions.
+
+7. **Use onramp responsibly** - When onramping funds, be aware of any fees or limits that may apply.
