@@ -1,5 +1,7 @@
 # Base MCP Server 🔵 
 
+![OpenRouter Integration](public/OpenRouter.gif)
+
 [![npm version](https://img.shields.io/npm/v/base-mcp.svg)](https://www.npmjs.com/package/base-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -127,7 +129,8 @@ To add this MCP server to Claude Desktop:
            "COINBASE_API_KEY_NAME": "your_api_key_name",
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
            "SEED_PHRASE": "your seed phrase here",
-           "COINBASE_PROJECT_ID": "your_project_id",           "OPENROUTER_API_KEY": "your_openrouter_api_key"
+           "COINBASE_PROJECT_ID": "your_project_id",           
+           "OPENROUTER_API_KEY": "your_openrouter_api_key"
          },
          "disabled": false,
          "autoApprove": []
