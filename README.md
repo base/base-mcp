@@ -151,14 +151,6 @@ Example query to Claude:
 
 > "What's my wallet address?"
 
-### get-testnet-eth
-
-Gets testnet ETH for your wallet. This can only be called on the Base Sepolia network.
-
-Example query to Claude:
-
-> "Can you get me some testnet ETH for my wallet?"
-
 ### list-balances
 
 Lists all balances for your wallet.
