@@ -1,7 +1,7 @@
 {
   "name": "base-mcp",
   "description": "A Model Context Protocol (MCP) server that provides onchain tools for Claude AI, allowing it to interact with the Base blockchain and Coinbase API",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": "https://github.com/dschlabach/base-mcp-alpha",
   "author": "Dan Schlabach, Tina He",
   "license": "MIT",
@@ -13,13 +13,24 @@
     "coinbase",
     "ethereum",
     "web3",
-    "ai"
+    "ai",
+    "morpho",
+    "erc20",
+    "onramp",
+    "openrouter"
   ],
   "tools": [
     "get-address",
     "get-testnet-eth",
     "list-balances",
     "transfer-funds",
-    "deploy-contract"
+    "deploy-contract",
+    "get_morpho_vaults",
+    "call_contract",
+    "get_onramp_assets",
+    "onramp",
+    "erc20_balance",
+    "erc20_transfer",
+    "buy_openrouter_credits"
   ]
 }
