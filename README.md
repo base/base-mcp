@@ -127,9 +127,7 @@ To add this MCP server to Claude Desktop:
            "COINBASE_API_KEY_NAME": "your_api_key_name",
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
            "SEED_PHRASE": "your seed phrase here",
-           "COINBASE_PROJECT_ID": "your_project_id",
-           "COINBASE_PUBLIC_API_KEY": "your_public_api_key",
-           "OPENROUTER_API_KEY": "your_openrouter_api_key"
+           "COINBASE_PROJECT_ID": "your_project_id",           "OPENROUTER_API_KEY": "your_openrouter_api_key"
          },
          "disabled": false,
          "autoApprove": []
