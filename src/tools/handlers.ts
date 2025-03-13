@@ -31,6 +31,7 @@ import { base } from "viem/chains";
 import { USDC_ADDRESS, USDC_DECIMALS } from "../lib/constants.js";
 import { COINBASE_COMMERCE_ABI } from "../lib/contracts/coinbase-commerce.js";
 import { waitForTransactionReceipt } from "viem/actions";
+import { constructBaseScanUrl } from "../utils/index.js";
 
 export async function getMorphoVaultsHandler(
   wallet: WalletClient,
@@ -93,7 +94,10 @@ export async function callContractHandler(
 
   const txHash = await wallet.writeContract(tx.request);
 
-  return txHash;
+  return JSON.stringify({
+    hash: txHash,
+    url: constructBaseScanUrl(wallet.chain ?? base, txHash),
+  });
 }
 
 export async function getOnrampAssetsHandler(
@@ -201,7 +205,10 @@ export async function erc20TransferHandler(
 
   const txHash = await wallet.writeContract(tx.request);
 
-  return txHash;
+  return JSON.stringify({
+    hash: txHash,
+    url: constructBaseScanUrl(wallet.chain ?? base, txHash),
+  });
 }
 
 export async function buyOpenRouterCreditsHandler(
@@ -318,5 +325,8 @@ export async function buyOpenRouterCreditsHandler(
     hash: transfer,
   });
 
-  return transactionHash;
+  return JSON.stringify({
+    hash: transactionHash,
+    url: constructBaseScanUrl(wallet.chain ?? base, transactionHash),
+  });
 }
