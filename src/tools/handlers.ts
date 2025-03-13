@@ -1,5 +1,8 @@
 import {
+  erc20Abi,
+  formatUnits,
   isAddress,
+  parseUnits,
   type Abi,
   type AbiFunction,
   type PublicActions,
@@ -10,11 +13,14 @@ import { getMorphoVaults } from "../morpho/index.js";
 import type { MorphoVault } from "../morpho/types.js";
 import type {
   CallContractSchema,
+  Erc20BalanceSchema,
+  Erc20TransferSchema,
   GetMorphoVaultsSchema,
   GetOnrampAssetsSchema,
+  OnrampSchema,
 } from "./schemas.js";
 import type { PatchedOnrampConfigResponseData } from "./types.js";
-import type { OnrampOptionsResponseData } from "@coinbase/onchainkit/fund";
+import { getOnrampBuyUrl } from "@coinbase/onchainkit/fund";
 
 export async function getMorphoVaultsHandler(
   wallet: WalletClient,
@@ -81,10 +87,10 @@ export async function callContractHandler(
 }
 
 export async function getOnrampAssetsHandler(
-  wallet: WalletClient,
+  _wallet: WalletClient,
   args: z.infer<typeof GetOnrampAssetsSchema>,
 ): Promise<string> {
-  const config: OnrampOptionsResponseData = await fetch(
+  const config: PatchedOnrampConfigResponseData = await fetch(
     `https://api.developer.coinbase.com/onramp/v1/buy/options?country=${args.country}&subdivision=${args.subdivision}&networks=base`,
     {
       headers: {
@@ -92,4 +98,98 @@ export async function getOnrampAssetsHandler(
       },
     },
   ).then((res) => res.json());
+
+  return JSON.stringify(config);
+}
+
+export async function onrampHandler(
+  wallet: WalletClient,
+  args: z.infer<typeof OnrampSchema>,
+): Promise<string> {
+  const { amountUsd, assetId } = args;
+
+  if (!process.env.COINBASE_PROJECT_ID) {
+    throw new Error("COINBASE_PROJECT_ID is not set");
+  }
+
+  const address = wallet.account?.address;
+
+  if (!address) {
+    throw new Error("No address found");
+  }
+
+  const onrampUrl = getOnrampBuyUrl({
+    projectId: process.env.COINBASE_PROJECT_ID,
+    addresses: { [address]: ["base"] }, // Onramp only available on Base
+    assets: [assetId],
+    presetFiatAmount: amountUsd,
+    fiatCurrency: "USD",
+    redirectUrl: "",
+  });
+
+  return onrampUrl;
+}
+
+export async function erc20BalanceHandler(
+  wallet: WalletClient & PublicActions,
+  args: z.infer<typeof Erc20BalanceSchema>,
+): Promise<string> {
+  const { contractAddress } = args;
+
+  if (!isAddress(contractAddress, { strict: false })) {
+    throw new Error(`Invalid contract address: ${contractAddress}`);
+  }
+
+  const balance = await wallet.readContract({
+    address: contractAddress,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [wallet.account?.address ?? "0x"],
+  });
+
+  const decimals = await wallet.readContract({
+    address: contractAddress,
+    abi: erc20Abi,
+    functionName: "decimals",
+  });
+
+  return formatUnits(balance, decimals);
+}
+
+export async function erc20TransferHandler(
+  wallet: WalletClient & PublicActions,
+  args: z.infer<typeof Erc20TransferSchema>,
+): Promise<string> {
+  const { contractAddress, toAddress, amount } = args;
+
+  if (!isAddress(contractAddress, { strict: false })) {
+    throw new Error(`Invalid contract address: ${contractAddress}`);
+  }
+
+  if (!isAddress(toAddress, { strict: false })) {
+    throw new Error(`Invalid to address: ${toAddress}`);
+  }
+
+  // Get decimals for token
+  const decimals = await wallet.readContract({
+    address: contractAddress,
+    abi: erc20Abi,
+    functionName: "decimals",
+  });
+
+  // Format units
+  const atomicUnits = parseUnits(amount, decimals);
+
+  const tx = await wallet.simulateContract({
+    address: contractAddress,
+    abi: erc20Abi,
+    functionName: "transfer",
+    args: [toAddress, atomicUnits],
+    account: wallet.account,
+    chain: wallet.chain,
+  });
+
+  const txHash = await wallet.writeContract(tx.request);
+
+  return txHash;
 }

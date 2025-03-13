@@ -1,5 +1,12 @@
 import type { Tool } from "@modelcontextprotocol/sdk/types.js";
-import { callContractHandler, getMorphoVaultsHandler } from "./handlers.js";
+import {
+  callContractHandler,
+  erc20BalanceHandler,
+  erc20TransferHandler,
+  getMorphoVaultsHandler,
+  getOnrampAssetsHandler,
+  onrampHandler,
+} from "./handlers.js";
 import { Coinbase } from "@coinbase/coinbase-sdk";
 
 const getMorphoVaultsTool: Tool = {
@@ -89,15 +96,56 @@ const onrampTool: Tool = {
   },
 };
 
+const erc20BalanceTool: Tool = {
+  name: "erc20_balance",
+  description: "Get the balance of an ERC20 token",
+  inputSchema: {
+    type: "object",
+    properties: {
+      contractAddress: {
+        type: "string",
+        description: "The address of the contract to get the balance of",
+      },
+    },
+  },
+};
+
+const erc20TransferTool: Tool = {
+  name: "erc20_transfer",
+  description: "Transfer an ERC20 token",
+  inputSchema: {
+    type: "object",
+    properties: {
+      contractAddress: {
+        type: "string",
+        description: "The address of the contract to transfer the token from",
+      },
+      toAddress: {
+        type: "string",
+        description: "The address of the recipient",
+      },
+      amount: {
+        type: "string",
+        description: "The amount of tokens to transfer",
+      },
+    },
+  },
+};
 export const baseMcpTools: Tool[] = [
   getMorphoVaultsTool,
   callContractTool,
   getOnrampAssetsTool,
   onrampTool,
+  erc20BalanceTool,
+  erc20TransferTool,
 ];
 
 // biome-ignore lint/complexity/noBannedTypes: temp
 export const toolToHandler: Record<string, Function> = {
   get_morpho_vaults: getMorphoVaultsHandler,
   call_contract: callContractHandler,
+  get_onramp_assets: getOnrampAssetsHandler,
+  onramp: onrampHandler,
+  erc20_balance: erc20BalanceHandler,
+  erc20_transfer: erc20TransferHandler,
 };

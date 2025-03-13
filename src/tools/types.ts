@@ -2,10 +2,19 @@
  * Patches for Onramp
  */
 
-import type {
-  OnrampConfigResponseData,
-  OnrampOptionsResponseData,
-} from "@coinbase/onchainkit/fund";
+type OnrampPaymentMethod = {
+  id: string;
+};
+
+type OnrampConfigResponseData = {
+  countries: OnrampConfigCountry[];
+};
+
+type OnrampConfigCountry = {
+  id: string;
+  subdivisions: string[];
+  paymentMethods: OnrampPaymentMethod[];
+};
 
 type TokenNetwork = {
   name: string;
@@ -23,6 +32,6 @@ type TokenInfo = {
   icon_url: string;
 };
 
-export type PatchedOnrampConfigResponseData = OnrampOptionsResponseData & {
+export type PatchedOnrampConfigResponseData = OnrampConfigResponseData & {
   purchase_currencies: TokenInfo[];
 };

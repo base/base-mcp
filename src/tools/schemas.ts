@@ -37,3 +37,17 @@ export const OnrampSchema = z.object({
   amountUsd: z.number().describe("The amount of funds to onramp"),
   assetId: z.string().describe("The asset ID to onramp"),
 });
+
+export const Erc20BalanceSchema = z.object({
+  contractAddress: z
+    .string()
+    .describe("The address of the contract to get the balance of"),
+});
+
+export const Erc20TransferSchema = z.object({
+  contractAddress: z
+    .string()
+    .describe("The address of the contract to transfer the token from"),
+  toAddress: z.string().describe("The address of the recipient"),
+  amount: z.string().describe("The amount of tokens to transfer"),
+});

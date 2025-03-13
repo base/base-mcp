@@ -12,7 +12,6 @@ import {
   basenameActionProvider,
   cdpWalletActionProvider,
   CdpWalletProvider,
-  erc20ActionProvider,
   morphoActionProvider,
   walletActionProvider,
 } from "@coinbase/agentkit";
@@ -54,7 +53,6 @@ async function main() {
     walletProvider: cdpWalletProvider,
     actionProviders: [
       basenameActionProvider(),
-      erc20ActionProvider(),
       morphoActionProvider(),
       walletActionProvider(),
       cdpWalletActionProvider({
