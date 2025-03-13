@@ -11,8 +11,8 @@ import {
   type WalletClient,
 } from "viem";
 import type { z } from "zod";
-import { getMorphoVaults } from "../morpho/index.js";
-import type { MorphoVault } from "../morpho/types.js";
+import { getMorphoVaults } from "./morpho/index.js";
+import type { MorphoVault } from "./morpho/types.js";
 import type {
   BuyOpenRouterCreditsSchema,
   CallContractSchema,
