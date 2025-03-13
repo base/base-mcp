@@ -8,7 +8,13 @@ import {
 import type { z } from "zod";
 import { getMorphoVaults } from "../morpho/index.js";
 import type { MorphoVault } from "../morpho/types.js";
-import type { CallContractSchema, GetMorphoVaultsSchema } from "./schemas.js";
+import type {
+  CallContractSchema,
+  GetMorphoVaultsSchema,
+  GetOnrampAssetsSchema,
+} from "./schemas.js";
+import type { PatchedOnrampConfigResponseData } from "./types.js";
+import type { OnrampOptionsResponseData } from "@coinbase/onchainkit/fund";
 
 export async function getMorphoVaultsHandler(
   wallet: WalletClient,
@@ -72,4 +78,18 @@ export async function callContractHandler(
   const txHash = await wallet.writeContract(tx.request);
 
   return txHash;
+}
+
+export async function getOnrampAssetsHandler(
+  wallet: WalletClient,
+  args: z.infer<typeof GetOnrampAssetsSchema>,
+): Promise<string> {
+  const config: OnrampOptionsResponseData = await fetch(
+    `https://api.developer.coinbase.com/onramp/v1/buy/options?country=${args.country}&subdivision=${args.subdivision}&networks=base`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COINBASE_PUBLIC_API_KEY}`,
+      },
+    },
+  ).then((res) => res.json());
 }

@@ -22,3 +22,18 @@ export const CallContractSchema = z.object({
     .optional()
     .describe("The value of ETH to send with the transaction"),
 });
+
+export const GetOnrampAssetsSchema = z.object({
+  country: z.string().describe("The country to get onramp assets for"),
+  subdivision: z
+    .string()
+    .optional()
+    .describe(
+      "The subdivision to get onramp assets for. To get accurate results for the US, you must also provide a subdivision.",
+    ),
+});
+
+export const OnrampSchema = z.object({
+  amountUsd: z.number().describe("The amount of funds to onramp"),
+  assetId: z.string().describe("The asset ID to onramp"),
+});

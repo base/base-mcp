@@ -10,14 +10,15 @@ import * as dotenv from "dotenv";
 import {
   AgentKit,
   basenameActionProvider,
+  cdpWalletActionProvider,
+  CdpWalletProvider,
   erc20ActionProvider,
   morphoActionProvider,
-  ViemWalletProvider,
   walletActionProvider,
 } from "@coinbase/agentkit";
 import { getMcpTools } from "@coinbase/agentkit-model-context-protocol";
 import { mnemonicToAccount } from "viem/accounts";
-import { base, baseSepolia } from "viem/chains";
+import { base } from "viem/chains";
 import { createWalletClient, http, publicActions } from "viem";
 import { baseMcpTools, toolToHandler } from "./tools/index.js";
 
@@ -27,9 +28,6 @@ async function main() {
   const privateKey = process.env.COINBASE_API_PRIVATE_KEY;
   const seedPhrase = process.env.SEED_PHRASE;
 
-  // Default to baseSepolia
-  let chain = baseSepolia;
-
   if (!apiKeyName || !privateKey || !seedPhrase) {
     console.error(
       "Please set COINBASE_API_KEY_NAME, COINBASE_API_PRIVATE_KEY, and SEED_PHRASE environment variables",
@@ -37,21 +35,32 @@ async function main() {
     process.exit(1);
   }
 
-  const viemWalletProvider = createWalletClient({
+  const viemClient = createWalletClient({
     account: mnemonicToAccount(seedPhrase),
-    chain,
+    chain: base,
     transport: http(),
   }).extend(publicActions);
+
+  const cdpWalletProvider = await CdpWalletProvider.configureWithWallet({
+    mnemonicPhrase: seedPhrase,
+    apiKeyName,
+    apiKeyPrivateKey: privateKey,
+    networkId: "base-mainnet",
+  });
 
   const agentKit = await AgentKit.from({
     cdpApiKeyName: apiKeyName,
     cdpApiKeyPrivateKey: privateKey,
-    walletProvider: new ViemWalletProvider(viemWalletProvider),
+    walletProvider: cdpWalletProvider,
     actionProviders: [
       basenameActionProvider(),
       erc20ActionProvider(),
       morphoActionProvider(),
       walletActionProvider(),
+      cdpWalletActionProvider({
+        apiKeyName,
+        apiKeyPrivateKey: privateKey,
+      }),
     ],
   });
 
@@ -91,7 +100,7 @@ async function main() {
           throw new Error(`Tool ${request.params.name} not found`);
         }
 
-        const result = await tool(viemWalletProvider, request.params.arguments);
+        const result = await tool(viemClient, request.params.arguments);
 
         return {
           content: [
