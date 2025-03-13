@@ -14,6 +14,11 @@ This MCP server extends Claude's capabilities by providing tools to:
 - List wallet balances
 - Transfer funds between wallets
 - Deploy smart contracts
+- Interact with Morpho vaults
+- Call contract functions
+- Onramp funds via Coinbase
+- Manage ERC20 tokens
+- Buy OpenRouter credits with USDC
 
 The server uses the Coinbase SDK to interact with the Base blockchain and Coinbase services.
 
@@ -23,6 +28,8 @@ The server uses the Coinbase SDK to interact with the Base blockchain and Coinba
 - npm or yarn
 - Coinbase API credentials (API Key Name and Private Key)
 - A wallet seed phrase
+- Coinbase Project ID (for onramp functionality)
+- OpenRouter API Key (for buying OpenRouter credits)
 
 ## Installation
 
@@ -75,6 +82,15 @@ COINBASE_API_PRIVATE_KEY=your_private_key
 # Wallet seed phrase (12 or 24 words)
 # This is the mnemonic phrase for your wallet
 SEED_PHRASE=your seed phrase here
+
+# Coinbase Project ID (for onramp functionality)
+# You can obtain this from the Coinbase Developer Portal
+COINBASE_PROJECT_ID=your_project_id
+COINBASE_PUBLIC_API_KEY=your_public_api_key
+
+# OpenRouter API Key (for buying OpenRouter credits)
+# You can obtain this from https://openrouter.ai/keys
+OPENROUTER_API_KEY=your_openrouter_api_key
 ```
 
 ## Testing
@@ -112,7 +128,10 @@ To add this MCP server to Claude Desktop:
          "env": {
            "COINBASE_API_KEY_NAME": "your_api_key_name",
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
-           "SEED_PHRASE": "your seed phrase here"
+           "SEED_PHRASE": "your seed phrase here",
+           "COINBASE_PROJECT_ID": "your_project_id",
+           "COINBASE_PUBLIC_API_KEY": "your_public_api_key",
+           "OPENROUTER_API_KEY": "your_openrouter_api_key"
          },
          "disabled": false,
          "autoApprove": []
@@ -178,11 +197,105 @@ Example query to Claude:
 
 > "Deploy a simple ERC20 token contract for me."
 
+### get_morpho_vaults
+
+Gets the vaults for a given asset on Morpho.
+
+Parameters:
+
+- `assetSymbol`: Asset symbol by which to filter vaults (optional)
+
+Example query to Claude:
+
+> "Show me the available Morpho vaults for USDC."
+
+### call_contract
+
+Calls a contract function on the blockchain.
+
+Parameters:
+
+- `contractAddress`: The address of the contract to call
+- `functionName`: The name of the function to call
+- `functionArgs`: The arguments to pass to the function
+- `abi`: The ABI of the contract
+- `value`: The value of ETH to send with the transaction (optional)
+
+Example query to Claude:
+
+> "Call the balanceOf function on the contract at 0x1234567890abcdef1234567890abcdef12345678."
+
+### get_onramp_assets
+
+Gets the assets available for onramping in a given country/subdivision.
+
+Parameters:
+
+- `country`: ISO 3166-1 two-digit country code string representing the purchasing user's country of residence
+- `subdivision`: ISO 3166-2 two-digit country subdivision code (required for US)
+
+Example query to Claude:
+
+> "What assets can I onramp in the US, specifically in New York?"
+
+### onramp
+
+Gets a URL for onramping funds via Coinbase.
+
+Parameters:
+
+- `amountUsd`: The amount of funds to onramp
+- `assetId`: The asset ID to onramp
+
+Example query to Claude:
+
+> "I want to onramp $100 worth of ETH."
+
+### erc20_balance
+
+Gets the balance of an ERC20 token.
+
+Parameters:
+
+- `contractAddress`: The address of the ERC20 contract
+
+Example query to Claude:
+
+> "What's my balance of the token at 0x1234567890abcdef1234567890abcdef12345678?"
+
+### erc20_transfer
+
+Transfers an ERC20 token to another address.
+
+Parameters:
+
+- `contractAddress`: The address of the ERC20 contract
+- `toAddress`: The address of the recipient
+- `amount`: The amount of tokens to transfer
+
+Example query to Claude:
+
+> "Transfer 10 USDC to 0x1234567890abcdef1234567890abcdef12345678."
+
+### buy_openrouter_credits
+
+Buys OpenRouter credits with USDC.
+
+Parameters:
+
+- `amountUsd`: The amount of credits to buy, in USD
+
+Example query to Claude:
+
+> "Buy $20 worth of OpenRouter credits."
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
 - Consider using environment variables or a secure credential manager instead of hardcoding sensitive information.
 - Be cautious when transferring funds or deploying contracts, as these operations are irreversible on the blockchain.
+- When using the onramp functionality, ensure you're on a secure connection.
+- Verify all transaction details before confirming, especially when transferring funds or buying credits.
 
 ## Troubleshooting
 

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "base-mcp": {
+      "command": "node",
+      "args": ["/Users/tinahe/base-mcp/build/index.js"],
+      "env": {
+        "COINBASE_API_KEY_NAME": "YOUR_COINBASE_API_KEY_NAME",
+        "COINBASE_API_PRIVATE_KEY": "YOUR_COINBASE_API_PRIVATE_KEY",
+        "SEED_PHRASE": "YOUR_WALLET_SEED_PHRASE",
+        "OPENROUTER_API_KEY": "YOUR_OPENROUTER_API_KEY"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
