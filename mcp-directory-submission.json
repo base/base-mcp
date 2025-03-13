@@ -1,7 +1,7 @@
 {
   "name": "base-mcp",
   "description": "A Model Context Protocol (MCP) server that provides onchain tools for Claude AI, allowing it to interact with the Base blockchain and Coinbase API",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/dschlabach/base-mcp-alpha",
   "author": "Dan Schlabach, Tina He",
   "license": "MIT",
