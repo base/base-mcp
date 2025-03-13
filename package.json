@@ -5,9 +5,9 @@
   "bin": "./build/index.js",
   "type": "module",
   "scripts": {
-    "run": "tsx src/index.ts",
-    "dev": "nodemon --exec tsx src/index.ts",
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "run": "ts-node src/index.ts",
+    "dev": "tsc --watch",
+    "build": "tsc",
     "start": "node build/index.js",
     "test": "node scripts/test-mcp.js",
     "submit": "node scripts/submit-to-directory.js"

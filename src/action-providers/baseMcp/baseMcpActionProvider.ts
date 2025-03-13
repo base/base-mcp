@@ -80,7 +80,8 @@ export class BaseMcpActionProvider extends ActionProvider<EvmWalletProvider> {
     args: z.infer<typeof GetMorphoVaultsSchema>,
   ): Promise<string> {
     const vaults = await getMorphoVaults({
-      chainId: Number(wallet.getNetwork().chainId),
+      // chainId: Number(wallet.getNetwork().chainId),
+      chainId: 8453,
       assetSymbol: args.assetSymbol ?? "",
     });
 

@@ -1,4 +1,4 @@
-type MorphoVault = {
+export type MorphoVault = {
   asset: {
     address: string;
     name: string;
