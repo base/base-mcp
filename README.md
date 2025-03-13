@@ -1,26 +1,25 @@
-# Base MCP Server
+# Base MCP Server 🔵 
 
 [![npm version](https://img.shields.io/npm/v/base-mcp.svg)](https://www.npmjs.com/package/base-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Model Context Protocol (MCP) server that provides onchain tools for AI applications like Claude Desktop and Cursor, allowing them to interact with the Base blockchain and Coinbase API.
+A Model Context Protocol (MCP) server that provides onchain tools for AI applications like Claude Desktop and Cursor, allowing them to interact with the Base Network and Coinbase API.
 
 ## Overview
 
-This MCP server extends Claude's capabilities by providing tools to:
+This MCP server extends any MCP client's capabilities by providing tools to do anything on Base:
 
 - Retrieve wallet addresses
-- Get testnet ETH (on Base Sepolia)
 - List wallet balances
 - Transfer funds between wallets
-- Deploy smart contracts
-- Interact with Morpho vaults
-- Call contract functions
-- Onramp funds via Coinbase
+- Deploy smart contracts 
+- Interact with Morpho vaults for onchain lending
+- Call contract functions 
+- Onramp funds via [Coinbase](https://www.coinbase.com/developer-platform/products/onramp)
 - Manage ERC20 tokens
-- Buy OpenRouter credits with USDC
+- Buy [OpenRouter](http://openrouter.ai/) credits with USDC
 
-The server uses the Coinbase SDK to interact with the Base blockchain and Coinbase services.
+The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit). 
 
 ## Prerequisites
 
@@ -29,7 +28,7 @@ The server uses the Coinbase SDK to interact with the Base blockchain and Coinba
 - Coinbase API credentials (API Key Name and Private Key)
 - A wallet seed phrase
 - Coinbase Project ID (for onramp functionality)
-- OpenRouter API Key (for buying OpenRouter credits)
+- Optional: OpenRouter API Key (for buying OpenRouter credits)
 
 ## Installation
 
@@ -86,9 +85,8 @@ SEED_PHRASE=your seed phrase here
 # Coinbase Project ID (for onramp functionality)
 # You can obtain this from the Coinbase Developer Portal
 COINBASE_PROJECT_ID=your_project_id
-COINBASE_PUBLIC_API_KEY=your_public_api_key
 
-# OpenRouter API Key (for buying OpenRouter credits)
+# OpenRouter API Key (optional for buying OpenRouter credits)
 # You can obtain this from https://openrouter.ai/keys
 OPENROUTER_API_KEY=your_openrouter_api_key
 ```
@@ -303,66 +301,12 @@ If you encounter issues:
 
 1. Check that your Coinbase API credentials are correct
 2. Verify that your seed phrase is valid
-3. Ensure you're on the correct network (Base Sepolia for testnet operations)
+3. Ensure you're on the correct network (Base Mainnet)
 4. Check the Claude Desktop logs for any error messages
 
 ## License
 
 [MIT License](LICENSE)
-
-## Making Your MCP Discoverable
-
-To make your MCP server discoverable by other developers, follow these steps:
-
-### 1. Publish to npm
-
-```bash
-# Login to npm (you'll need an npm account)
-npm login
-
-# Publish the package
-npm publish
-```
-
-This will make your MCP server available on the npm registry, allowing other developers to install it using `npm install base-mcp`.
-
-### 2. Share Your GitHub Repository
-
-Make sure your GitHub repository is public and well-documented. Add the following to enhance discoverability:
-
-- A detailed README (like this one)
-- Examples of usage
-- Contributing guidelines
-- Issue templates
-
-### 3. Add to the MCP Directory
-
-The Model Context Protocol community maintains a directory of available MCP servers. Submit your MCP server to be included in this directory by running:
-
-```bash
-npm run submit
-```
-
-This script will:
-
-1. Check if your package is published to npm
-2. Verify your GitHub repository information
-3. Generate a submission file with all the necessary information
-4. Guide you through the submission process
-
-Alternatively, you can manually submit by:
-
-1. Visiting the [MCP Directory Repository](https://github.com/modelcontextprotocol/directory)
-2. Following the contribution guidelines to add your MCP server
-
-### 4. Promote in Relevant Communities
-
-Share your MCP server in communities where developers using Claude might be active:
-
-- Anthropic Developer Discord
-- Claude subreddit
-- AI/ML developer forums
-- Blockchain and Web3 communities
 
 ## Contributing
 
