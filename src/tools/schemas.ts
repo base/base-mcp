@@ -51,3 +51,7 @@ export const Erc20TransferSchema = z.object({
   toAddress: z.string().describe("The address of the recipient"),
   amount: z.string().describe("The amount of tokens to transfer"),
 });
+
+export const BuyOpenRouterCreditsSchema = z.object({
+  amountUsd: z.number().describe("The amount of credits to buy, in USD"),
+});

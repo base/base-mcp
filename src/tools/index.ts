@@ -1,5 +1,6 @@
 import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 import {
+  buyOpenRouterCreditsHandler,
   callContractHandler,
   erc20BalanceHandler,
   erc20TransferHandler,
@@ -57,7 +58,7 @@ const callContractTool: Tool = {
 };
 
 const getOnrampAssetsTool: Tool = {
-  name: "get-onramp-assets",
+  name: "get_onramp_assets",
   description:
     "Get the assets available for onramping in a given country / subdivision",
   inputSchema: {
@@ -131,6 +132,21 @@ const erc20TransferTool: Tool = {
     },
   },
 };
+
+const buyOpenRouterCreditsTool: Tool = {
+  name: "buy_openrouter_credits",
+  description: "Buy OpenRouter credits with USDC",
+  inputSchema: {
+    type: "object",
+    properties: {
+      amountUsd: {
+        type: "number",
+        description: "The amount of credits to buy, in USD",
+      },
+    },
+  },
+};
+
 export const baseMcpTools: Tool[] = [
   getMorphoVaultsTool,
   callContractTool,
@@ -138,6 +154,7 @@ export const baseMcpTools: Tool[] = [
   onrampTool,
   erc20BalanceTool,
   erc20TransferTool,
+  buyOpenRouterCreditsTool,
 ];
 
 // biome-ignore lint/complexity/noBannedTypes: temp
@@ -148,4 +165,5 @@ export const toolToHandler: Record<string, Function> = {
   onramp: onrampHandler,
   erc20_balance: erc20BalanceHandler,
   erc20_transfer: erc20TransferHandler,
+  buy_openrouter_credits: buyOpenRouterCreditsHandler,
 };
