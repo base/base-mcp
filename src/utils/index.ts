@@ -1,6 +1,5 @@
-import type { Chain } from "viem";
-import { base } from "viem/chains";
-import { baseSepolia } from "viem/chains";
+import type { Chain } from 'viem';
+import { base, baseSepolia } from 'viem/chains';
 
 export function constructBaseScanUrl(
   chain: Chain,

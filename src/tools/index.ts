@@ -1,5 +1,5 @@
-import { Coinbase } from '@coinbase/coinbase-sdk'
-import type { Tool } from '@modelcontextprotocol/sdk/types.js'
+import { Coinbase } from '@coinbase/coinbase-sdk';
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import {
   buyOpenRouterCreditsHandler,
   callContractHandler,
@@ -7,8 +7,8 @@ import {
   erc20TransferHandler,
   getOnrampAssetsHandler,
   onrampHandler,
-} from './handlers.js'
-import { getMorphoVaultsHandler } from './morpho/handlers.js'
+} from './handlers.js';
+import { getMorphoVaultsHandler } from './morpho/handlers.js';
 
 const getMorphoVaultsTool: Tool = {
   name: 'get_morpho_vaults',
@@ -22,11 +22,11 @@ const getMorphoVaultsTool: Tool = {
       },
     },
   },
-}
+};
 
 export type GetMorphoVaultsToolParams = {
-  assetSymbol: string
-}
+  assetSymbol: string;
+};
 
 const callContractTool: Tool = {
   name: 'call_contract',
@@ -55,7 +55,7 @@ const callContractTool: Tool = {
       },
     },
   },
-}
+};
 
 const getOnrampAssetsTool: Tool = {
   name: 'get_onramp_assets',
@@ -76,7 +76,7 @@ const getOnrampAssetsTool: Tool = {
       },
     },
   },
-}
+};
 
 const onrampTool: Tool = {
   name: 'onramp',
@@ -95,7 +95,7 @@ const onrampTool: Tool = {
       },
     },
   },
-}
+};
 
 const erc20BalanceTool: Tool = {
   name: 'erc20_balance',
@@ -109,7 +109,7 @@ const erc20BalanceTool: Tool = {
       },
     },
   },
-}
+};
 
 const erc20TransferTool: Tool = {
   name: 'erc20_transfer',
@@ -131,7 +131,7 @@ const erc20TransferTool: Tool = {
       },
     },
   },
-}
+};
 
 const buyOpenRouterCreditsTool: Tool = {
   name: 'buy_openrouter_credits',
@@ -145,7 +145,7 @@ const buyOpenRouterCreditsTool: Tool = {
       },
     },
   },
-}
+};
 
 export const baseMcpTools: Tool[] = [
   getMorphoVaultsTool,
@@ -155,7 +155,7 @@ export const baseMcpTools: Tool[] = [
   erc20BalanceTool,
   erc20TransferTool,
   buyOpenRouterCreditsTool,
-]
+];
 
 // biome-ignore lint/complexity/noBannedTypes: temp
 export const toolToHandler: Record<string, Function> = {
@@ -166,4 +166,4 @@ export const toolToHandler: Record<string, Function> = {
   erc20_balance: erc20BalanceHandler,
   erc20_transfer: erc20TransferHandler,
   buy_openrouter_credits: buyOpenRouterCreditsHandler,
-}
+};

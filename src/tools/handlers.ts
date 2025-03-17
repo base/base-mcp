@@ -1,3 +1,4 @@
+import { getOnrampBuyUrl } from '@coinbase/onchainkit/fund';
 import {
   encodeFunctionData,
   erc20Abi,
@@ -9,10 +10,15 @@ import {
   type Account,
   type PublicActions,
   type WalletClient,
-} from "viem";
-import type { z } from "zod";
-import { getMorphoVaults } from "./morpho/index.js";
-import type { MorphoVault } from "./morpho/types.js";
+} from 'viem';
+import { waitForTransactionReceipt } from 'viem/actions';
+import { base } from 'viem/chains';
+import type { z } from 'zod';
+import { USDC_ADDRESS, USDC_DECIMALS } from '../lib/constants.js';
+import { COINBASE_COMMERCE_ABI } from '../lib/contracts/coinbase-commerce.js';
+import { constructBaseScanUrl } from '../utils/index.js';
+import { getMorphoVaults } from './morpho/index.js';
+import type { MorphoVault } from './morpho/types.js';
 import type {
   BuyOpenRouterCreditsSchema,
   CallContractSchema,
@@ -21,17 +27,11 @@ import type {
   GetMorphoVaultsSchema,
   GetOnrampAssetsSchema,
   OnrampSchema,
-} from "./schemas.js";
+} from './schemas.js';
 import type {
   OpenRouterTransferIntentResponse,
   PatchedOnrampConfigResponseData,
-} from "./types.js";
-import { getOnrampBuyUrl } from "@coinbase/onchainkit/fund";
-import { base } from "viem/chains";
-import { USDC_ADDRESS, USDC_DECIMALS } from "../lib/constants.js";
-import { COINBASE_COMMERCE_ABI } from "../lib/contracts/coinbase-commerce.js";
-import { waitForTransactionReceipt } from "viem/actions";
-import { constructBaseScanUrl } from "../utils/index.js";
+} from './types.js';
 
 export async function callContractHandler(
   wallet: WalletClient & PublicActions,
@@ -51,15 +51,15 @@ export async function callContractHandler(
 
   try {
     functionAbi = abi.find(
-      (item) => "name" in item && item.name === args.functionName,
+      (item) => 'name' in item && item.name === args.functionName,
     ) as AbiFunction;
   } catch (error) {
     throw new Error(`Invalid function name: ${args.functionName}`);
   }
 
   if (
-    functionAbi.stateMutability === "view" ||
-    functionAbi.stateMutability === "pure"
+    functionAbi.stateMutability === 'view' ||
+    functionAbi.stateMutability === 'pure'
   ) {
     const tx = await wallet.readContract({
       address: args.contractAddress,
@@ -111,22 +111,22 @@ export async function onrampHandler(
   const { amountUsd, assetId } = args;
 
   if (!process.env.COINBASE_PROJECT_ID) {
-    throw new Error("COINBASE_PROJECT_ID is not set");
+    throw new Error('COINBASE_PROJECT_ID is not set');
   }
 
   const address = wallet.account?.address;
 
   if (!address) {
-    throw new Error("No address found");
+    throw new Error('No address found');
   }
 
   const onrampUrl = getOnrampBuyUrl({
     projectId: process.env.COINBASE_PROJECT_ID,
-    addresses: { [address]: ["base"] }, // Onramp only available on Base
+    addresses: { [address]: ['base'] }, // Onramp only available on Base
     assets: [assetId],
     presetFiatAmount: amountUsd,
-    fiatCurrency: "USD",
-    redirectUrl: "",
+    fiatCurrency: 'USD',
+    redirectUrl: '',
   });
 
   return onrampUrl;
@@ -145,14 +145,14 @@ export async function erc20BalanceHandler(
   const balance = await wallet.readContract({
     address: contractAddress,
     abi: erc20Abi,
-    functionName: "balanceOf",
-    args: [wallet.account?.address ?? "0x"],
+    functionName: 'balanceOf',
+    args: [wallet.account?.address ?? '0x'],
   });
 
   const decimals = await wallet.readContract({
     address: contractAddress,
     abi: erc20Abi,
-    functionName: "decimals",
+    functionName: 'decimals',
   });
 
   return formatUnits(balance, decimals);
@@ -176,7 +176,7 @@ export async function erc20TransferHandler(
   const decimals = await wallet.readContract({
     address: contractAddress,
     abi: erc20Abi,
-    functionName: "decimals",
+    functionName: 'decimals',
   });
 
   // Format units
@@ -185,7 +185,7 @@ export async function erc20TransferHandler(
   const tx = await wallet.simulateContract({
     address: contractAddress,
     abi: erc20Abi,
-    functionName: "transfer",
+    functionName: 'transfer',
     args: [toAddress, atomicUnits],
     account: wallet.account,
     chain: wallet.chain,
@@ -206,36 +206,36 @@ export async function buyOpenRouterCreditsHandler(
   const { amountUsd } = args;
 
   if (!process.env.OPENROUTER_API_KEY) {
-    throw new Error("OPENROUTER_API_KEY is not set");
+    throw new Error('OPENROUTER_API_KEY is not set');
   }
 
   const address = wallet.account?.address;
 
   if (!address) {
-    throw new Error("No address found");
+    throw new Error('No address found');
   }
 
   // Ensure user has enough USDC for txn
   const usdcBalance = await wallet.readContract({
     address: USDC_ADDRESS,
     abi: erc20Abi,
-    functionName: "balanceOf",
+    functionName: 'balanceOf',
     args: [address],
   });
 
   const parsedUnits = formatUnits(usdcBalance, USDC_DECIMALS);
 
   if (Number(parsedUnits) < amountUsd) {
-    throw new Error("Insufficient USDC balance");
+    throw new Error('Insufficient USDC balance');
   }
 
   const response = await fetch(
-    "https://openrouter.ai/api/v1/credits/coinbase",
+    'https://openrouter.ai/api/v1/credits/coinbase',
     {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         amount: amountUsd,
@@ -261,7 +261,7 @@ export async function buyOpenRouterCreditsHandler(
 
   const approvalTxCalldata = encodeFunctionData({
     abi: erc20Abi,
-    functionName: "approve",
+    functionName: 'approve',
     args: [
       responseJSON.data.web3_data.transfer_intent.metadata
         .contract_address as `0x${string}`,
@@ -271,7 +271,7 @@ export async function buyOpenRouterCreditsHandler(
 
   const transferTokenPreApprovedTxCalldata = encodeFunctionData({
     abi: COINBASE_COMMERCE_ABI,
-    functionName: "transferTokenPreApproved",
+    functionName: 'transferTokenPreApproved',
     args: [
       {
         id: call_data.id as `0x${string}`,

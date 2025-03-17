@@ -1,12 +1,3 @@
-import { Coinbase } from "@coinbase/coinbase-sdk";
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
-import { version } from "./version.js";
-import * as dotenv from "dotenv";
 import {
   AgentKit,
   basenameActionProvider,
@@ -14,12 +5,21 @@ import {
   CdpWalletProvider,
   morphoActionProvider,
   walletActionProvider,
-} from "@coinbase/agentkit";
-import { getMcpTools } from "@coinbase/agentkit-model-context-protocol";
-import { mnemonicToAccount } from "viem/accounts";
-import { base } from "viem/chains";
-import { createWalletClient, http, publicActions } from "viem";
-import { baseMcpTools, toolToHandler } from "./tools/index.js";
+} from '@coinbase/agentkit';
+import { getMcpTools } from '@coinbase/agentkit-model-context-protocol';
+import { Coinbase } from '@coinbase/coinbase-sdk';
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+} from '@modelcontextprotocol/sdk/types.js';
+import * as dotenv from 'dotenv';
+import { createWalletClient, http, publicActions } from 'viem';
+import { mnemonicToAccount } from 'viem/accounts';
+import { base } from 'viem/chains';
+import { baseMcpTools, toolToHandler } from './tools/index.js';
+import { version } from './version.js';
 
 async function main() {
   dotenv.config();
@@ -29,7 +29,7 @@ async function main() {
 
   if (!apiKeyName || !privateKey || !seedPhrase) {
     console.error(
-      "Please set COINBASE_API_KEY_NAME, COINBASE_API_PRIVATE_KEY, and SEED_PHRASE environment variables",
+      'Please set COINBASE_API_KEY_NAME, COINBASE_API_PRIVATE_KEY, and SEED_PHRASE environment variables',
     );
     process.exit(1);
   }
@@ -44,7 +44,7 @@ async function main() {
     mnemonicPhrase: seedPhrase,
     apiKeyName,
     apiKeyPrivateKey: privateKey,
-    networkId: "base-mainnet",
+    networkId: 'base-mainnet',
   });
 
   const agentKit = await AgentKit.from({
@@ -66,7 +66,7 @@ async function main() {
 
   const server = new Server(
     {
-      name: "Base MCP Server",
+      name: 'Base MCP Server',
       version,
     },
     {
@@ -79,7 +79,7 @@ async function main() {
   Coinbase.configure({ apiKeyName, privateKey });
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
-    console.error("Received ListToolsRequest");
+    console.error('Received ListToolsRequest');
     return {
       tools: [...baseMcpTools, ...tools],
     };
@@ -103,7 +103,7 @@ async function main() {
         return {
           content: [
             {
-              type: "text",
+              type: 'text',
               text: JSON.stringify(result),
             },
           ],
@@ -117,12 +117,12 @@ async function main() {
   });
 
   const transport = new StdioServerTransport();
-  console.error("Connecting server to transport...");
+  console.error('Connecting server to transport...');
   await server.connect(transport);
-  console.error("Base MCP Server running on stdio");
+  console.error('Base MCP Server running on stdio');
 }
 
 main().catch((error) => {
-  console.error("Fatal error in main():", error);
+  console.error('Fatal error in main():', error);
   process.exit(1);
 });

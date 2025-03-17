@@ -1,8 +1,8 @@
-import { getMorphoVaults } from "./index.js";
-import type { z } from "zod";
-import type { WalletClient } from "viem";
-import type { MorphoVault } from "./types.js";
-import type { GetMorphoVaultsSchema } from "../schemas.js";
+import type { WalletClient } from 'viem';
+import type { z } from 'zod';
+import type { GetMorphoVaultsSchema } from '../schemas.js';
+import { getMorphoVaults } from './index.js';
+import type { MorphoVault } from './types.js';
 
 export async function getMorphoVaultsHandler(
   wallet: WalletClient,
@@ -10,7 +10,7 @@ export async function getMorphoVaultsHandler(
 ): Promise<MorphoVault[]> {
   const vaults = await getMorphoVaults({
     chainId: wallet.chain?.id ?? 8453,
-    assetSymbol: args.assetSymbol ?? "",
+    assetSymbol: args.assetSymbol ?? '',
   });
 
   return vaults;

@@ -10,10 +10,10 @@
  *   node submit-to-directory.js
  */
 
-const fs = require("node:fs");
-const path = require("node:path");
-const { execSync } = require("node:child_process");
-const readline = require("node:readline");
+const fs = require('node:fs');
+const path = require('node:path');
+const { execSync } = require('node:child_process');
+const readline = require('node:readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -21,7 +21,7 @@ const rl = readline.createInterface({
 });
 
 // Get package info
-const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 console.log(`
 =================================================
@@ -39,34 +39,34 @@ Before proceeding, make sure:
 
 `);
 
-rl.question("Do you want to proceed? (y/n): ", (answer) => {
-  if (answer.toLowerCase() !== "y") {
-    console.log("Submission cancelled.");
+rl.question('Do you want to proceed? (y/n): ', (answer) => {
+  if (answer.toLowerCase() !== 'y') {
+    console.log('Submission cancelled.');
     rl.close();
     return;
   }
 
-  console.log("\nPreparing submission...\n");
+  console.log('\nPreparing submission...\n');
 
   // Check if package is published to npm
   try {
     const npmInfo = execSync(`npm view ${packageJson.name} --json`, {
-      stdio: ["pipe", "pipe", "pipe"],
+      stdio: ['pipe', 'pipe', 'pipe'],
     });
-    console.log("✅ Package found on npm registry");
+    console.log('✅ Package found on npm registry');
   } catch (error) {
     console.error(
-      "❌ Package not found on npm registry. Please publish your package first:",
+      '❌ Package not found on npm registry. Please publish your package first:',
     );
-    console.error("   npm login");
-    console.error("   npm publish");
+    console.error('   npm login');
+    console.error('   npm publish');
     rl.close();
     return;
   }
 
   // Check if GitHub repository exists
   if (!packageJson.repository || !packageJson.repository.url) {
-    console.error("❌ No GitHub repository URL found in package.json");
+    console.error('❌ No GitHub repository URL found in package.json');
     console.error('   Please add a "repository" field to your package.json');
     rl.close();
     return;
@@ -78,38 +78,38 @@ rl.question("Do you want to proceed? (y/n): ", (answer) => {
   // Prepare submission data
   const submissionData = {
     name: packageJson.name,
-    description: packageJson.description || "",
+    description: packageJson.description || '',
     version: packageJson.version,
     repository: repoUrl,
-    author: packageJson.author || "",
-    license: packageJson.license || "",
+    author: packageJson.author || '',
+    license: packageJson.license || '',
     keywords: packageJson.keywords || [],
     tools: [
-      "get-address",
-      "get-testnet-eth",
-      "list-balances",
-      "transfer-funds",
-      "deploy-contract",
+      'get-address',
+      'get-testnet-eth',
+      'list-balances',
+      'transfer-funds',
+      'deploy-contract',
     ],
   };
 
   // Save submission data to a file
   const submissionFile = path.join(
     process.cwd(),
-    "mcp-directory-submission.json",
+    'mcp-directory-submission.json',
   );
   fs.writeFileSync(submissionFile, JSON.stringify(submissionData, null, 2));
 
   console.log(`\n✅ Submission data saved to ${submissionFile}`);
-  console.log("\nNext steps:");
+  console.log('\nNext steps:');
   console.log(
-    "1. Fork the MCP Directory repository: https://github.com/modelcontextprotocol/directory",
+    '1. Fork the MCP Directory repository: https://github.com/modelcontextprotocol/directory',
   );
   console.log(
-    "2. Add your MCP server to the directory using the data in mcp-directory-submission.json",
+    '2. Add your MCP server to the directory using the data in mcp-directory-submission.json',
   );
-  console.log("3. Submit a pull request to the MCP Directory repository");
-  console.log("\nThank you for contributing to the MCP ecosystem!");
+  console.log('3. Submit a pull request to the MCP Directory repository');
+  console.log('\nThank you for contributing to the MCP ecosystem!');
 
   rl.close();
 });
