@@ -138,9 +138,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@coinbase/agentkit@npm:0.2.3-nightly.20250311.32":
-  version: 0.2.3-nightly.20250311.32
-  resolution: "@coinbase/agentkit@npm:0.2.3-nightly.20250311.32"
+"@coinbase/agentkit@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@coinbase/agentkit@npm:0.4.0"
   dependencies:
     "@alloralabs/allora-sdk": "npm:^0.1.0"
     "@coinbase/coinbase-sdk": "npm:^0.20.0"
@@ -154,7 +154,7 @@ __metadata:
     twitter-api-v2: "npm:^1.18.2"
     viem: "npm:^2.22.16"
     zod: "npm:^3.23.8"
-  checksum: 10c0/6500f8c8da64790af989d680df4399a8811cedbadf6006e33d67c3c9d7d9e46f57692f1fbdbf29cff9c13378759ddad2b66cd2084dad68dcaf16d0e01c6254ee
+  checksum: 10c0/86f88b0191627d0946c6de9ad30b5cf91434c5a6792cddc5a8e834ba057294b60b72dc3b932758a8940da7c94fc08ee5510ff80ec665643794a064a964f958e2
   languageName: node
   linkType: hard
 
@@ -2047,7 +2047,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "base-mcp@workspace:."
   dependencies:
-    "@coinbase/agentkit": "npm:0.2.3-nightly.20250311.32"
+    "@coinbase/agentkit": "npm:^0.4.0"
     "@coinbase/agentkit-model-context-protocol": "npm:^0.2.0"
     "@coinbase/coinbase-sdk": "npm:^0.21.0"
     "@coinbase/onchainkit": "npm:^0.37.6"
