@@ -2068,6 +2068,7 @@ __metadata:
     typescript: "npm:^5.8.2"
     viem: "npm:^2.23.9"
     zod: "npm:^3.24.2"
+    zod-to-json-schema: "npm:^3.24.4"
   bin:
     base-mcp: ./build/index.js
   languageName: unknown
@@ -6381,6 +6382,15 @@ __metadata:
   peerDependencies:
     zod: ^3.24.1
   checksum: 10c0/5d626fa7a51539236962b1348a7b7e7111bd1722f23ad06dead2f76599e6bd918e4067ffba0695e0acac5a60f217b4953d2ad62ad403a482d034d94f025f3a4c
+  languageName: node
+  linkType: hard
+
+"zod-to-json-schema@npm:^3.24.4":
+  version: 3.24.4
+  resolution: "zod-to-json-schema@npm:3.24.4"
+  peerDependencies:
+    zod: ^3.24.1
+  checksum: 10c0/eacef9f18159038cac87132005690c8e3da3a3aeb9dfbac2c2450f36f3b0345e895abcb165b5d81294b2dae3fedfb11b8b733daecc649b7c0584fcc9858a312d
   languageName: node
   linkType: hard
 
