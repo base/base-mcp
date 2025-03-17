@@ -10,7 +10,7 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** Let me get your wallet address for you.
 
-*Claude uses the `get-address` tool*
+_Claude uses the `get-address` tool_
 
 **Claude:** Your wallet address is: 0x1234567890abcdef1234567890abcdef12345678
 
@@ -20,9 +20,10 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll check your wallet balances for you.
 
-*Claude uses the `list-balances` tool*
+_Claude uses the `list-balances` tool_
 
 **Claude:** Here are your current wallet balances:
+
 - ETH: 0.5 ETH
 - USDC: 100 USDC
 
@@ -32,7 +33,7 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll request some testnet ETH for your wallet on Base Sepolia.
 
-*Claude uses the `get-testnet-eth` tool*
+_Claude uses the `get-testnet-eth` tool_
 
 **Claude:** I've requested testnet ETH for your wallet. The transaction hash is: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
 
@@ -44,7 +45,8 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll set up that transfer for you.
 
-*Claude uses the `transfer-funds` tool with the following parameters:*
+_Claude uses the `transfer-funds` tool with the following parameters:_
+
 - destination: 0x9876543210abcdef9876543210abcdef98765432
 - assetId: ETH
 - amount: 0.01
@@ -61,10 +63,11 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll prepare the ERC20 token contract for deployment.
 
-*Claude uses the `deploy-contract` tool with the following parameters:*
+_Claude uses the `deploy-contract` tool with the following parameters:_
+
 - constructorArgs: ["ExampleToken", "EXT", "1000000000000000000000000"]
 - contractName: "ERC20Token"
-- solidityInputJson: *[JSON containing the ERC20 contract source code]*
+- solidityInputJson: _[JSON containing the ERC20 contract source code]_
 - solidityVersion: "0.8.20"
 
 **Claude:** Your ERC20 token contract has been deployed successfully! The contract address is: 0xdef1234567890abcdef1234567890abcdef123456
@@ -77,11 +80,14 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll check the Morpho vaults for USDC.
 
-*Claude uses the `get_morpho_vaults` tool with the following parameters:*
+_Claude uses the `get_morpho_vaults` tool with the following parameters:_
+
 - assetSymbol: "USDC"
 
 **Claude:** Here are the available Morpho vaults for USDC:
+
 - Vault Name: USDC Yield Source
+
   - Address: 0xabcdef1234567890abcdef1234567890abcdef12
   - Liquidity: $10,000,000 (10,000,000 USDC)
   - Risk Score: 85/100
@@ -99,11 +105,12 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll call that contract function for you.
 
-*Claude uses the `call_contract` tool with the following parameters:*
+_Claude uses the `call_contract` tool with the following parameters:_
+
 - contractAddress: "0x1234567890abcdef1234567890abcdef12345678"
 - functionName: "balanceOf"
 - functionArgs: ["0x9876543210abcdef9876543210abcdef98765432"]
-- abi: *[JSON containing the contract ABI]*
+- abi: _[JSON containing the contract ABI]_
 
 **Claude:** The balanceOf function returned: 1000000000000000000 (1 token)
 
@@ -113,7 +120,8 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll check your USDC balance.
 
-*Claude uses the `erc20_balance` tool with the following parameters:*
+_Claude uses the `erc20_balance` tool with the following parameters:_
+
 - contractAddress: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" (USDC contract address)
 
 **Claude:** Your USDC balance is: 100.0 USDC
@@ -122,7 +130,8 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll set up that USDC transfer for you.
 
-*Claude uses the `erc20_transfer` tool with the following parameters:*
+_Claude uses the `erc20_transfer` tool with the following parameters:_
+
 - contractAddress: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" (USDC contract address)
 - toAddress: "0x9876543210abcdef9876543210abcdef98765432"
 - amount: "10"
@@ -137,11 +146,13 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll check what assets are available for onramping in New York.
 
-*Claude uses the `get_onramp_assets` tool with the following parameters:*
+_Claude uses the `get_onramp_assets` tool with the following parameters:_
+
 - country: "US"
 - subdivision: "NY"
 
 **Claude:** Here are the assets available for onramping in New York, US:
+
 - ETH
 - USDC
 - DAI
@@ -153,7 +164,8 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll generate an onramp link for you.
 
-*Claude uses the `onramp` tool with the following parameters:*
+_Claude uses the `onramp` tool with the following parameters:_
+
 - amountUsd: 100
 - assetId: "eth"
 
@@ -165,7 +177,8 @@ This document provides examples of how to interact with the Base MCP tools throu
 
 **Claude:** I'll set up the purchase of OpenRouter credits for you.
 
-*Claude uses the `buy_openrouter_credits` tool with the following parameters:*
+_Claude uses the `buy_openrouter_credits` tool with the following parameters:_
+
 - amountUsd: 20
 
 **Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234

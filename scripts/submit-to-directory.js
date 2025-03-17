@@ -2,10 +2,10 @@
 
 /**
  * Submit Base MCP to the MCP Directory
- * 
+ *
  * This script helps you submit your Base MCP to the MCP Directory,
  * making it discoverable by other developers.
- * 
+ *
  * Usage:
  *   node submit-to-directory.js
  */
@@ -17,7 +17,7 @@ const readline = require('node:readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Get package info
@@ -50,10 +50,14 @@ rl.question('Do you want to proceed? (y/n): ', (answer) => {
 
   // Check if package is published to npm
   try {
-    const npmInfo = execSync(`npm view ${packageJson.name} --json`, { stdio: ['pipe', 'pipe', 'pipe'] });
+    const npmInfo = execSync(`npm view ${packageJson.name} --json`, {
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
     console.log('✅ Package found on npm registry');
   } catch (error) {
-    console.error('❌ Package not found on npm registry. Please publish your package first:');
+    console.error(
+      '❌ Package not found on npm registry. Please publish your package first:',
+    );
     console.error('   npm login');
     console.error('   npm publish');
     rl.close();
@@ -85,18 +89,25 @@ rl.question('Do you want to proceed? (y/n): ', (answer) => {
       'get-testnet-eth',
       'list-balances',
       'transfer-funds',
-      'deploy-contract'
-    ]
+      'deploy-contract',
+    ],
   };
 
   // Save submission data to a file
-  const submissionFile = path.join(process.cwd(), 'mcp-directory-submission.json');
+  const submissionFile = path.join(
+    process.cwd(),
+    'mcp-directory-submission.json',
+  );
   fs.writeFileSync(submissionFile, JSON.stringify(submissionData, null, 2));
 
   console.log(`\n✅ Submission data saved to ${submissionFile}`);
   console.log('\nNext steps:');
-  console.log('1. Fork the MCP Directory repository: https://github.com/modelcontextprotocol/directory');
-  console.log('2. Add your MCP server to the directory using the data in mcp-directory-submission.json');
+  console.log(
+    '1. Fork the MCP Directory repository: https://github.com/modelcontextprotocol/directory',
+  );
+  console.log(
+    '2. Add your MCP server to the directory using the data in mcp-directory-submission.json',
+  );
   console.log('3. Submit a pull request to the MCP Directory repository');
   console.log('\nThank you for contributing to the MCP ecosystem!');
 

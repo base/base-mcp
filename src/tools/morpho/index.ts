@@ -1,7 +1,7 @@
-import { base } from "viem/chains";
-import { morphoApiClient } from "./graphql.js";
-import { GET_VAULTS_QUERY } from "./queries.js";
-import type { MorphoVaultsResponse } from "./types.js";
+import { base } from 'viem/chains';
+import { morphoApiClient } from './graphql.js';
+import { GET_VAULTS_QUERY } from './queries.js';
+import type { MorphoVaultsResponse } from './types.js';
 
 export async function getMorphoVaults({
   chainId = base.id,

@@ -1,4 +1,4 @@
-import { gql } from "graphql-request";
+import { gql } from 'graphql-request';
 
 // Get a list of vaults from Morpho
 export const GET_VAULTS_QUERY = gql`
