@@ -33,18 +33,6 @@ import { COINBASE_COMMERCE_ABI } from "../lib/contracts/coinbase-commerce.js";
 import { waitForTransactionReceipt } from "viem/actions";
 import { constructBaseScanUrl } from "../utils/index.js";
 
-export async function getMorphoVaultsHandler(
-  wallet: WalletClient,
-  args: z.infer<typeof GetMorphoVaultsSchema>,
-): Promise<MorphoVault[]> {
-  const vaults = await getMorphoVaults({
-    chainId: wallet.chain?.id ?? 8453,
-    assetSymbol: args.assetSymbol ?? "",
-  });
-
-  return vaults;
-}
-
 export async function callContractHandler(
   wallet: WalletClient & PublicActions,
   args: z.infer<typeof CallContractSchema>,

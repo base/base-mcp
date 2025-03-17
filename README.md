@@ -1,4 +1,4 @@
-# Base MCP Server 🔵 
+# Base MCP Server 🔵
 
 ![OpenRouter Integration](public/OpenRouter.gif)
 
@@ -14,14 +14,14 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - Retrieve wallet addresses
 - List wallet balances
 - Transfer funds between wallets
-- Deploy smart contracts 
+- Deploy smart contracts
 - Interact with Morpho vaults for onchain lending
-- Call contract functions 
+- Call contract functions
 - Onramp funds via [Coinbase](https://www.coinbase.com/developer-platform/products/onramp)
 - Manage ERC20 tokens
 - Buy [OpenRouter](http://openrouter.ai/) credits with USDC
 
-The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit). 
+The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit).
 
 ## Prerequisites
 
@@ -129,7 +129,7 @@ To add this MCP server to Claude Desktop:
            "COINBASE_API_KEY_NAME": "your_api_key_name",
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
            "SEED_PHRASE": "your seed phrase here",
-           "COINBASE_PROJECT_ID": "your_project_id",           
+           "COINBASE_PROJECT_ID": "your_project_id",
            "OPENROUTER_API_KEY": "your_openrouter_api_key"
          },
          "disabled": false,

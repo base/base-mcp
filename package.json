@@ -10,7 +10,8 @@
     "build": "tsc",
     "start": "node build/index.js",
     "test": "node scripts/test-mcp.js",
-    "submit": "node scripts/submit-to-directory.js"
+    "submit": "node scripts/submit-to-directory.js",
+    "format": "prettier --write ."
   },
   "files": [
     "build"
@@ -46,6 +47,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@types/node": "^22.13.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
