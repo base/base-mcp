@@ -2,9 +2,6 @@
  * Patches for Onramp
  */
 
-import type { Tool } from '@modelcontextprotocol/sdk/types.js';
-import type { PublicActions, WalletClient } from 'viem';
-
 type OnrampPaymentMethod = {
   id: string;
 };

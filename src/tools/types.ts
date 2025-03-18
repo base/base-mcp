@@ -36,6 +36,8 @@ export type OpenRouterTransferIntentResponse = {
 
 export type ToolHandler = (
   wallet: WalletClient & PublicActions,
+  // TODO: fix
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   args: any,
 ) => Promise<string>;
 

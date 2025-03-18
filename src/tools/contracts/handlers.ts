@@ -26,7 +26,7 @@ export async function callContractHandler(
       (item) => 'name' in item && item.name === args.functionName,
     ) as AbiFunction;
   } catch (error) {
-    throw new Error(`Invalid function name: ${args.functionName}`);
+    throw new Error(`Invalid function name: ${args.functionName}. ${error}`);
   }
 
   if (

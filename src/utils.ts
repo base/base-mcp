@@ -1,7 +1,6 @@
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
-import type { WalletClient } from 'viem';
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import { zodToJsonSchema, type JsonSchema7Type } from 'zod-to-json-schema';
 import type { ToolHandler } from './tools/types.js';
 
 type GenerateToolParams = {
@@ -11,7 +10,17 @@ type GenerateToolParams = {
   toolHandler: ToolHandler;
 };
 
-function simplifySchema(schema: any): any {
+type RawSchemaType = JsonSchema7Type & {
+  $schema?: string | undefined;
+  $ref?: string | undefined;
+  definitions?:
+    | {
+        [key: string]: JsonSchema7Type;
+      }
+    | undefined;
+};
+
+function simplifySchema(schema: RawSchemaType): JsonSchema7Type {
   const result = { ...schema };
   delete result.$schema;
   delete result.$ref;
@@ -30,7 +39,7 @@ export function generateTool({
   handler: ToolHandler;
 } {
   const rawSchema = zodToJsonSchema(zodSchema);
-  const inputSchema = simplifySchema(rawSchema);
+  const inputSchema = simplifySchema(rawSchema) as Tool['inputSchema'];
 
   return {
     definition: {
