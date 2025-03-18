@@ -23,7 +23,7 @@ import {
   type WalletClient,
 } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
-import { base, baseSepolia } from 'viem/chains';
+import { base } from 'viem/chains';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
 import { version } from './version.js';
@@ -139,6 +139,7 @@ async function main() {
   const transport = new StdioServerTransport();
   console.error('Connecting server to transport...');
   await server.connect(transport);
+
   console.error('Base MCP Server running on stdio');
 }
 

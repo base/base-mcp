@@ -8,10 +8,12 @@
     "run": "ts-node src/index.ts",
     "dev": "tsc --watch",
     "build": "tsc",
+    "lint": "eslint src",
     "start": "node build/index.js",
     "test": "node scripts/test-mcp.js",
     "submit": "node scripts/submit-to-directory.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "ci:format": "prettier --check ."
   },
   "files": [
     "build"
@@ -47,16 +49,24 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.22.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@types/node": "^22.13.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "globals": "^16.0.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1",
     "zod-to-json-schema": "^3.24.4"
   }
 }
