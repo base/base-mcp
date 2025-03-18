@@ -12,7 +12,10 @@ import type { z } from 'zod';
 import { USDC_ADDRESS, USDC_DECIMALS } from '../../lib/constants.js';
 import { COINBASE_COMMERCE_ABI } from '../../lib/contracts/coinbase-commerce.js';
 import type { OpenRouterTransferIntentResponse } from '../types.js';
-import { constructBaseScanUrl } from '../utils/index.js';
+import {
+  checkToolSupportsChain,
+  constructBaseScanUrl,
+} from '../utils/index.js';
 import type { BuyOpenRouterCreditsSchema } from './schemas.js';
 
 export async function buyOpenRouterCreditsHandler(
@@ -20,6 +23,11 @@ export async function buyOpenRouterCreditsHandler(
   args: z.infer<typeof BuyOpenRouterCreditsSchema>,
 ): Promise<string> {
   const { amountUsd } = args;
+
+  checkToolSupportsChain({
+    chainId: wallet.chain?.id,
+    supportedChains: [base],
+  });
 
   if (!process.env.OPENROUTER_API_KEY) {
     throw new Error('OPENROUTER_API_KEY is not set');

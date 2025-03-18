@@ -23,7 +23,8 @@ import {
   type WalletClient,
 } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
-import { base } from 'viem/chains';
+import { base, baseSepolia } from 'viem/chains';
+import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
 import { version } from './version.js';
 
@@ -32,6 +33,7 @@ async function main() {
   const apiKeyName = process.env.COINBASE_API_KEY_NAME;
   const privateKey = process.env.COINBASE_API_PRIVATE_KEY;
   const seedPhrase = process.env.SEED_PHRASE;
+  const chainId = process.env.CHAIN_ID ? Number(process.env.CHAIN_ID) : base.id;
 
   if (!apiKeyName || !privateKey || !seedPhrase) {
     console.error(
@@ -40,9 +42,16 @@ async function main() {
     process.exit(1);
   }
 
+  const chain = chainIdToChain(chainId);
+  if (!chain) {
+    throw new Error(
+      `Unsupported chainId: ${chainId}. Only Base and Base Sepolia are supported.`,
+    );
+  }
+
   const viemClient = createWalletClient({
     account: mnemonicToAccount(seedPhrase),
-    chain: base,
+    chain,
     transport: http(),
   }).extend(publicActions) as WalletClient & PublicActions;
 
@@ -50,7 +59,7 @@ async function main() {
     mnemonicPhrase: seedPhrase,
     apiKeyName,
     apiKeyPrivateKey: privateKey,
-    networkId: 'base-mainnet',
+    networkId: chainIdToCdpNetworkId[chainId],
   });
 
   const agentKit = await AgentKit.from({
