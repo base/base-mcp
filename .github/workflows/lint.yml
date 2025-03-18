@@ -16,10 +16,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'npm'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Run ESLint
-        run: npm run lint
+        run: yarn lint
