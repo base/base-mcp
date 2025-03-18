@@ -15,7 +15,13 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import * as dotenv from 'dotenv';
-import { createWalletClient, http, publicActions } from 'viem';
+import {
+  createWalletClient,
+  http,
+  publicActions,
+  type PublicActions,
+  type WalletClient,
+} from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 import { base } from 'viem/chains';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
@@ -38,7 +44,7 @@ async function main() {
     account: mnemonicToAccount(seedPhrase),
     chain: base,
     transport: http(),
-  }).extend(publicActions);
+  }).extend(publicActions) as WalletClient & PublicActions;
 
   const cdpWalletProvider = await CdpWalletProvider.configureWithWallet({
     mnemonicPhrase: seedPhrase,
@@ -76,12 +82,17 @@ async function main() {
     },
   );
 
-  Coinbase.configure({ apiKeyName, privateKey });
+  Coinbase.configure({
+    apiKeyName,
+    privateKey,
+    source: 'Base MCP',
+    sourceVersion: version,
+  });
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     console.error('Received ListToolsRequest');
     return {
-      tools: [...baseMcpTools, ...tools],
+      tools: [...baseMcpTools.map((tool) => tool.definition), ...tools],
     };
   });
 
@@ -89,7 +100,7 @@ async function main() {
     try {
       // Check if the tool is Base MCP tool
       const isBaseMcpTool = baseMcpTools.some(
-        (tool) => tool.name === request.params.name,
+        (tool) => tool.definition.name === request.params.name,
       );
 
       if (isBaseMcpTool) {
