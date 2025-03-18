@@ -8,7 +8,7 @@ export async function getMorphoVaultsHandler(
   args: z.infer<typeof GetMorphoVaultsSchema>,
 ): Promise<string> {
   const vaults = await getMorphoVaults({
-    chainId: wallet.chain?.id ?? 8453,
+    chainId: wallet.chain?.id,
     assetSymbol: args.assetSymbol ?? '',
   });
 

@@ -1,5 +1,6 @@
 import type { Chain } from 'viem';
 import { base, baseSepolia } from 'viem/chains';
+import { chainIdToChain } from '../../chains.js';
 
 export function constructBaseScanUrl(
   chain: Chain,
@@ -13,3 +14,21 @@ export function constructBaseScanUrl(
     return `https://sepolia.basescan.org/tx/${transactionHash}`;
   }
 }
+
+export const checkToolSupportsChain = ({
+  chainId,
+  supportedChains,
+}: {
+  chainId: number | undefined;
+  supportedChains: Chain[];
+}) => {
+  if (supportedChains.some((chain) => chain.id === chainId)) {
+    return true;
+  }
+
+  const chainName = chainId
+    ? (chainIdToChain(chainId)?.name ?? `chain ${chainId}`)
+    : 'chain';
+
+  throw new Error(`Not implemented on ${chainName}`);
+};

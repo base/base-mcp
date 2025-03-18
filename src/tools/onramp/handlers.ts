@@ -1,13 +1,20 @@
 import { getOnrampBuyUrl } from '@coinbase/onchainkit/fund';
 import type { PublicActions, WalletClient } from 'viem';
+import { base } from 'viem/chains';
 import type { z } from 'zod';
+import { checkToolSupportsChain } from '../utils/index.js';
 import type { GetOnrampAssetsSchema, OnrampSchema } from './schemas.js';
 import type { PatchedOnrampConfigResponseData } from './types.js';
 
 export async function getOnrampAssetsHandler(
-  _wallet: WalletClient & PublicActions,
+  wallet: WalletClient & PublicActions,
   args: z.infer<typeof GetOnrampAssetsSchema>,
 ): Promise<string> {
+  checkToolSupportsChain({
+    chainId: wallet.chain?.id,
+    supportedChains: [base],
+  });
+
   const config: PatchedOnrampConfigResponseData = await fetch(
     `https://api.developer.coinbase.com/onramp/v1/buy/options?country=${args.country}&subdivision=${args.subdivision}&networks=base`,
     {
@@ -24,6 +31,11 @@ export async function onrampHandler(
   wallet: WalletClient & PublicActions,
   args: z.infer<typeof OnrampSchema>,
 ): Promise<string> {
+  checkToolSupportsChain({
+    chainId: wallet.chain?.id,
+    supportedChains: [base],
+  });
+
   const { amountUsd, assetId } = args;
 
   if (!process.env.COINBASE_PROJECT_ID) {
