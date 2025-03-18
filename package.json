@@ -12,7 +12,8 @@
     "start": "node build/index.js",
     "test": "node scripts/test-mcp.js",
     "submit": "node scripts/submit-to-directory.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "ci:format": "prettier --check ."
   },
   "files": [
     "build"
