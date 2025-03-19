@@ -327,6 +327,21 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### buy_heurist_credits
+
+Purchases Heurist API credits with cryptocurrency on the Base chain.
+
+Parameters:
+
+- `tokenSymbol`: The token to use for payment (USDC, HEU, or WETH)
+- `amount`: The amount of tokens to spend (minimum: 1 USDC, 10 HEU, or 0.001 WETH)
+
+Example query to Claude:
+
+> "Purchase 2 USDC worth of Heurist API credits."
+> "Buy 10 HEU tokens of Heurist credits."
+> "Buy Heurist API credits using 0.002 WETH."
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
