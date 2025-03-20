@@ -164,6 +164,8 @@ To add this MCP server to Claude Desktop:
    - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
    - Linux: `~/.config/Claude/claude_desktop_config.json`
 
+You can easily access this file via the Claude Desktop app by navigating to Claude > Settings > Developer > Edit Config.
+
 2. Add the following configuration:
 
    ```json
@@ -353,6 +355,7 @@ If you encounter issues:
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 For detailed guidelines on contributing to Base MCP, including:
+
 - Reporting bugs
 - Suggesting enhancements
 - Development setup
