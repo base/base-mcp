@@ -63,7 +63,7 @@ Base MCP lets AI applications like Claude and Cursor interact with the Base Netw
 
 ### Personal Finance
 
-- **Crypto Earning App**: Build a simple budgeting app that earns yield on USDC/Tokens on Base. You can use [OnchainKit's Earn component](https://onchainkit.xyz/)]. 
+- **Crypto Earning App**: Build a simple budgeting app that earns yield on USDC/Tokens on Base. You can use [OnchainKit's Earn component](https://onchainkit.xyz/)].
 
 - **Savings Goals Tracker**: Create an app that helps users set savings goals and automatically moves funds to reach them.
 
@@ -136,9 +136,9 @@ Base supports innovative projects built using Base MCP. Our grants program provi
 
 ### Application Process
 
-To apply for a grant, please tag @buildonbase when you share your project on X or Warpcast. 
+To apply for a grant, please tag @buildonbase when you share your project on X or Warpcast.
 
-Your demo ideally includes: 
+Your demo ideally includes:
 
 1. Project description and use case
 2. Technical approach (How you leveraged Base MCP)
