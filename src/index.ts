@@ -8,6 +8,7 @@ import {
 } from '@coinbase/agentkit';
 import { getMcpTools } from '@coinbase/agentkit-model-context-protocol';
 import { Coinbase } from '@coinbase/coinbase-sdk';
+import { createCoinbaseWalletSDK } from '@coinbase/wallet-sdk';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -17,7 +18,7 @@ import {
 import * as dotenv from 'dotenv';
 import {
   createWalletClient,
-  http,
+  custom,
   publicActions,
   type PublicActions,
   type WalletClient,
@@ -49,10 +50,27 @@ async function main() {
     );
   }
 
+  // Configure Coinbase Smart Wallet
+  const coinbaseWalletSDK = createCoinbaseWalletSDK({
+    appName: 'Base MCP',
+    appChainIds: [base.id],
+    preference: {
+      options: 'smartWalletOnly',
+      keysUrl: 'https://keys-dev.coinbase.com/connect',
+    },
+  });
+
+  const provider = await coinbaseWalletSDK.getProvider();
+
   const viemClient = createWalletClient({
     account: mnemonicToAccount(seedPhrase),
     chain,
-    transport: http(),
+    transport: custom({
+      async request({ method, params }) {
+        const response = await provider.request({ method, params });
+        return response;
+      },
+    }),
   }).extend(publicActions) as WalletClient & PublicActions;
 
   const cdpWalletProvider = await CdpWalletProvider.configureWithWallet({
