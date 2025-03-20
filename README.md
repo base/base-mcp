@@ -172,8 +172,8 @@ You can easily access this file via the Claude Desktop app by navigating to Clau
    {
      "mcpServers": {
        "base-mcp": {
-         "command": "node",
-         "args": ["/path/to/base-mcp/build/index.js"],
+         "command": "npx",
+         "args": ["base-mcp@latest"],
          "env": {
            "COINBASE_API_KEY_NAME": "your_api_key_name",
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
