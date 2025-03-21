@@ -183,6 +183,30 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 
 **Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
 
+## Builder Score
+
+### Get Builder Score
+
+**You:** What is the builder score for 0x5560650bF336dAfc2AaB23E6C2bCc78028877725?
+
+**Claude:** I'll check the builder score for that address.
+
+_Claude uses the `get_talent_protocol_score` tool with the following parameters:_
+
+- address: "0x5560650bF336dAfc2AaB23E6C2bCc78028877725"
+
+**Claude:** I've retrieved the Builder Score for the address 0x5560650bF336dAfc2AaB23E6C2bCc78028877725:
+Builder Score: 95 (Excellent)
+This is the Talent Protocol profile for Harpreet Singh, who works as a Devrel at Rabble and identifies as a Full Stack Web3 Developer. Here are some additional details:
+
+Activity Level: Low Activity
+Social Presence: Connected to 6 platforms (basename, farcaster, github, lens, linkedin, twitter)
+Total Followers: 1,363
+GitHub: Username HAPPYS1NGH with 30 followers
+Basename: happysingh.base.eth
+
+The overall standing of "Excellent" suggests this is a well-established profile in the Web3 ecosystem.
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.
