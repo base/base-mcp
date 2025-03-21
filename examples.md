@@ -27,6 +27,18 @@ _Claude uses the `list-balances` tool_
 - ETH: 0.5 ETH
 - USDC: 100 USDC
 
+### Getting Your Wallet Balance Equivalent In USD
+
+**You:** What's my balance of this token In USD? - 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed
+
+**Claude:** Let me check the current USD price of the token at address 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed.
+
+_Claude uses the `token_price` tool_
+
+**Claude:** The current price of the token at address 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed is $0.003139 USD per token
+
+-This means your 10 tokens are worth approximately $0.03139 USD in total
+
 ### Getting Testnet ETH
 
 **You:** I need some testnet ETH for development.
@@ -36,6 +48,38 @@ _Claude uses the `list-balances` tool_
 _Claude uses the `get-testnet-eth` tool_
 
 **Claude:** I've requested testnet ETH for your wallet. The transaction hash is: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+
+### Getting Token Information On Base
+
+**You:** get me information about this token - 0x2E2cc4DfCe60257F091980631e75f5c436b71C87
+
+**Claude:** I'll retrieve information about this token for you.
+
+_Claude uses the `token_info_query` tool_
+
+**Claude:** Here's the information about the token at address `0x2E2cc4DfCe60257F091980631e75f5c436b71C87`:
+
+### Token Details:
+
+- **Symbol:** GRK (Grokster)
+- **Trading Pair:** GRK/WETH
+- **Current Price:** $0.0000103 USD
+- **24h Trading Volume:** $571,525.65
+- **Market Cap:** $1,030,850
+- **Token Pair Created:** March 8, 2025
+
+### DEX Information:
+
+- **Listed on:** Uniswap
+- **Pair Address:** `0xb5a0dA376245E67b2e55e4F011B4daA464278cFA`
+
+### Project Links:
+
+- **Website:** [Grokster.ai](http://grokster.ai/)
+- **Twitter:** [@grokstermascot](https://x.com/grokstermascot)
+- **Telegram:** [Grokster Community](https://t.me/grokstermascot)
+
+This appears to be a relatively new token on Base, launched just a couple of weeks ago.
 
 ## Advanced Operations
 
