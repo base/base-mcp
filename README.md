@@ -329,6 +329,20 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### asset_price
+
+Gets current prices of crypto assets in a specified currency.
+
+Parameters:
+
+- `assetSymbols`: Array of asset symbols to retrieve prices for (e.g., ["ETH", "USDC"])
+- `currency`: The currency in which to return prices (default: USD)
+- `includeMetadata`: Whether to include additional metadata like 24h change, market cap, etc. (default: false)
+
+Example query to Claude:
+
+> "What are the current prices of ETH, BTC, and USDC?"
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
