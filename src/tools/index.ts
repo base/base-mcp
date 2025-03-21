@@ -3,6 +3,7 @@ import { erc20BalanceTool, erc20TransferTool } from './erc20/index.js';
 import { getMorphoVaultsTool } from './morpho/index.js';
 import { getOnrampAssetsTool, onrampTool } from './onramp/index.js';
 import { buyOpenRouterCreditsTool } from './open-router/index.js';
+import { recentTransactionsTool } from './recent-transactions/index.js';
 import type { ToolHandler, ToolWithHandler } from './types.js';
 
 export const baseMcpTools: ToolWithHandler[] = [
@@ -13,6 +14,7 @@ export const baseMcpTools: ToolWithHandler[] = [
   erc20BalanceTool,
   erc20TransferTool,
   buyOpenRouterCreditsTool,
+  recentTransactionsTool,
 ];
 
 export const toolToHandler: Record<string, ToolHandler> = baseMcpTools.reduce<

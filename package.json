@@ -41,6 +41,7 @@
     "@coinbase/coinbase-sdk": "^0.21.0",
     "@coinbase/onchainkit": "^0.37.6",
     "@modelcontextprotocol/sdk": "^1.6.1",
+    "base-mcp": "^1.0.4",
     "dotenv": "^16.4.7",
     "graphql": "^16.10.0",
     "graphql-request": "^7.1.2",
