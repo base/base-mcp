@@ -329,6 +329,19 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### onramp
+
+Get the recent transactions and transaction status of a specific wallet address
+
+Parameters:
+
+- `walletaddress`: The wallet address to check transactions for
+
+Example query to Claude:
+
+> "Show me my recent transactions 0x1234567890abcdef1234567890abcdef12345678."
+
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.

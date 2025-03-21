@@ -183,6 +183,32 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 
 **Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
 
+### Fetching Recent Transactions
+
+**You:** Show me my recent transactions.
+
+**Claude:** Here are your recent transactions:
+
+Claude uses the recent_transactions tool with the following parameters:
+
+- Transactions:
+
+Hash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef9837653542
+
+- Status: Success
+  Block Number: #12345678
+  From: 0x1234567890abcdef1234567890abcdef12345678
+  To: 0x9876543210abcdef9876543210abcdef98765432
+  Value: 0.01 ETH
+  Explorer URL: View on BaseScan
+  Hash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+
+- Status: Pending
+  From: 0x234567890abcdef1234567890abcdef1234567890
+  To: 0x34567890abcdef1234567890abcdef123456789012
+  Value: 0.05 ETH
+  Explorer URL: View on BaseScan
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.
