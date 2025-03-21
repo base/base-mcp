@@ -34,6 +34,22 @@ export type OpenRouterTransferIntentResponse = {
   };
 };
 
+/**
+ * Recent Transactions types
+ */
+export type RecentTransactionsResponse = {
+  transactions: {
+    hash: string;
+    status: 'success' | 'failed' | 'pending';
+    blockNumber?: number;
+    from: string;
+    to: string;
+    value?: string;
+    timestamp?: string;
+    explorerUrl: string;
+  }[];
+};
+
 export type ToolHandler = (
   wallet: WalletClient & PublicActions,
   // TODO: fix
