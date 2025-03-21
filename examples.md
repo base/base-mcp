@@ -27,6 +27,17 @@ _Claude uses the `list-balances` tool_
 - ETH: 0.5 ETH
 - USDC: 100 USDC
 
+### Getting Your Wallet Balance Equivalent In USD
+**You:** What's my balance of this token In USD? - 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 
+
+**Claude:** Let me check the current USD price of the token at address 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed.
+
+_Claude uses the `token_price` tool_
+
+**Claude:** The current price of the token at address 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed is $0.003139 USD per token
+
+-This means your 10 tokens are worth approximately $0.03139 USD in total
+
 ### Getting Testnet ETH
 
 **You:** I need some testnet ETH for development.
