@@ -138,6 +138,10 @@ COINBASE_PROJECT_ID=your_project_id
 # OpenRouter API Key (optional for buying OpenRouter credits)
 # You can obtain this from https://openrouter.ai/keys
 OPENROUTER_API_KEY=your_openrouter_api_key
+
+# Etherscan API Key (optional)
+# You can obtain this from https://docs.etherscan.io/etherscan-v2/getting-started/getting-an-api-key
+ETHERSCAN_API_KEY=your_etherscan_api_key
 ```
 
 ## Testing
@@ -179,7 +183,8 @@ You can easily access this file via the Claude Desktop app by navigating to Clau
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
            "SEED_PHRASE": "your seed phrase here",
            "COINBASE_PROJECT_ID": "your_project_id",
-           "OPENROUTER_API_KEY": "your_openrouter_api_key"
+           "OPENROUTER_API_KEY": "your_openrouter_api_key",
+           "ETHERSCAN_API_KEY": "your_etherscan_api_key"
          },
          "disabled": false,
          "autoApprove": []
@@ -328,6 +333,46 @@ Parameters:
 Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
+
+### etherscan_address_transactions
+
+Gets a list of transactions for an address using Etherscan API.
+
+Parameters:
+
+- `address`: The address to get transactions for
+- `startblock`: Starting block number (defaults to 0)
+- `endblock`: Ending block number (defaults to latest)
+- `page`: Page number (defaults to 1)
+- `offset`: Number of transactions per page (1-1000, defaults to 5)
+- `sort`: Sort transactions by block number (asc or desc, defaults to desc)
+- `chainId`: The chain ID (defaults to chain the wallet is connected to)
+
+Example query to Claude:
+
+> "Show me the most recent transactions for address 0xc5102fE9359FD9a28f877a67E36B0F050d81a3CC."
+
+### etherscan_contract_info
+
+Gets detailed information about a smart contract using Etherscan API.
+
+Parameters:
+
+- `address`: The contract address to get information for
+- `chainId`: The chain ID (defaults to chain the wallet is connected to)
+
+The tool returns the following information:
+- Contract name
+- Contract address
+- ABI
+- Contract creator address
+- Transaction hash where the contract was created
+- Creation timestamp
+- Current ETH balance of the contract
+
+Example query to Claude:
+
+> "Show me information about the contract at 0xc5102fE9359FD9a28f877a67E36B0F050d81a3CC."
 
 ## Security Considerations
 

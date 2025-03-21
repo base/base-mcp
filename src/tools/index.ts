@@ -1,5 +1,9 @@
 import { callContractTool } from './contracts/index.js';
 import { erc20BalanceTool, erc20TransferTool } from './erc20/index.js';
+import {
+  getAddressTransactionsTool,
+  getContractInfoTool,
+} from './etherscan/index.js';
 import { getMorphoVaultsTool } from './morpho/index.js';
 import { getOnrampAssetsTool, onrampTool } from './onramp/index.js';
 import { buyOpenRouterCreditsTool } from './open-router/index.js';
@@ -13,6 +17,8 @@ export const baseMcpTools: ToolWithHandler[] = [
   erc20BalanceTool,
   erc20TransferTool,
   buyOpenRouterCreditsTool,
+  getAddressTransactionsTool,
+  getContractInfoTool,
 ];
 
 export const toolToHandler: Record<string, ToolHandler> = baseMcpTools.reduce<
