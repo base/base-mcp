@@ -329,7 +329,7 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
-### onramp
+### recent_transactions
 
 Get the recent transactions and transaction status of a specific wallet address
 
