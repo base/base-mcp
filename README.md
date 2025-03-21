@@ -329,6 +329,18 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### get_builder_score
+
+Gets the builder score for a specific address.
+
+Parameters:
+
+- `builderAddress`: The address of the builder
+
+Example query to Claude:
+
+> "What is builder score for 0x5560650bF336dAfc2AaB23E6C2bCc78028877725?"
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
