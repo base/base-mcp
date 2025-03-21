@@ -27,6 +27,7 @@ import { mnemonicToAccount } from 'viem/accounts';
 import { base } from 'viem/chains';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
+import { convertBigIntToString } from './tools/utils/transaction.js';
 import { version } from './version.js';
 
 async function main() {
@@ -121,11 +122,14 @@ async function main() {
 
         const result = await tool(viemClient, request.params.arguments);
 
+        // Convert any BigInt values to strings for proper JSON serialization
+        const safeResult = convertBigIntToString(result);
+
         return {
           content: [
             {
               type: 'text',
-              text: JSON.stringify(result),
+              text: JSON.stringify(safeResult),
             },
           ],
         };

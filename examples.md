@@ -53,6 +53,28 @@ _Claude uses the `transfer-funds` tool with the following parameters:_
 
 **Claude:** I've initiated the transfer of 0.01 ETH to 0x9876543210abcdef9876543210abcdef98765432. The transaction has been submitted to the blockchain.
 
+### Checking Transaction Status
+
+**You:** Check the status of my transaction with hash 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+
+**Claude:** I'll check the status of that transaction for you.
+
+_Claude uses the `transaction_status` tool with the following parameters:_
+
+- txHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+
+**Claude:** Your transaction has been **confirmed successfully**. Here are the details:
+
+- Status: Success
+- Block: #12345678
+- From: 0x1234567890abcdef1234567890abcdef12345678
+- To: 0x9876543210abcdef9876543210abcdef98765432
+- Value: 0.01 ETH
+- Gas Used: 21000
+- Gas Fee: 0.000441 ETH
+
+You can view more details on [BaseScan](https://basescan.org/tx/0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890).
+
 ### Deploying a Smart Contract
 
 **You:** Deploy a simple ERC20 token contract for me.

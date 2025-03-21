@@ -329,6 +329,19 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### transaction_status
+
+Checks the status and details of a transaction by its hash.
+
+Parameters:
+
+- `txHash`: The hash of the transaction to check
+- `chainId`: The ID of the chain on which the transaction was submitted (optional)
+
+Example query to Claude:
+
+> "Check the status of my transaction with hash 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
