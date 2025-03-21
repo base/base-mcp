@@ -19,6 +19,7 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - Call contract functions
 - Onramp funds via [Coinbase](https://www.coinbase.com/developer-platform/products/onramp)
 - Manage ERC20 tokens
+- List and transfer NFTs (ERC721 and ERC1155)
 - Buy [OpenRouter](http://openrouter.ai/) credits with USDC
 
 The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit).
@@ -77,6 +78,7 @@ For more detailed information on contributing to Base MCP, including adding new 
 - Coinbase API credentials (API Key Name and Private Key)
 - A wallet seed phrase
 - Coinbase Project ID (for onramp functionality)
+- Alchemy API Key (required for NFT functionality)
 - Optional: OpenRouter API Key (for buying OpenRouter credits)
 
 ## Installation
@@ -135,6 +137,10 @@ SEED_PHRASE=your seed phrase here
 # You can obtain this from the Coinbase Developer Portal
 COINBASE_PROJECT_ID=your_project_id
 
+# Alchemy API Key (required for NFT functionality)
+# You can obtain this from https://alchemy.com
+ALCHEMY_API_KEY=your_alchemy_api_key
+
 # OpenRouter API Key (optional for buying OpenRouter credits)
 # You can obtain this from https://openrouter.ai/keys
 OPENROUTER_API_KEY=your_openrouter_api_key
@@ -179,6 +185,7 @@ You can easily access this file via the Claude Desktop app by navigating to Clau
            "COINBASE_API_PRIVATE_KEY": "your_private_key",
            "SEED_PHRASE": "your seed phrase here",
            "COINBASE_PROJECT_ID": "your_project_id",
+           "ALCHEMY_API_KEY": "your_alchemy_api_key",
            "OPENROUTER_API_KEY": "your_openrouter_api_key"
          },
          "disabled": false,
@@ -316,6 +323,34 @@ Parameters:
 Example query to Claude:
 
 > "Transfer 10 USDC to 0x1234567890abcdef1234567890abcdef12345678."
+
+### list_nfts
+
+Lists NFTs owned by a specific address.
+
+Parameters:
+
+- `ownerAddress`: The address of the owner whose NFTs to list
+- `limit`: Maximum number of NFTs to return (default: 50)
+
+Example query to Claude:
+
+> "Show me the NFTs owned by 0x89A93a48C6Ef8085B9d07e46AaA96DFDeC717040."
+
+### transfer_nft
+
+Transfers an NFT to another address. Supports both ERC721 and ERC1155 standards.
+
+Parameters:
+
+- `contractAddress`: The address of the NFT contract
+- `tokenId`: The token ID of the NFT to transfer
+- `toAddress`: The address of the recipient
+- `amount`: The amount to transfer (only used for ERC1155, default: 1)
+
+Example query to Claude:
+
+> "Transfer my NFT with contract 0x3F06FcF75f45F1bb61D56D68fA7b3F32763AA15c and token ID 56090175025510453004781233574040052668718235229192064098345825090519343038548 to 0x1234567890abcdef1234567890abcdef12345678."
 
 ### buy_openrouter_credits
 

@@ -138,6 +138,39 @@ _Claude uses the `erc20_transfer` tool with the following parameters:_
 
 **Claude:** I've initiated the transfer of 10 USDC to 0x9876543210abcdef9876543210abcdef98765432. The transaction hash is: 0xfedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
+## NFT Operations
+
+### Listing NFTs
+
+**You:** Show me the NFTs owned by 0x89A93a48C6Ef8085B9d07e46AaA96DFDeC717040.
+
+**Claude:** I'll check what NFTs are owned by that address.
+
+_Claude uses the `list_nfts` tool with the following parameters:_
+
+- ownerAddress: 0x89A93a48C6Ef8085B9d07e46AaA96DFDeC717040
+
+**Claude:** I found 1 NFT owned by 0x89A93a48C6Ef8085B9d07e46AaA96DFDeC717040:
+
+1. Owl (ERC1155)
+   Contract: 0x3F06FcF75f45F1bb61D56D68fA7b3F32763AA15c
+   Token ID: 56090175025510453004781233574040052668718235229192064098345825090519343038548
+
+### Transferring an NFT
+
+**You:** Transfer my NFT with contract 0x3F06FcF75f45F1bb61D56D68fA7b3F32763AA15c and token ID 56090175025510453004781233574040052668718235229192064098345825090519343038548 to 0x1234567890abcdef1234567890abcdef12345678.
+
+**Claude:** I'll set up that NFT transfer for you.
+
+_Claude uses the `transfer_nft` tool with the following parameters:_
+
+- contractAddress: 0x3F06FcF75f45F1bb61D56D68fA7b3F32763AA15c
+- tokenId: 56090175025510453004781233574040052668718235229192064098345825090519343038548
+- toAddress: 0x1234567890abcdef1234567890abcdef12345678
+- amount: 1
+
+**Claude:** I've initiated the transfer of your Owl NFT to 0x1234567890abcdef1234567890abcdef12345678. The transaction hash is: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+
 ## Onramp and Payments
 
 ### Checking Available Onramp Assets
