@@ -32,3 +32,6 @@ export const checkToolSupportsChain = ({
 
   throw new Error(`Not implemented on ${chainName}`);
 };
+
+// Export transaction utilities
+export * from './transaction.js';
