@@ -183,6 +183,186 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 
 **Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
 
+## NFT Operations
+
+### Analyzing an NFT Collection
+
+**You:** Analyze the NFT collection at 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D.
+
+**Claude:** I'll analyze that NFT collection for you.
+
+_Claude uses the `analyze_nft_collection` tool with the following parameters:_
+
+- contractAddress: "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+
+**Claude:** I've analyzed the NFT collection.
+
+Collection Name: Bored Ape Yacht Club
+Symbol: BAYC
+Total Supply: 10,000
+
+Market Data:
+- Floor Price: 30.5 ETH
+- 24h Volume: 250 ETH
+- 7d Volume: 1,850 ETH
+- Unique Holders: 6,400
+- Listed for Sale: 485
+
+Rarity Analysis:
+- Most Common Traits: Brown background, Black fur, Sleepy eyes
+- Rarest Traits: Solid gold fur, Laser eyes, King's crown
+- Collection Traits with Highest Value: Gold fur, Laser eyes, Robot features
+
+### Minting a New NFT
+
+**You:** Mint a new NFT called "Digital Dreamscape" with the description "A surreal landscape of digital imagination" using the image at https://example.com/nft-image.jpg.
+
+**Claude:** I'll mint that NFT for you.
+
+_Claude uses the `mint_nft` tool with the following parameters:_
+
+- name: "Digital Dreamscape"
+- description: "A surreal landscape of digital imagination"
+- imageUrl: "https://example.com/nft-image.jpg"
+
+**Claude:** I've minted your "Digital Dreamscape" NFT successfully! The transaction has been submitted to the blockchain.
+
+Transaction Hash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+
+Your NFT has been minted to your wallet address. You can view it on [BaseScan](https://basescan.org/tx/0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890) or any NFT marketplace that supports Base.
+
+## DAO Governance
+
+### Creating a DAO
+
+**You:** Create a new DAO called "Community Fund" for managing our treasury with a 3-day voting period and 5% quorum.
+
+**Claude:** I'll create the DAO for you with those settings.
+
+_Claude uses the `create_dao` tool with the following parameters:_
+
+- name: "Community Fund"
+- votingPeriod: 259200
+- quorumPercentage: 5
+
+**Claude:** I've created the "Community Fund" DAO successfully. The DAO is deployed at address 0x742a1fb11f68b532db9c6494376c4e7a4fef4f24.
+
+Your DAO has the following settings:
+- Governance Type: Membership-based
+- Voting Period: 3 days
+- Quorum: 5%
+- Voting Delay: 1 day
+- Execution Delay: 2 days
+
+You are set as the initial admin. You can now create proposals and manage the DAO.
+
+### Creating a Proposal
+
+**You:** Create a proposal in our Community Fund DAO titled "Fund Developer Grants" with the description "Allocate 10,000 USDC to support developers building on our platform" with options "For" and "Against", ending in 5 days.
+
+**Claude:** I'll create that proposal for your DAO.
+
+_Claude uses the `create_dao_proposal` tool with the following parameters:_
+
+- title: "Fund Developer Grants"
+- description: "Allocate 10,000 USDC to support developers building on our platform"
+- options: ["For", "Against"]
+- endTime: [timestamp 5 days from now]
+- daoAddress: "0x742a1fb11f68b532db9c6494376c4e7a4fef4f24"
+
+**Claude:** Your proposal has been created successfully in the Community Fund DAO. The proposal ID is 0x3d7c9e6f.
+
+Here's a summary of your proposal:
+- Title: Fund Developer Grants
+- Description: Allocate 10,000 USDC to support developers building on our platform
+- Voting Options: For, Against
+- Voting ends: [date 5 days from now]
+
+Members can now cast their votes until the end date.
+
+### Viewing Proposals
+
+**You:** Show me all active proposals in our Community Fund DAO.
+
+**Claude:** I'll check the active proposals in your DAO.
+
+_Claude uses the `list_dao_proposals` tool with the following parameters:_
+
+- daoAddress: "0x742a1fb11f68b532db9c6494376c4e7a4fef4f24"
+- status: "active"
+
+**Claude:** There are 2 active proposals in the Community Fund DAO:
+
+1. **Fund Developer Grants** (ID: 0x3d7c9e6f)
+   - Description: Allocate 10,000 USDC to support developers building on our platform
+   - Voting ends: [date 5 days from now]
+   - Current votes: For: 100,000 (67%), Against: 50,000 (33%)
+   - Quorum: 75% reached (100,000/150,000 required)
+
+2. **Treasury diversification** (ID: 0x1234)
+   - Description: Proposal to diversify treasury holdings across stablecoins
+   - Voting ends: [date 2 days from now]
+   - Current votes: For: 100,000 (63%), Against: 50,000 (31%), Abstain: 10,000 (6%)
+   - Quorum: 100% reached (160,000/100,000 required)
+
+### Viewing Proposal Details
+
+**You:** Show me more details about the Fund Developer Grants proposal.
+
+**Claude:** I'll get the detailed information for that proposal.
+
+_Claude uses the `get_dao_proposal_details` tool with the following parameters:_
+
+- proposalId: "0x3d7c9e6f"
+- daoAddress: "0x742a1fb11f68b532db9c6494376c4e7a4fef4f24"
+
+**Claude:** Here are the details for the "Fund Developer Grants" proposal (ID: 0x3d7c9e6f):
+
+**Basic Information:**
+- Title: Fund Developer Grants
+- Description: Allocate 10,000 USDC to support developers building on our platform
+- Status: Active
+- Created by: 0xabcd...1234
+- Start time: [date]
+- End time: [date 5 days from creation]
+
+**Voting Progress:**
+- For: 100,000 votes (67%)
+- Against: 50,000 votes (33%)
+- Voter participation: 65% of eligible voters
+- Quorum requirement: 150,000 votes (75% reached)
+
+**Top Voters:**
+- 0xaaaa...1111: 50,000 votes (For)
+- 0xdddd...4444: 50,000 votes (Against)
+- 0xbbbb...2222: 30,000 votes (For)
+- 0xcccc...3333: 20,000 votes (For)
+
+**Actions if Passed:**
+- Transfer 10,000 USDC from treasury to developer grants wallet (0x9876...5432)
+
+### Casting a Vote
+
+**You:** I want to vote "For" on the Fund Developer Grants proposal because I believe supporting developers is crucial for our ecosystem growth.
+
+**Claude:** I'll cast your vote on the proposal.
+
+_Claude uses the `cast_dao_vote` tool with the following parameters:_
+
+- proposalId: "0x3d7c9e6f"
+- optionIndex: 1
+- reason: "I believe supporting developers is crucial for our ecosystem growth"
+- daoAddress: "0x742a1fb11f68b532db9c6494376c4e7a4fef4f24"
+
+**Claude:** Your vote has been cast successfully on the "Fund Developer Grants" proposal.
+
+Vote details:
+- Your vote: For
+- Proposal ID: 0x3d7c9e6f
+- Reason: "I believe supporting developers is crucial for our ecosystem growth"
+
+Your voting power has been added to the tally, and your vote is now recorded on-chain.
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.
