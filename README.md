@@ -352,6 +352,28 @@ Example query to Claude:
 
 > "Show me the most recent transactions for address 0xc5102fE9359FD9a28f877a67E36B0F050d81a3CC."
 
+### etherscan_contract_info
+
+Gets detailed information about a smart contract using Etherscan API.
+
+Parameters:
+
+- `address`: The contract address to get information for
+- `chainId`: The chain ID (defaults to chain the wallet is connected to)
+
+The tool returns the following information:
+- Contract name
+- Contract address
+- ABI
+- Contract creator address
+- Transaction hash where the contract was created
+- Creation timestamp
+- Current ETH balance of the contract
+
+Example query to Claude:
+
+> "Show me information about the contract at 0xc5102fE9359FD9a28f877a67E36B0F050d81a3CC."
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
