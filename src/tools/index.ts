@@ -1,5 +1,6 @@
 import { callContractTool } from './contracts/index.js';
 import { erc20BalanceTool, erc20TransferTool } from './erc20/index.js';
+import { erc721BalanceTool, erc721TransferTool } from './erc721/index.js';
 import { getMorphoVaultsTool } from './morpho/index.js';
 import { getOnrampAssetsTool, onrampTool } from './onramp/index.js';
 import { buyOpenRouterCreditsTool } from './open-router/index.js';
@@ -12,6 +13,8 @@ export const baseMcpTools: ToolWithHandler[] = [
   onrampTool,
   erc20BalanceTool,
   erc20TransferTool,
+  erc721BalanceTool,
+  erc721TransferTool,
   buyOpenRouterCreditsTool,
 ];
 
