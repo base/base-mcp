@@ -72,6 +72,7 @@ Base MCP lets AI applications like Claude and Cursor interact with the Base Netw
 - **Spare Change Saver**: Create an app that rounds up everyday purchases and saves the "spare change" in a Base DeFi vault.
 
 - **Emergency Fund Builder**: Build a tool that helps users create and maintain an emergency fund in stablecoins on Base.
+- **AI Customer Onboarding Guide**: Build an AI assistant that guides new users through first blockchain interactions on Base with interactive wallet setup, guided first transactions, personalized DeFi recommendations and on-chain verification of completed onboarding steps with reward tokens.
 
 ### Family & Friends
 
