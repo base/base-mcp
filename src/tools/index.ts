@@ -4,7 +4,7 @@ import { getMorphoVaultsTool } from './morpho/index.js';
 import { getOnrampAssetsTool, onrampTool } from './onramp/index.js';
 import { buyOpenRouterCreditsTool } from './open-router/index.js';
 import type { ToolHandler, ToolWithHandler } from './types.js';
-
+import { batchTransferTool } from './batch-transfer/index.js';
 export const baseMcpTools: ToolWithHandler[] = [
   getMorphoVaultsTool,
   callContractTool,
@@ -13,6 +13,7 @@ export const baseMcpTools: ToolWithHandler[] = [
   erc20BalanceTool,
   erc20TransferTool,
   buyOpenRouterCreditsTool,
+  batchTransferTool,
 ];
 
 export const toolToHandler: Record<string, ToolHandler> = baseMcpTools.reduce<
