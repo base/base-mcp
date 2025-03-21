@@ -1,0 +1,20 @@
+{
+  "name": "base-receipt-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for verifying Base network transactions and generating receipts",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.7.1",
+    "node-telegram-bot-api": "^0.63.0",
+    "pdfkit": "^0.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+} 
