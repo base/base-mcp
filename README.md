@@ -335,6 +335,116 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### analyze_nft_collection
+
+Analyze an NFT collection for floor price, volume, rarity, and other metrics.
+
+Parameters:
+
+- `contractAddress`: The contract address of the NFT collection to analyze
+- `chainId`: (Optional) The chain ID (defaults to Base Mainnet)
+
+Example query to Claude:
+
+> "Analyze the NFT collection at 0x1234567890abcdef1234567890abcdef12345678."
+
+### mint_nft
+
+Mint a new NFT with specified metadata and image.
+
+Parameters:
+
+- `name`: The name of the NFT
+- `description`: The description of the NFT
+- `imageUrl`: URL to the image (IPFS, Arweave, or HTTP)
+- `recipientAddress`: (Optional) The recipient address (defaults to the connected wallet)
+- `attributes`: (Optional) Attributes/traits for the NFT metadata, array of objects with trait_type and value
+
+Example query to Claude:
+
+> "Mint a new NFT called 'Cosmic Explorer' with the description 'A journey through the stars' using the image at https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/1."
+
+### create_dao
+
+Create a new DAO with specified governance settings.
+
+Parameters:
+
+- `name`: Name of the DAO
+- `tokenAddress`: (Optional) Governance token address (for token-based governance)
+- `members`: (Optional) Initial members for multisig/membership DAO, array of objects with address and votingPower
+- `votingPeriod`: (Optional) Default voting period in seconds
+- `votingDelay`: (Optional) Default delay before voting starts in seconds
+- `quorumPercentage`: (Optional) Default minimum quorum percentage
+- `executionDelay`: (Optional) Delay before execution in seconds
+
+Example query to Claude:
+
+> "Create a new DAO called 'Community Treasury' with a 3-day voting period and 4% quorum requirement."
+
+### create_dao_proposal
+
+Create a new proposal for DAO voting.
+
+Parameters:
+
+- `title`: The title of the proposal
+- `description`: Detailed description of the proposal
+- `options`: Voting options (at least 2)
+- `endTime`: Unix timestamp when voting ends
+- `daoAddress`: DAO contract address
+- `snapshotBlock`: (Optional) Block number for the voting power snapshot
+- `startTime`: (Optional) Unix timestamp when voting starts (default: immediately)
+- `quorum`: (Optional) Minimum percentage of total voting power required
+- `executionActions`: (Optional) Actions to execute if proposal passes
+
+Example query to Claude:
+
+> "Create a proposal in our DAO at 0x1234... titled 'Increase Developer Fund' with the description 'We should allocate more funds to support developers' with options 'For' and 'Against', ending in 5 days."
+
+### list_dao_proposals
+
+List all proposals for a DAO, with optional filtering by status.
+
+Parameters:
+
+- `daoAddress`: DAO contract address
+- `status`: (Optional) Filter by proposal status: "active", "pending", "closed", or "all"
+- `limit`: (Optional) Maximum number of proposals to return (default: 10)
+- `skip`: (Optional) Number of proposals to skip (default: 0)
+
+Example query to Claude:
+
+> "Show me all active proposals in our DAO at 0x1234..."
+
+### get_dao_proposal_details
+
+Get detailed information about a specific DAO proposal, including votes and actions.
+
+Parameters:
+
+- `proposalId`: ID of the proposal to fetch
+- `daoAddress`: DAO contract address
+
+Example query to Claude:
+
+> "Show me the details of proposal 0x1234 in our DAO at 0x5678..."
+
+### cast_dao_vote
+
+Cast a vote on a DAO proposal.
+
+Parameters:
+
+- `proposalId`: ID of the proposal to vote on
+- `optionIndex`: Index of the option to vote for
+- `daoAddress`: DAO contract address
+- `reason`: (Optional) Reason for the vote
+
+Example query to Claude:
+
+> "Vote 'For' on proposal 0x1234 in our DAO with the reason 'This will help grow our community'."
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.
