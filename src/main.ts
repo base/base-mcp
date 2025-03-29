@@ -1,6 +1,7 @@
 import {
   AgentKit,
   basenameActionProvider,
+  cdpApiActionProvider,
   cdpWalletActionProvider,
   CdpWalletProvider,
   morphoActionProvider,
@@ -74,6 +75,10 @@ export async function main() {
       morphoActionProvider(),
       walletActionProvider(),
       cdpWalletActionProvider({
+        apiKeyName,
+        apiKeyPrivateKey: privateKey,
+      }),
+      cdpApiActionProvider({
         apiKeyName,
         apiKeyPrivateKey: privateKey,
       }),
