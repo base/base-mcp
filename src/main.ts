@@ -9,6 +9,7 @@ import {
 } from '@coinbase/agentkit';
 import { getMcpTools } from '@coinbase/agentkit-model-context-protocol';
 import { Coinbase } from '@coinbase/coinbase-sdk';
+import { EIP1193Provider, Wallets } from '@mobile-wallet-protocol/client';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -26,6 +27,7 @@ import {
 import { mnemonicToAccount } from 'viem/accounts';
 import { base } from 'viem/chains';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
+import { initializeSmartWallet } from './smart-wallet.js';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
 import { version } from './version.js';
 
@@ -37,6 +39,8 @@ export async function main() {
     process.env.COINBASE_API_SECRET || process.env.COINBASE_API_PRIVATE_KEY; // Previously, was called COINBASE_API_PRIVATE_KEY
   const seedPhrase = process.env.SEED_PHRASE;
   const chainId = process.env.CHAIN_ID ? Number(process.env.CHAIN_ID) : base.id;
+
+  initializeSmartWallet();
 
   // TODO: stricter checks for required env vars with better error messaging
   if (!apiKeyName || !privateKey || !seedPhrase) {
