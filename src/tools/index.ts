@@ -1,4 +1,5 @@
 import { callContractTool } from './contracts/index.js';
+import { ensTools } from "./ens/index.js";
 import { erc20BalanceTool, erc20TransferTool } from './erc20/index.js';
 import { getMorphoVaultsTool } from './morpho/index.js';
 import { listNftsTool, transferNftTool } from './nft/index.js';
@@ -16,6 +17,8 @@ export const baseMcpTools: ToolWithHandler[] = [
   listNftsTool,
   transferNftTool,
   buyOpenRouterCreditsTool,
+  ensTools.resolveEnsName,
+  ensTools.lookupEnsAddress
 ];
 
 export const toolToHandler: Record<string, ToolHandler> = baseMcpTools.reduce<
