@@ -1,5 +1,11 @@
 # base-mcp
 
+## 1.0.11
+
+### Patch Changes
+
+- 47a979c: fix
+
 ### Patch Changes
 
 - Updated @coinbase/agentkit to v0.6.0 and removed override
