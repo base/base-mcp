@@ -3,7 +3,7 @@
   "version": "1.0.11",
   "description": "A Model Context Protocol (MCP) server that provides onchain tools for Claude AI, allowing it to interact with the Base blockchain and Coinbase API",
   "bin": {
-    "base-mcp": "./build/index.js"
+    "base-mcp": "build/index.js"
   },
   "type": "module",
   "scripts": {
