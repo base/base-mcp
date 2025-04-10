@@ -1,5 +1,11 @@
 # base-mcp
 
+## 1.0.12
+
+### Patch Changes
+
+- 908281a: Fix package.json for npm deployments
+
 ## 1.0.11
 
 ### Patch Changes
