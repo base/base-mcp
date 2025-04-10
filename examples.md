@@ -216,6 +216,26 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 
 **Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
 
+## Farcaster Operations
+
+### Resolving a Farcaster Username to an Ethereum Address
+
+**You:** What's the Ethereum address for the Farcaster user "dwr"?
+
+**Claude:** I'll look up that Farcaster username for you.
+
+_Claude uses the `farcaster_username` tool with the following parameters:_
+
+- username: dwr
+
+**Claude:** I found the Ethereum address for the Farcaster user "dwr":
+
+- Username: dwr
+- FID: 5650
+- Ethereum Address: 0x6a0d25cbb5aa86595f4d29a18999ff2f5d6be4ea
+
+This address is verified on their Farcaster profile and can be used for transactions or verification.
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.

@@ -1,0 +1,138 @@
+Search for Usernames
+get
+https://api.neynar.com/v2/farcaster/user/search
+Search for Usernames
+
+📘
+See related guide: Username search
+
+Query Params
+q
+string
+required
+viewer_fid
+int32
+Providing this will return search results that respects this user's mutes and blocks and includes viewer_context.
+
+limit
+int32
+1 to 10
+Defaults to 5
+Number of users to fetch
+
+5
+cursor
+string
+Pagination cursor.
+
+curl --request GET \
+     --url 'https://api.neynar.com/v2/farcaster/user/search?limit=5' \
+     --header 'accept: application/json' \
+     --header 'x-api-key: NEYNAR_API_DOCS' \
+     --header 'x-neynar-experimental: false'
+
+     {
+  "result": {
+    "users": [
+      {
+        "object": "user",
+        "fid": 3,
+        "username": "string",
+        "display_name": "string",
+        "custody_address": "0x5a927ac639636e534b678e81768ca19e2c6280b7",
+        "pfp_url": "string",
+        "profile": {
+          "bio": {
+            "text": "string",
+            "mentioned_profiles": [
+              {
+                "object": "user_dehydrated",
+                "fid": 3,
+                "username": "string",
+                "display_name": "string",
+                "pfp_url": "string",
+                "custody_address": "0x5a927ac639636e534b678e81768ca19e2c6280b7"
+              }
+            ],
+            "mentioned_profiles_ranges": [
+              {
+                "start": 0,
+                "end": 0
+              }
+            ],
+            "mentioned_channels": [
+              {
+                "id": "string",
+                "name": "string",
+                "object": "channel_dehydrated",
+                "image_url": "string",
+                "viewer_context": {
+                  "following": true,
+                  "role": "member"
+                }
+              }
+            ],
+            "mentioned_channels_ranges": [
+              {
+                "start": 0,
+                "end": 0
+              }
+            ]
+          },
+          "location": {
+            "latitude": 0,
+            "longitude": 0,
+            "address": {
+              "city": "string",
+              "state": "string",
+              "state_code": "string",
+              "country": "string",
+              "country_code": "string"
+            }
+          }
+        },
+        "follower_count": 0,
+        "following_count": 0,
+        "verifications": [
+          "0x5a927ac639636e534b678e81768ca19e2c6280b7"
+        ],
+        "verified_addresses": {
+          "eth_addresses": [
+            "0x5a927ac639636e534b678e81768ca19e2c6280b7"
+          ],
+          "sol_addresses": [
+            "string"
+          ],
+          "primary": {
+            "eth_address": "0x5a927ac639636e534b678e81768ca19e2c6280b7",
+            "sol_address": "string"
+          }
+        },
+        "verified_accounts": [
+          {
+            "platform": "x",
+            "username": "string"
+          }
+        ],
+        "power_badge": true,
+        "experimental": {
+          "neynar_user_score": 0
+        },
+        "viewer_context": {
+          "following": true,
+          "followed_by": true,
+          "blocking": true,
+          "blocked_by": true
+        }
+      },
+      {
+        "pfp": {
+          "url": "string"
+        }
+      }
+    ],
+    "next": {
+      "cursor": "string"
+    }
+  }
+}

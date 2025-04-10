@@ -21,6 +21,7 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - Manage ERC20 tokens
 - List and transfer NFTs (ERC721 and ERC1155)
 - Buy [OpenRouter](http://openrouter.ai/) credits with USDC
+- Resolve Farcaster usernames to Ethereum addresses
 
 The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit).
 
@@ -155,6 +156,10 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 # Use 84532 for Base Sepolia testnet
 # You do not have to include this if you want to use Base Mainnet
 CHAIN_ID=your_chain_id
+
+# Neynar API Key (required for Farcaster functionality)
+# You can obtain this from https://neynar.com
+NEYNAR_API_KEY=your_neynar_api_key
 ```
 
 ## Testing

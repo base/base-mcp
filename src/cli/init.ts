@@ -50,6 +50,16 @@ const TOOLS_WITH_REQUIRED_KEYS: ToolWithKeys[] = [
       },
     ],
   },
+  {
+    name: 'Neynar (Farcaster)',
+    keys: [
+      {
+        name: 'NEYNAR_API_KEY',
+        label: 'Neynar API Key',
+        required: true,
+      },
+    ],
+  },
 ];
 
 const baseBlue = chalk.hex('#0052FF');
