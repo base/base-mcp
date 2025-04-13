@@ -231,3 +231,50 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 6. **Verify contract interactions** - When interacting with smart contracts, verify the contract address and function parameters before confirming transactions.
 
 7. **Use onramp responsibly** - When onramping funds, be aware of any fees or limits that may apply.
+
+## Asset Price Information
+
+### Checking Current Asset Prices
+
+**You:** What are the current prices of ETH, BTC, and USDC?
+
+**Claude:** I'll check the current prices for those assets.
+
+_Claude uses the `asset_price` tool with the following parameters:_
+
+- assetSymbols: ["ETH", "BTC", "USDC"]
+- currency: "USD"
+
+**Claude:** Here are the current prices:
+
+- ETH: $3,520.45 USD
+- BTC: $65,432.18 USD
+- USDC: $1.00 USD
+
+### Getting Detailed Market Information
+
+**You:** Show me detailed market information for ETH and BTC in EUR.
+
+**Claude:** I'll get detailed market information for those assets in EUR.
+
+_Claude uses the `asset_price` tool with the following parameters:_
+
+- assetSymbols: ["ETH", "BTC"]
+- currency: "EUR"
+- includeMetadata: true
+
+**Claude:** Here's the detailed market information:
+
+**ETH:**
+
+- Current Price: €3,245.67 EUR
+- Market Cap: €391.2 billion EUR
+- 24h Volume: €15.8 billion EUR
+- 24h Change: -2.3%
+
+**BTC:**
+
+- Current Price: €60,123.45 EUR
+- Market Cap: €1.17 trillion EUR
+- 24h Volume: €42.3 billion EUR
+- 24h Change: +1.7%
