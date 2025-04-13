@@ -216,6 +216,88 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 
 **Claude:** I've initiated the purchase of $20 worth of OpenRouter credits using your USDC. The transaction hash is: 0x123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
 
+## Buying Heurist API Credits
+
+The `buy_heurist_credits` tool allows you to purchase Heurist API credits using cryptocurrency on the Base chain. You can use USDC, HEU, or WETH tokens for payment.
+
+### Example 1: Purchasing with USDC
+
+**User:** I'd like to purchase some Heurist API credits. Can I use 2 USDC?
+
+**Claude:**
+
+I'll help you purchase Heurist API credits using USDC.
+
+First, I'll check your USDC balance to make sure you have enough funds.
+
+[Claude uses the erc20_balance tool to check your USDC balance]
+
+Great! You have sufficient USDC. I'll now purchase Heurist API credits for you.
+
+[Claude uses the buy_heurist_credits tool]
+
+✅ Successfully purchased Heurist API credits with 1 USDC. 
+
+Transaction: https://basescan.org/tx/0xf9f569c79fe246c40171c1c25e517a13e6a02551093b1b4309d090292d7ceed4
+
+You can check your credits balance and manage your API keys by visiting https://www.heurist.ai/credits and connecting with the same wallet address that you used for this purchase.
+
+### Example 2: Purchasing with HEU Tokens
+
+**User:** I want to buy Heurist API credits using 15 HEU tokens.
+
+**Claude:**
+
+I'll help you purchase Heurist API credits using HEU tokens.
+
+First, I'll check if you have enough HEU tokens in your wallet.
+
+[Claude uses the erc20_balance tool to check your HEU balance]
+
+You have enough HEU tokens. I'll now purchase the Heurist API credits for you.
+
+[Claude uses the buy_heurist_credits tool]
+
+✅ Successfully purchased Heurist API credits with 15 HEU. 
+
+Transaction: https://basescan.org/tx/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+
+You can check your credits balance and manage your API keys by visiting https://www.heurist.ai/credits and connecting with the same wallet address (0x1234567890abcdef1234567890abcdef12345678) that you used for this purchase.
+
+### Example 3: Purchasing with WETH
+
+**User:** Can I buy Heurist API credits with WETH? I want to spend 0.005 WETH.
+
+**Claude:**
+
+I'll help you purchase Heurist API credits using WETH.
+
+First, I'll verify your WETH balance.
+
+[Claude uses the erc20_balance tool to check your WETH balance]
+
+You have sufficient WETH. I'll now purchase Heurist API credits for you.
+
+[Claude uses the buy_heurist_credits tool]
+
+✅ Successfully purchased Heurist API credits with 0.005 WETH. 
+
+Transaction: https://basescan.org/tx/0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+
+You can check your credits balance and manage your API keys by visiting https://www.heurist.ai/credits and connecting with the same wallet address (0x1234567890abcdef1234567890abcdef12345678) that you used for this purchase.
+
+### Tips for Buying Heurist API Credits
+
+- Minimum amounts required:
+  - USDC: 1.0 USDC
+  - HEU: 10 HEU
+  - WETH: 0.001 WETH
+- Make sure you have sufficient ETH for gas fees
+- The transaction requires approval for the Heurist contract to spend your tokens (this is handled automatically)
+- Credits are allocated to the wallet address used for the purchase
+- After purchase, visit https://www.heurist.ai/credits to check your balance and manage your API keys
+- Connect with the same wallet address you used for purchasing credits
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.
