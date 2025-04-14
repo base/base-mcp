@@ -17,6 +17,7 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - Deploy smart contracts
 - Interact with Morpho vaults for onchain lending
 - Call contract functions
+- Deploy tokens using Clanker SDK
 - Onramp funds via [Coinbase](https://www.coinbase.com/developer-platform/products/onramp)
 - Manage ERC20 tokens
 - List and transfer NFTs (ERC721 and ERC1155)
@@ -388,6 +389,26 @@ Parameters:
 Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
+
+### Clanker Token Deployment
+The `deploy_clanker_token` tool allows you to deploy new tokens using the Clanker SDK. It provides a simple interface for token deployment with the following parameters:
+
+- `name`: The name of the token to deploy
+- `symbol`: The token symbol
+- `image`: IPFS URI for the token image (must start with 'ipfs://')
+
+Example usage through Claude:
+```
+Deploy a new token called "My Token" with symbol "MTK" and this image: ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi
+```
+
+The tool will return the deployed token's address and transaction details.
+
+### Prerequisites
+To use the Clanker token deployment tool, make sure you have:
+- A wallet with sufficient ETH for deployment
+- The Clanker SDK installed (`npm install clanker-sdk`)
+- A valid IPFS URI for your token image
 
 ## Security Considerations
 

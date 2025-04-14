@@ -191,6 +191,28 @@ _Claude uses the `get_onramp_assets` tool with the following parameters:_
 - DAI
 - WBTC
 
+## Clanker Token Deployment
+
+### Deploying a New Token
+
+**You:** Deploy a new token called "Community Token" with symbol "CTK" and this image: ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi
+
+**Claude:** I'll help you deploy a new token using the Clanker SDK.
+
+_Claude uses the `deploy_clanker_token` tool with the following parameters:_
+
+- name: "Community Token"
+- symbol: "CTK"
+- image: "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi"
+
+**Claude:** Your token has been deployed successfully! Here are the details:
+- Contract Address: 0x431b441D6A6B7a7B98d3F956194Cd727777835Da
+- Name: Community Token
+- Symbol: CTK
+- Image: ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi
+
+You can now interact with your token using standard ERC20 functions like transfer, approve, etc.
+
 ### Onramping Funds
 
 **You:** I want to onramp $100 worth of ETH.
