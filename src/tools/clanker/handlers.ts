@@ -1,4 +1,6 @@
-import type { PublicActions, WalletClient } from 'viem';
+import type { PublicActions, WalletClient, PublicClient } from 'viem';
+import { createPublicClient, http } from 'viem';
+import { base } from 'viem/chains';
 import type { z } from 'zod';
 import { Clanker } from 'clanker-sdk';
 import { ClankerDeploySchema } from './schemas.js';
@@ -16,9 +18,16 @@ export async function clankerDeployHandler(
 ): Promise<string> {
   try {
     console.log('Initializing Clanker SDK...');
+    
+    // Create a separate public client
+    const publicClient = createPublicClient({
+      chain: base,
+      transport: http()
+    }) as PublicClient;
+
     const clanker = new Clanker({
       wallet,
-      publicClient: wallet,
+      publicClient,
     });
 
     console.log(`Deploying token with name: ${args.name}, symbol: ${args.symbol}`);
