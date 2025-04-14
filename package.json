@@ -51,6 +51,7 @@
     "@modelcontextprotocol/sdk": "^1.6.1",
     "@privy-io/public-api": "^2.20.5",
     "chalk": "^5.4.1",
+    "clanker-sdk": "^3.1.13",
     "dotenv": "^16.4.7",
     "graphql": "^16.10.0",
     "graphql-request": "^7.1.2",
