@@ -393,14 +393,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@coinbase/agentkit@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@coinbase/agentkit@npm:0.6.0"
+"@coinbase/agentkit@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "@coinbase/agentkit@npm:0.6.2"
   dependencies:
     "@across-protocol/app-sdk": "npm:^0.2.0"
     "@alloralabs/allora-sdk": "npm:^0.1.0"
     "@coinbase/coinbase-sdk": "npm:^0.20.0"
     "@jup-ag/api": "npm:^6.0.39"
+    "@privy-io/public-api": "npm:^2.18.5"
     "@privy-io/server-auth": "npm:^1.18.4"
     "@solana/spl-token": "npm:^0.4.12"
     "@solana/web3.js": "npm:^1.98.0"
@@ -414,7 +415,7 @@ __metadata:
     twitter-api-v2: "npm:^1.18.2"
     viem: "npm:^2.22.16"
     zod: "npm:^3.23.8"
-  checksum: 10c0/a530ab86195b984cdd413a44e4233acdb20de7a7add15eabeb27cef9b5eb92788ab347a02d48d73ca5fa4b0c416dd2ca7f41bf2fb8c13ef1fb4f22ecd4af52cf
+  checksum: 10c0/2ccc8bca3748926757c24b21279ebeb01833499d8271b114684670bd38ee842c190beb0cea4f4bea19e0c90ae19d483bc9c76591fe484b2995a85fd365ac4221
   languageName: node
   linkType: hard
 
@@ -1725,6 +1726,19 @@ __metadata:
   dependencies:
     zod: "npm:^3.21.4"
   checksum: 10c0/c81659477667144495d1d9b7d6db0bd7a9619083f07b175eee467c218d6cf26c39ee27d2bacc6670024f9596967d7bbcec172fee76c76a127046f8dfa96ef4b2
+  languageName: node
+  linkType: hard
+
+"@privy-io/public-api@npm:^2.18.5":
+  version: 2.21.2
+  resolution: "@privy-io/public-api@npm:2.21.2"
+  dependencies:
+    "@privy-io/api-base": "npm:1.4.5"
+    bs58: "npm:^5.0.0"
+    libphonenumber-js: "npm:^1.10.31"
+    viem: "npm:^2"
+    zod: "npm:^3.22.4"
+  checksum: 10c0/125d6e73d55ec7b8aa666f36a539adb0f6091d63de1719cb6d947f1929764db70bdf7d6d37be631bc13268bb92f52c6a8d2ce62cfceb305acdee4c0cd33519de
   languageName: node
   linkType: hard
 
@@ -3090,7 +3104,7 @@ __metadata:
   dependencies:
     "@changesets/cli": "npm:^2.28.1"
     "@clack/prompts": "npm:^0.10.0"
-    "@coinbase/agentkit": "npm:^0.6.0"
+    "@coinbase/agentkit": "npm:^0.6.2"
     "@coinbase/agentkit-model-context-protocol": "npm:^0.2.0"
     "@coinbase/coinbase-sdk": "npm:^0.21.0"
     "@coinbase/onchainkit": "npm:^0.37.6"

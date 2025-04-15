@@ -28,6 +28,7 @@ import { base } from 'viem/chains';
 import { Event, postMetric } from './analytics.js';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
+import { baseMcpMorphoActionProvider } from './tools/morpho/index.js';
 import {
   generateSessionId,
   getActionProvidersWithRequiredEnvVars,
@@ -80,22 +81,30 @@ export async function main() {
     cdpApiKeyPrivateKey: privateKey,
     walletProvider: cdpWalletProvider,
     actionProviders: [
-      basenameActionProvider(),
-      morphoActionProvider(),
-      walletActionProvider(),
-      cdpWalletActionProvider({
-        apiKeyName,
-        apiKeyPrivateKey: privateKey,
-      }),
-      cdpApiActionProvider({
-        apiKeyName,
-        apiKeyPrivateKey: privateKey,
-      }),
-      ...getActionProvidersWithRequiredEnvVars(),
+      // basenameActionProvider(),
+      // morphoActionProvider(),
+      // walletActionProvider(),
+      // cdpWalletActionProvider({
+      //   apiKeyName,
+      //   apiKeyPrivateKey: privateKey,
+      // }),
+      // cdpApiActionProvider({
+      //   apiKeyName,
+      //   apiKeyPrivateKey: privateKey,
+      // }),
+      // ...getActionProvidersWithRequiredEnvVars(),
+
+      // Base MCP Action Providers
+      baseMcpMorphoActionProvider(),
     ],
   });
+  console.error(' baseMcpMorphoActionProvider:', baseMcpMorphoActionProvider);
+
+  const actions = agentKit.getActions();
+  console.error(' actions:', actions);
 
   const { tools, toolHandler } = await getMcpTools(agentKit);
+  console.error(' tools:', tools);
 
   const server = new Server(
     {
@@ -119,7 +128,8 @@ export async function main() {
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     console.error('Received ListToolsRequest');
     return {
-      tools: [...baseMcpTools.map((tool) => tool.definition), ...tools],
+      // tools: [...baseMcpTools.map((tool) => tool.definition), ...tools],
+      tools,
     };
   });
 
