@@ -68,6 +68,7 @@ When developing new tools for Base MCP:
 - Write thorough documentation
 - Add examples demonstrating how to use your tool
 - Include tests for your tool
+- Always Pass your test cases with the entire code base 
 
 For more detailed information on contributing to Base MCP, including adding new tools and protocols, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
