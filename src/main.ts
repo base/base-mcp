@@ -54,7 +54,7 @@ export async function main() {
 
   const sessionId = generateSessionId();
 
-  postMetric(Event.Initialized, {}, sessionId);
+  // postMetric(Event.Initialized, {}, sessionId);
 
   const chain = chainIdToChain(chainId);
   if (!chain) {
@@ -98,13 +98,8 @@ export async function main() {
       baseMcpMorphoActionProvider(),
     ],
   });
-  console.error(' baseMcpMorphoActionProvider:', baseMcpMorphoActionProvider);
-
-  const actions = agentKit.getActions();
-  console.error(' actions:', actions);
 
   const { tools, toolHandler } = await getMcpTools(agentKit);
-  console.error(' tools:', tools);
 
   const server = new Server(
     {
@@ -135,7 +130,7 @@ export async function main() {
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     try {
-      postMetric(Event.ToolUsed, { toolName: request.params.name }, sessionId);
+      // postMetric(Event.ToolUsed, { toolName: request.params.name }, sessionId);
 
       // Check if the tool is Base MCP tool
       const isBaseMcpTool = baseMcpTools.some(

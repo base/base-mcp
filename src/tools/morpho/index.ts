@@ -23,6 +23,7 @@ export class BaseMcpMorphoActionProvider extends ActionProvider<EvmWalletProvide
     walletProvider: EvmWalletProvider,
     args: z.infer<typeof GetMorphoVaultsSchema>,
   ) {
+    console.error(' walletProvider:', walletProvider);
     const vaults = await getMorphoVaults({
       chainId: Number(walletProvider.getNetwork().chainId),
       assetSymbol: args.assetSymbol ?? '',
