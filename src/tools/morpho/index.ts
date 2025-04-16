@@ -1,7 +1,7 @@
 import {
   ActionProvider,
   CreateAction,
-  type EvmWalletProvider,
+  EvmWalletProvider,
   type Network,
 } from '@coinbase/agentkit';
 import { base } from 'viem/chains';
@@ -23,10 +23,6 @@ export class BaseMcpMorphoActionProvider extends ActionProvider<EvmWalletProvide
     walletProvider: EvmWalletProvider,
     args: z.infer<typeof GetMorphoVaultsSchema>,
   ) {
-    /**
-     * walletProvider isn't being passed. When it's logged, it's the value that `args` should be, { assetSymbol: 'ETH' }
-     */
-    console.error(' walletProvider:', walletProvider);
     const vaults = await getMorphoVaults({
       chainId: Number(walletProvider.getNetwork().chainId),
       assetSymbol: args.assetSymbol ?? '',
