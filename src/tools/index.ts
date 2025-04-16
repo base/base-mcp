@@ -4,6 +4,7 @@ import { getMorphoVaultsTool } from './morpho/index.js';
 import { listNftsTool, transferNftTool } from './nft/index.js';
 import { getOnrampAssetsTool, onrampTool } from './onramp/index.js';
 import { buyOpenRouterCreditsTool } from './open-router/index.js';
+import { advancedContractTools } from './advanced-contracts/index.js';
 import type { ToolHandler, ToolWithHandler } from './types.js';
 
 export const baseMcpTools: ToolWithHandler[] = [
@@ -16,6 +17,10 @@ export const baseMcpTools: ToolWithHandler[] = [
   listNftsTool,
   transferNftTool,
   buyOpenRouterCreditsTool,
+  ...advancedContractTools.map(tool => ({
+    definition: tool,
+    handler: tool.handler
+  }))
 ];
 
 export const toolToHandler: Record<string, ToolHandler> = baseMcpTools.reduce<

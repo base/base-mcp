@@ -389,6 +389,40 @@ Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
 
+### Advanced Contract Tools
+
+The Base MCP server now includes advanced contract interaction capabilities:
+
+#### execute-batch-transactions
+Execute multiple transactions in a batch with optimized gas usage.
+
+Example query to Claude:
+> "Execute these transactions in a batch: transfer 0.1 ETH to 0x123... and 0.2 ETH to 0x456..."
+
+#### subscribe-contract-events
+Subscribe to contract events with filtering capabilities.
+
+Example query to Claude:
+> "Subscribe to Transfer events from contract 0x789..."
+
+#### execute-contract-call
+Execute a contract call with advanced options and gas optimization.
+
+Example query to Claude:
+> "Call the mint function on contract 0xabc... with parameters [1, 2, 3]"
+
+#### optimize-gas
+Optimize gas usage based on different strategies (fast, medium, slow).
+
+Example query to Claude:
+> "What's the optimal gas price for a fast transaction?"
+
+#### validate-abi
+Validate contract ABI with comprehensive checks.
+
+Example query to Claude:
+> "Validate this contract ABI for any issues"
+
 ## Security Considerations
 
 - The configuration file contains sensitive information (API keys and seed phrases). Ensure it's properly secured and not shared.

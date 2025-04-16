@@ -231,3 +231,92 @@ _Claude uses the `buy_openrouter_credits` tool with the following parameters:_
 6. **Verify contract interactions** - When interacting with smart contracts, verify the contract address and function parameters before confirming transactions.
 
 7. **Use onramp responsibly** - When onramping funds, be aware of any fees or limits that may apply.
+
+## Advanced Contract Tools Examples
+
+### Batch Transactions
+
+Execute multiple transactions in a single batch to save gas and ensure atomicity:
+
+```typescript
+// Example batch transaction
+const batchTx = {
+  transactions: [
+    {
+      to: "0x1234567890123456789012345678901234567890",
+      data: "0x...",
+      value: "0.1"
+    },
+    {
+      to: "0x0987654321098765432109876543210987654321",
+      data: "0x...",
+      value: "0.2"
+    }
+  ],
+  gasLimit: "300000",
+  maxFeePerGas: "50",
+  maxPriorityFeePerGas: "2"
+};
+```
+
+### Contract Event Subscription
+
+Subscribe to specific contract events with filtering:
+
+```typescript
+// Example event subscription
+const subscription = {
+  contractAddress: "0x1234567890123456789012345678901234567890",
+  eventName: "Transfer",
+  fromBlock: 1000000,
+  toBlock: 2000000,
+  filter: {
+    from: "0x123...",
+    to: "0x456..."
+  }
+};
+```
+
+### Advanced Contract Calls
+
+Execute contract calls with optimized gas and advanced options:
+
+```typescript
+// Example contract call
+const contractCall = {
+  contractAddress: "0x1234567890123456789012345678901234567890",
+  abi: [...],
+  functionName: "mint",
+  args: [1, 2, 3],
+  value: "0.1",
+  gasLimit: "200000"
+};
+```
+
+### Gas Optimization
+
+Optimize gas usage based on different strategies:
+
+```typescript
+// Example gas optimization
+const gasOptimization = {
+  strategy: "fast", // or "medium" or "slow"
+  maxGasPrice: "100", // in gwei
+  priorityFee: "2" // in gwei
+};
+```
+
+### ABI Validation
+
+Validate contract ABIs for potential issues:
+
+```typescript
+// Example ABI validation
+const abiValidation = {
+  abi: [...],
+  bytecode: "0x...",
+  validateConstructor: true,
+  validateFunctions: true,
+  validateEvents: true
+};
+```
