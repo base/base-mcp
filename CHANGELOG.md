@@ -4,12 +4,6 @@
 
 ### Patch Changes
 
-- 7d3af1c: Fix
-
-## 1.0.13
-
-### Patch Changes
-
 - 5b6f717: Refactor for improved compatibiltiy with AgentKit
 
 ## 1.0.12
