@@ -35,10 +35,11 @@ If you want to add a new tool to the Base MCP server, follow these steps:
 
 1. Create a new directory in the `src/tools` directory for your tool
 2. Implement the tool following the existing patterns:
-   - `index.ts`: Define and export your tools
+   - `index.ts`: Define and export your tools. Tools are defined as AgentKit ActionProviders.
    - `schemas.ts`: Define input schemas for your tools
-   - `handlers.ts`: Implement the functionality of your tools
-3. Add your tool to the list of available tools in `src/tools/index.ts`
+   - `types.ts`: Define types required for your tools
+   - `utils.ts`: Utilities for your tools
+3. Add your tool to the list of available tools in `src/main.ts`
 4. Add documentation for your tool in the README.md
 5. Add examples of how to use your tool in examples.md
 6. Write tests for your tool
@@ -50,11 +51,9 @@ The Base MCP server follows this structure for tools:
 ```
 src/
 ├── tools/
-│   ├── index.ts (exports toolsets)
 │   ├── [TOOL_NAME]/ <-------------------------- ADD DIR HERE
 │   │   ├── index.ts (defines and exports tools)
 │   │   ├── schemas.ts (defines input schema)
-│   │   └── handlers.ts (implements tool functionality)
 │   └── utils/ (shared tool utilities)
 ```
 
