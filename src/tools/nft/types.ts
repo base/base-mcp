@@ -1,3 +1,4 @@
+import type { EvmWalletProvider } from '@coinbase/agentkit';
 import type { PublicActions, WalletClient } from 'viem';
 
 /**
@@ -41,7 +42,7 @@ export type FetchNftsParams = {
  * Parameters for transferring NFTs
  */
 export type TransferNftParams = {
-  wallet: WalletClient & PublicActions;
+  wallet: EvmWalletProvider;
   contractAddress: `0x${string}`;
   tokenId: string;
   toAddress: `0x${string}`;

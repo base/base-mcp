@@ -1,5 +1,5 @@
-import { erc721Abi as viem_erc721Abi } from 'viem';
-import type { PublicActions } from 'viem';
+import type { EvmWalletProvider } from '@coinbase/agentkit';
+import { encodeFunctionData, erc721Abi as viem_erc721Abi } from 'viem';
 import { erc1155Abi } from '../../lib/contracts/erc1155.js';
 import type {
   FetchNftsParams,
@@ -56,7 +56,7 @@ export function formatNftData({
  * @returns The detected NFT standard or "UNKNOWN"
  */
 export async function detectNftStandard(
-  wallet: PublicActions,
+  wallet: EvmWalletProvider,
   contractAddress: `0x${string}`,
 ): Promise<'ERC721' | 'ERC1155' | 'UNKNOWN'> {
   try {
@@ -143,7 +143,7 @@ export async function fetchNftsFromAlchemy({
  * @param amount Amount of tokens to transfer (for ERC1155)
  * @returns Transaction hash
  */
-export async function transferNft({
+export async function detectStandardAndTransferNft({
   wallet,
   contractAddress,
   tokenId,
@@ -161,7 +161,7 @@ export async function transferNft({
     }
 
     // Get the wallet address
-    const [fromAddress] = await wallet.getAddresses();
+    const fromAddress = wallet.getAddress() as `0x${string}`;
 
     // Convert values to the correct format
     const tokenIdBigInt = BigInt(tokenId);
@@ -171,23 +171,23 @@ export async function transferNft({
 
     if (nftStandard === 'ERC721') {
       // Transfer ERC721 NFT
-      hash = await wallet.writeContract({
-        address: contractAddress,
-        abi: erc721Abi,
-        functionName: 'safeTransferFrom',
-        args: [fromAddress, toAddress, tokenIdBigInt],
-        chain: null,
-        account: fromAddress,
+      hash = await wallet.sendTransaction({
+        to: contractAddress,
+        data: encodeFunctionData({
+          abi: erc721Abi,
+          functionName: 'safeTransferFrom',
+          args: [fromAddress, toAddress, tokenIdBigInt],
+        }),
       });
     } else {
       // Transfer ERC1155 NFT
-      hash = await wallet.writeContract({
-        address: contractAddress,
-        abi: erc1155Abi,
-        functionName: 'safeTransferFrom',
-        args: [fromAddress, toAddress, tokenIdBigInt, amountBigInt, '0x'],
-        chain: null,
-        account: fromAddress,
+      hash = await wallet.sendTransaction({
+        to: contractAddress,
+        data: encodeFunctionData({
+          abi: erc1155Abi,
+          functionName: 'safeTransferFrom',
+          args: [fromAddress, toAddress, tokenIdBigInt, amountBigInt, '0x'],
+        }),
       });
     }
 
