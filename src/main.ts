@@ -16,23 +16,16 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import * as dotenv from 'dotenv';
-import {
-  createWalletClient,
-  http,
-  publicActions,
-  type PublicActions,
-  type WalletClient,
-} from 'viem';
-import { english, generateMnemonic, mnemonicToAccount } from 'viem/accounts';
+import { english, generateMnemonic } from 'viem/accounts';
 import { base } from 'viem/chains';
 import { Event, postMetric } from './analytics.js';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpContractActionProvider } from './tools/contracts/index.js';
 import { baseMcpErc20ActionProvider } from './tools/erc20/index.js';
-import { baseMcpTools, toolToHandler } from './tools/index.js';
 import { baseMcpMorphoActionProvider } from './tools/morpho/index.js';
 import { baseMcpNftActionProvider } from './tools/nft/index.js';
 import { baseMcpOnrampActionProvider } from './tools/onramp/index.js';
+import { openRouterActionProvider } from './tools/open-router/index.js';
 import {
   generateSessionId,
   getActionProvidersWithRequiredEnvVars,
@@ -98,6 +91,7 @@ export async function main() {
       baseMcpOnrampActionProvider(),
       baseMcpErc20ActionProvider(),
       baseMcpNftActionProvider(),
+      openRouterActionProvider(),
     ],
   });
 
