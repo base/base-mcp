@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 5b61423: Added Farcaster resolution tools. By @gayatrigt
+- Added Farcaster resolution tools. By @gayatrigt
 
 ## 1.0.11
 
