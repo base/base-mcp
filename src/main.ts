@@ -132,7 +132,7 @@ export async function main() {
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     try {
-      // postMetric(Event.ToolUsed, { toolName: request.params.name }, sessionId);
+      postMetric(Event.ToolUsed, { toolName: request.params.name }, sessionId);
 
       // Check if the tool is Base MCP tool
       const isBaseMcpTool = baseMcpTools.some(
