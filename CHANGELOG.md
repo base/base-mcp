@@ -1,5 +1,11 @@
 # base-mcp
 
+## 1.0.12
+
+### Patch Changes
+
+- 5b61423: Added Farcaster resolution tools. By @gayatrigt
+
 ## 1.0.11
 
 ### Patch Changes
