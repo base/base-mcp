@@ -74,4 +74,5 @@ export class BaseMcpOnrampActionProvider extends ActionProvider<EvmWalletProvide
   }
 }
 
-export const baseMcpOnrampActionProvider = new BaseMcpOnrampActionProvider();
+export const baseMcpOnrampActionProvider = () =>
+  new BaseMcpOnrampActionProvider();
