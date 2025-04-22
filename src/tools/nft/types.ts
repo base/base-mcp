@@ -1,5 +1,4 @@
 import type { EvmWalletProvider } from '@coinbase/agentkit';
-import type { PublicActions, WalletClient } from 'viem';
 
 /**
  * Define a more specific type for NFT data
