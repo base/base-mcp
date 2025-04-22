@@ -1,5 +1,11 @@
 # base-mcp
 
+## 1.0.13
+
+### Patch Changes
+
+- 5b6f717: Refactor for improved compatibiltiy with AgentKit
+
 ## 1.0.12
 
 ### Patch Changes
