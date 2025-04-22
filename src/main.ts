@@ -30,6 +30,7 @@ import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpContractActionProvider } from './tools/contracts/index.js';
 import { baseMcpTools, toolToHandler } from './tools/index.js';
 import { baseMcpMorphoActionProvider } from './tools/morpho/index.js';
+import { baseMcpOnrampActionProvider } from './tools/onramp/index.js';
 import {
   generateSessionId,
   getActionProvidersWithRequiredEnvVars,
@@ -98,6 +99,7 @@ export async function main() {
       // Base MCP Action Providers
       baseMcpMorphoActionProvider(),
       baseMcpContractActionProvider(),
+      baseMcpOnrampActionProvider(),
     ],
   });
 
