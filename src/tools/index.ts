@@ -1,4 +1,3 @@
-// import { callContractTool } from './contracts/index.js';
 import { erc20BalanceTool, erc20TransferTool } from './erc20/index.js';
 import { listNftsTool, transferNftTool } from './nft/index.js';
 import { getOnrampAssetsTool, onrampTool } from './onramp/index.js';
