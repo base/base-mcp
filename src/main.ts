@@ -6,6 +6,7 @@ import {
   CdpWalletProvider,
   morphoActionProvider,
   walletActionProvider,
+  ViemWalletProvider
 } from '@coinbase/agentkit';
 import { getMcpTools } from '@coinbase/agentkit-model-context-protocol';
 import { Coinbase } from '@coinbase/coinbase-sdk';
@@ -16,16 +17,18 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import * as dotenv from 'dotenv';
-import { english, generateMnemonic } from 'viem/accounts';
+import {
+  createWalletClient,
+  http,
+  publicActions,
+  type PublicActions,
+  type WalletClient
+} from 'viem';
+import { english, generateMnemonic, mnemonicToAccount, privateKeyToAccount } from 'viem/accounts';
 import { base } from 'viem/chains';
 import { Event, postMetric } from './analytics.js';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
-import { baseMcpContractActionProvider } from './tools/contracts/index.js';
-import { baseMcpErc20ActionProvider } from './tools/erc20/index.js';
-import { baseMcpMorphoActionProvider } from './tools/morpho/index.js';
-import { baseMcpNftActionProvider } from './tools/nft/index.js';
-import { baseMcpOnrampActionProvider } from './tools/onramp/index.js';
-import { openRouterActionProvider } from './tools/open-router/index.js';
+import { baseMcpTools, toolToHandler } from './tools/index.js';
 import {
   generateSessionId,
   getActionProvidersWithRequiredEnvVars,
@@ -36,15 +39,24 @@ export async function main() {
   dotenv.config();
   const apiKeyName =
     process.env.COINBASE_API_KEY_ID || process.env.COINBASE_API_KEY_NAME; // Previously, was called COINBASE_API_KEY_NAME
-  const privateKey =
+  const apiPrivateKey =
     process.env.COINBASE_API_SECRET || process.env.COINBASE_API_PRIVATE_KEY; // Previously, was called COINBASE_API_PRIVATE_KEY
   const seedPhrase = process.env.SEED_PHRASE;
+  const privateKey = process.env.PRIVATE_KEY;
   const fallbackPhrase = generateMnemonic(english, 256); // Fallback in case user wants read-only operations
   const chainId = process.env.CHAIN_ID ? Number(process.env.CHAIN_ID) : base.id;
 
-  if (!apiKeyName || !privateKey) {
+  if (!apiKeyName || !apiPrivateKey) {
     console.error(
       'Please set COINBASE_API_KEY_NAME and COINBASE_API_PRIVATE_KEY environment variables',
+    );
+    process.exit(1);
+  }
+
+  // Check if we have a private key or seed phrase
+  if (!privateKey && !seedPhrase) {
+    console.error(
+      'Please set either PRIVATE_KEY or SEED_PHRASE environment variable',
     );
     process.exit(1);
   }
@@ -60,38 +72,58 @@ export async function main() {
     );
   }
 
-  const cdpWalletProvider = await CdpWalletProvider.configureWithWallet({
-    mnemonicPhrase: seedPhrase ?? fallbackPhrase,
-    apiKeyName,
-    apiKeyPrivateKey: privateKey,
-    networkId: chainIdToCdpNetworkId[chainId],
-  });
+  // Create viemClient based on available credentials
+  let viemClient;
+  if (privateKey) {
+    // Use privateKey if available
+    viemClient = createWalletClient({
+      account: privateKeyToAccount(privateKey as `0x${string}`),
+      chain,
+      transport: http(),
+    }).extend(publicActions) as WalletClient & PublicActions;
+  } else {
+    // Fall back to seed phrase
+    viemClient = createWalletClient({
+      account: mnemonicToAccount(seedPhrase ?? fallbackPhrase),
+      chain,
+      transport: http(),
+    }).extend(publicActions) as WalletClient & PublicActions;
+  }
+
+  const evmWalletProvider = new ViemWalletProvider(viemClient);
+  
+  // Configure CDP wallet provider based on available credentials
+  let cdpWalletProvider;
+  if (seedPhrase) {
+    cdpWalletProvider = await CdpWalletProvider.configureWithWallet({
+      mnemonicPhrase: seedPhrase,
+      apiKeyName,
+      apiKeyPrivateKey: apiPrivateKey,
+      networkId: chainIdToCdpNetworkId[chainId],
+    });
+  } else {
+    // Use privateKey for CDP wallet
+    // Note: This is a simplified approximation - actual implementation may need adjustment based on CDP API capabilities
+    cdpWalletProvider = evmWalletProvider;
+  }
 
   const agentKit = await AgentKit.from({
     cdpApiKeyName: apiKeyName,
-    cdpApiKeyPrivateKey: privateKey,
-    walletProvider: cdpWalletProvider,
+    cdpApiKeyPrivateKey: apiPrivateKey,
+    walletProvider: privateKey ? evmWalletProvider : cdpWalletProvider,
     actionProviders: [
       basenameActionProvider(),
       morphoActionProvider(),
       walletActionProvider(),
       cdpWalletActionProvider({
         apiKeyName,
-        apiKeyPrivateKey: privateKey,
+        apiKeyPrivateKey: apiPrivateKey,
       }),
       cdpApiActionProvider({
         apiKeyName,
-        apiKeyPrivateKey: privateKey,
+        apiKeyPrivateKey: apiPrivateKey,
       }),
       ...getActionProvidersWithRequiredEnvVars(),
-
-      // Base MCP Action Providers
-      baseMcpMorphoActionProvider(),
-      baseMcpContractActionProvider(),
-      baseMcpOnrampActionProvider(),
-      baseMcpErc20ActionProvider(),
-      baseMcpNftActionProvider(),
-      openRouterActionProvider(),
     ],
   });
 
@@ -111,16 +143,15 @@ export async function main() {
 
   Coinbase.configure({
     apiKeyName,
-    privateKey,
+    privateKey: apiPrivateKey,
     source: 'Base MCP',
     sourceVersion: version,
   });
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     console.error('Received ListToolsRequest');
-
     return {
-      tools,
+      tools: [...baseMcpTools.map((tool) => tool.definition), ...tools],
     };
   });
 
@@ -128,13 +159,36 @@ export async function main() {
     try {
       postMetric(Event.ToolUsed, { toolName: request.params.name }, sessionId);
 
-      // In order for users to use AgentKit tools, they are required to have a SEED_PHRASE and not a ONE_TIME_KEY
-      if (!seedPhrase) {
+      // Check if the tool is Base MCP tool
+      const isBaseMcpTool = baseMcpTools.some(
+        (tool) => tool.definition.name === request.params.name,
+      );
+
+      if (isBaseMcpTool) {
+        const tool = toolToHandler[request.params.name];
+        if (!tool) {
+          throw new Error(`Tool ${request.params.name} not found`);
+        }
+
+        const result = await tool(viemClient, request.params.arguments);
+
         return {
           content: [
             {
               type: 'text',
-              text: 'ERROR: Please set SEED_PHRASE environment variable to use wallet-related operations',
+              text: JSON.stringify(result),
+            },
+          ],
+        };
+      }
+
+      // Check requirements for wallet tools
+      if (!privateKey && !seedPhrase) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'ERROR: Please set either PRIVATE_KEY or SEED_PHRASE environment variable to use wallet-related operations',
             },
           ],
         };
