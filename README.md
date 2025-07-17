@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/base-base-mcp-badge.png)](https://mseep.ai/app/base-base-mcp)
+
 # Base MCP Server 🔵
 
 ![OpenRouter Integration](public/OpenRouter.gif)
