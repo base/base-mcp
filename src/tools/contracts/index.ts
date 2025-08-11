@@ -47,7 +47,7 @@ export class BaseMcpContractActionProvider extends ActionProvider<EvmWalletProvi
         (item) => 'name' in item && item.name === args.functionName,
       ) as AbiFunction;
     } catch (error) {
-      throw new Error(`Invalid function name: ${args.functionName}. ${error}`);
+      throw new Error(`Invalid function name: ${args.functionName}. Error: ${error}`);
     }
 
     const chain = chainIdToChain(Number(walletProvider.getNetwork().chainId));
