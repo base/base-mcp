@@ -5,6 +5,8 @@
 [![npm version](https://img.shields.io/npm/v/base-mcp.svg)](https://www.npmjs.com/package/base-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![Trust Score](https://archestra.ai/mcp-catalog/api/badge/quality/base/base-mcp)](https://archestra.ai/mcp-catalog/base__base-mcp)
+
 A Model Context Protocol (MCP) server that provides onchain tools for AI applications like Claude Desktop and Cursor, allowing them to interact with the Base Network and Coinbase API.
 
 ## Overview
