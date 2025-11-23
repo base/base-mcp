@@ -7,9 +7,10 @@
 
 A Model Context Protocol (MCP) server that provides onchain tools for AI applications like Claude Desktop and Cursor, allowing them to interact with the Base Network and Coinbase API.
 
-## Overview
+## Overview.
 
-This MCP server extends any MCP client's capabilities by providing tools to do anything on Base:
+This section provides an overview of how to extend the Base MCP server, with new capabilities.
+
 
 - Retrieve wallet addresses
 - List wallet balances
