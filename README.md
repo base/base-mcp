@@ -22,7 +22,7 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - List and transfer NFTs (ERC721 and ERC1155)
 - Buy [OpenRouter](http://openrouter.ai/) credits with USDC
 - Resolve Farcaster usernames to Ethereum addresses
-
+Improved documentation formatting.
 The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit).
 
 ## Extending Base MCP with 3P Protocols, Tools, and Data Sources
