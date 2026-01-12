@@ -1,0 +1,33 @@
+# Tool Scaffold Checklist
+
+Use this checklist when adding a new tool under `src/tools`.
+
+## 1. Create the tool folder
+Create: `src/tools/<tool-name>/`
+
+Recommended files:
+- `index.ts` – exports the tool provider/actions
+- `schemas.ts` – input validation schemas
+- `types.ts` – shared types
+- `utils.ts` – helper functions (optional)
+
+## 2. Wire it into the server
+Add the tool to the registry in `src/main.ts` (follow existing patterns).
+
+## 3. Validate inputs
+Prefer strict schemas and clear error messages:
+- required fields
+- bounds/ranges
+- enum validation
+
+## 4. Add tests
+Create tests next to existing tool tests (or under the repo’s test layout).
+Cover:
+- happy path
+- invalid input
+- network/rpc errors
+
+## 5. Document usage
+Update:
+- `README.md` (1–2 lines + link)
+- `examples.md` (a minimal example call)
