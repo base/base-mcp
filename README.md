@@ -20,7 +20,7 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - Onramp funds via [Coinbase](https://www.coinbase.com/developer-platform/products/onramp)
 - Manage ERC20 tokens
 - List and transfer NFTs (ERC721 and ERC1155)
-- Buy [OpenRouter](http://openrouter.ai/) credits with USDC
+- Buy [OpenRouter](https://openrouter.ai/) credits with USDC
 - Resolve Farcaster usernames to Ethereum addresses
 
 The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit).
@@ -54,6 +54,8 @@ src/
 │   ├── [TOOL_NAME]/ <-------------------------- ADD DIR HERE
 │   │   ├── index.ts (defines and exports tools)
 │   │   ├── schemas.ts (defines input schema)
+│   │   ├── types.ts (type definitions, if needed)
+│   │   ├── utils.ts (utility functions, if needed)
 │   └── utils/ (shared tool utilities)
 ```
 
@@ -80,6 +82,8 @@ For more detailed information on contributing to Base MCP, including adding new 
 - Coinbase Project ID (for onramp functionality)
 - Alchemy API Key (required for NFT functionality)
 - Optional: OpenRouter API Key (for buying OpenRouter credits)
+- Optional: Neynar API Key (for Farcaster username resolution)
+- Optional: Pinata JWT (for IPFS pinning)
 
 ## Installation
 
@@ -159,6 +163,9 @@ CHAIN_ID=your_chain_id
 # Neynar API Key (required for Farcaster functionality)
 # You can obtain this from https://neynar.com
 NEYNAR_API_KEY=your_neynar_api_key
+# Pinata JWT (optional for IPFS pinning)
+# You can obtain this from https://pinata.cloud
+PINATA_JWT=your_pinata_jwt
 ```
 
 ## Testing
@@ -203,6 +210,7 @@ You can easily access this file via the Claude Desktop app by navigating to Clau
            "ALCHEMY_API_KEY": "your_alchemy_api_key",
            "PINATA_JWT": "your_pinata_jwt",
            "OPENROUTER_API_KEY": "your_openrouter_api_key",
+           "NEYNAR_API_KEY": "your_neynar_api_key",
            "CHAIN_ID": "optional_for_base_sepolia_testnet"
          },
          "disabled": false,
@@ -392,6 +400,18 @@ Parameters:
 Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
+
+### farcaster_username
+
+Resolves a Farcaster username to an Ethereum address using the Neynar API.
+
+Parameters:
+
+- `username`: The Farcaster username to resolve
+
+Example query to Claude:
+
+> "What is the Ethereum address for the Farcaster user @vitalik?"
 
 ## Security Considerations
 
