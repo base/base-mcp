@@ -236,6 +236,52 @@ _Claude uses the `farcaster_username` tool with the following parameters:_
 
 This address is verified on their Farcaster profile and can be used for transactions or verification.
 
+## Transaction Simulation
+
+### Simulating a Contract Call
+
+**You:** Simulate a transfer of 100 USDC to 0x9876543210abcdef9876543210abcdef98765432 before I send it.
+
+**Claude:** I'll simulate that USDC transfer to preview the result before broadcasting.
+
+_Claude uses the `simulate_transaction` tool with the following parameters:_
+
+- to: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" (USDC contract address on Base)
+- abi: _[JSON containing the ERC20 transfer ABI]_
+- functionName: "transfer"
+- args: ["0x9876543210abcdef9876543210abcdef98765432", "100000000"]
+
+**Claude:** The simulation succeeded! Here are the results:
+
+- **Result:** true (the transfer would succeed)
+- **Gas Estimate:** 52,341 gas
+- **No revert detected**
+
+Would you like me to go ahead and execute this transfer?
+
+### Simulating a Plain ETH Transfer
+
+**You:** How much gas would it cost to send 0.1 ETH to 0x9876543210abcdef9876543210abcdef98765432?
+
+**Claude:** I'll simulate that ETH transfer to get the gas estimate.
+
+_Claude uses the `simulate_transaction` tool with the following parameters:_
+
+- to: "0x9876543210abcdef9876543210abcdef98765432"
+- value: "100000000000000000"
+
+**Claude:** The simulation succeeded! The estimated gas cost for this transfer is 21,000 gas (standard ETH transfer).
+
+### Detecting a Revert Before Sending
+
+**You:** Can you check if calling withdraw on 0x1234567890abcdef1234567890abcdef12345678 would work?
+
+**Claude:** I'll simulate the withdraw call to check.
+
+_Claude uses the `simulate_transaction` tool_
+
+**Claude:** The simulation shows this transaction would **revert** with the error: "Insufficient balance". You don't have enough deposited to withdraw. Would you like to check your balance first?
+
 ## Tips for Effective Use
 
 1. **Be specific in your requests** - Provide all necessary details when asking Claude to perform blockchain operations.
