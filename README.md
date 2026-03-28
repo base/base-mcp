@@ -22,6 +22,7 @@ This MCP server extends any MCP client's capabilities by providing tools to do a
 - List and transfer NFTs (ERC721 and ERC1155)
 - Buy [OpenRouter](http://openrouter.ai/) credits with USDC
 - Resolve Farcaster usernames to Ethereum addresses
+- Simulate transactions before execution (gas estimates, revert detection)
 
 The server interacts with Base, powered by Base Developer Tools and [AgentKit](https://github.com/coinbase/agentkit).
 
@@ -392,6 +393,27 @@ Parameters:
 Example query to Claude:
 
 > "Buy $20 worth of OpenRouter credits."
+
+### simulate_transaction
+
+Simulates a transaction without broadcasting it. Returns the expected result, gas estimate, and whether it would revert. Useful for previewing contract calls or ETH transfers before execution.
+
+Parameters:
+
+- `to`: The target contract or recipient address
+- `value`: The amount of ETH to send in wei (optional, default: 0)
+- `data`: Raw calldata hex string (optional)
+- `abi`: ABI JSON string of the target contract (optional, required when using functionName)
+- `functionName`: The function to simulate (optional, requires abi)
+- `args`: Arguments for the function call (optional, used with functionName)
+
+Example queries to Claude:
+
+> "Simulate a transfer of 1 USDC to 0x1234567890abcdef1234567890abcdef12345678."
+
+> "What would happen if I called the approve function on this contract?"
+
+> "Preview this transaction before I send it."
 
 ## Security Considerations
 
