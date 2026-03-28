@@ -10,18 +10,12 @@ import {
   http,
   isAddress,
   type Abi,
+  type Hex,
 } from 'viem';
 import { base, baseSepolia } from 'viem/chains';
 import type { z } from 'zod';
 import { chainIdToChain } from '../../chains.js';
 import { SimulateTransactionSchema } from './schemas.js';
-
-function constructBaseScanAddressUrl(chainId: number, address: string): string {
-  if (chainId === baseSepolia.id) {
-    return `https://sepolia.basescan.org/address/${address}`;
-  }
-  return `https://basescan.org/address/${address}`;
-}
 
 export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvider> {
   constructor() {
@@ -44,6 +38,27 @@ export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvi
       throw new Error(`Invalid target address: ${to}`);
     }
 
+    if (functionName && !abi) {
+      throw new Error(
+        'abi is required when functionName is provided. Pass the contract ABI as a JSON string.',
+      );
+    }
+
+    if (abi && !functionName) {
+      throw new Error(
+        'functionName is required when abi is provided. Specify which function to simulate.',
+      );
+    }
+
+    let txValue: bigint;
+    try {
+      txValue = value ? BigInt(value) : 0n;
+    } catch {
+      throw new Error(
+        `Invalid value: "${value}" is not a valid wei amount. Must be a numeric string.`,
+      );
+    }
+
     const account = walletProvider.getAddress() as `0x${string}`;
     const chainId = Number(walletProvider.getNetwork().chainId ?? base.id);
     const chain = chainIdToChain(chainId);
@@ -58,9 +73,6 @@ export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvi
       chain,
       transport: http(),
     });
-
-    const txValue = value ? BigInt(value) : 0n;
-    const basescanUrl = constructBaseScanAddressUrl(chain.id, to);
 
     try {
       if (abi && functionName) {
@@ -80,43 +92,52 @@ export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvi
           value: txValue,
         });
 
-        const encodedData = encodeFunctionData({
-          abi: parsedAbi,
-          functionName,
-          args: fnArgs ?? [],
-        });
-
-        const gasEstimate = await publicClient.estimateGas({
-          to: to as `0x${string}`,
-          data: encodedData,
-          value: txValue,
-          account,
-        });
+        let gasEstimate: string | undefined;
+        try {
+          const gas = await publicClient.estimateGas({
+            to: to as `0x${string}`,
+            data: encodeFunctionData({
+              abi: parsedAbi,
+              functionName,
+              args: fnArgs ?? [],
+            }),
+            value: txValue,
+            account,
+          });
+          gasEstimate = gas.toString();
+        } catch {
+          // Simulation succeeded but gas estimation failed — still report the result
+        }
 
         return JSON.stringify({
           success: true,
-          gasEstimate: gasEstimate.toString(),
+          ...(gasEstimate && { gasEstimate }),
           result: String(result),
-          basescanUrl,
         });
       }
 
       // Raw call (plain ETH transfer or pre-encoded calldata)
       const callParams = {
         to: to as `0x${string}`,
-        data: data ? (data as `0x${string}`) : undefined,
+        data: data ? (data as Hex) : undefined,
         value: txValue,
         account,
       };
 
-      const callResult = await publicClient.call(callParams);
-      const gasEstimate = await publicClient.estimateGas(callParams);
+      const callResult: { data?: Hex } = await publicClient.call(callParams);
+
+      let gasEstimate: string | undefined;
+      try {
+        const gas = await publicClient.estimateGas(callParams);
+        gasEstimate = gas.toString();
+      } catch {
+        // Call succeeded but gas estimation failed — still report the result
+      }
 
       return JSON.stringify({
         success: true,
-        gasEstimate: gasEstimate.toString(),
-        result: (callResult as { data?: string }).data ?? '0x',
-        basescanUrl,
+        ...(gasEstimate && { gasEstimate }),
+        result: callResult.data ?? '0x',
       });
     } catch (error) {
       const message =
