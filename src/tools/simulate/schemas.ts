@@ -25,5 +25,7 @@ export const SimulateTransactionSchema = z.object({
   args: z
     .array(z.string())
     .optional()
-    .describe('Arguments for the function call (used with functionName)'),
+    .describe(
+      'Arguments for the function call (used with functionName). Each element is a JSON-encoded value: use "true"/"false" for bools, "123" for integers, "0x..." for addresses/bytes (kept as strings), \'[1,2,3]\' for arrays, \'{"key":"val"}\' for tuples/structs.',
+    ),
 });

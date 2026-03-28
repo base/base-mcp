@@ -17,6 +17,38 @@ import type { z } from 'zod';
 import { chainIdToChain } from '../../chains.js';
 import { SimulateTransactionSchema } from './schemas.js';
 
+/**
+ * Parse a string argument into its native JS type for viem compatibility.
+ * JSON-valid values (bools, numbers, arrays, objects) are parsed.
+ * Plain strings (addresses, hex bytes) that fail JSON.parse are kept as-is.
+ */
+function parseArg(arg: string): unknown {
+  try {
+    return JSON.parse(arg);
+  } catch {
+    return arg;
+  }
+}
+
+/**
+ * Recursively convert BigInts to strings so the result is JSON-serializable,
+ * while preserving the structure of tuples, arrays, and nested objects.
+ */
+function formatResult(val: unknown): unknown {
+  if (typeof val === 'bigint') {
+    return val.toString();
+  }
+  if (Array.isArray(val)) {
+    return val.map(formatResult);
+  }
+  if (val !== null && typeof val === 'object') {
+    return Object.fromEntries(
+      Object.entries(val).map(([k, v]) => [k, formatResult(v)]),
+    );
+  }
+  return val;
+}
+
 export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvider> {
   constructor() {
     super('baseMcpSimulate', []);
@@ -83,11 +115,13 @@ export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvi
           throw new Error('Invalid ABI: could not parse JSON');
         }
 
+        const parsedArgs = (fnArgs ?? []).map(parseArg);
+
         const { result } = await publicClient.simulateContract({
           address: to as `0x${string}`,
           abi: parsedAbi,
           functionName,
-          args: fnArgs ?? [],
+          args: parsedArgs,
           account,
           value: txValue,
         });
@@ -99,7 +133,7 @@ export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvi
             data: encodeFunctionData({
               abi: parsedAbi,
               functionName,
-              args: fnArgs ?? [],
+              args: parsedArgs,
             }),
             value: txValue,
             account,
@@ -112,7 +146,7 @@ export class BaseMcpSimulateActionProvider extends ActionProvider<EvmWalletProvi
         return JSON.stringify({
           success: true,
           ...(gasEstimate && { gasEstimate }),
-          result: String(result),
+          result: formatResult(result),
         });
       }
 
