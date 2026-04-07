@@ -22,6 +22,7 @@ import { Event, postMetric } from './analytics.js';
 import { chainIdToCdpNetworkId, chainIdToChain } from './chains.js';
 import { baseMcpContractActionProvider } from './tools/contracts/index.js';
 import { baseMcpErc20ActionProvider } from './tools/erc20/index.js';
+import { farcasterActionProvider } from './tools/farcaster/index.js';
 import { baseMcpMorphoActionProvider } from './tools/morpho/index.js';
 import { baseMcpNftActionProvider } from './tools/nft/index.js';
 import { baseMcpOnrampActionProvider } from './tools/onramp/index.js';
@@ -92,6 +93,7 @@ export async function main() {
       baseMcpErc20ActionProvider(),
       baseMcpNftActionProvider(),
       openRouterActionProvider(),
+      farcasterActionProvider(),
     ],
   });
 
