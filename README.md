@@ -161,15 +161,15 @@ CHAIN_ID=your_chain_id
 NEYNAR_API_KEY=your_neynar_api_key
 ```
 
-## Testing
+## Verification
 
-Test the MCP server to verify it's working correctly:
+Build the project to verify your setup is correct:
 
 ```bash
-npm test
+npm run build
 ```
 
-This script will verify that your MCP server is working correctly by testing the connection and available tools.
+After the build completes, you can run the server and connect from your MCP client.
 
 ## Examples
 
