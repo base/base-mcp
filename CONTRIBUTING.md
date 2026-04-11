@@ -34,7 +34,7 @@ If you have an idea for an enhancement, please create an issue on GitHub with th
 1. Fork the repository
 2. Create a new branch for your feature or bugfix (`git checkout -b feature/amazing-feature`)
 3. Make your changes
-4. Run tests to ensure your changes don't break existing functionality
+4. Run build checks to ensure your changes don't break existing functionality
 5. Commit your changes (`git commit -m 'Add some amazing feature'`)
 6. Push to the branch (`git push origin feature/amazing-feature`)
 7. Open a Pull Request. Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) as your PR's title.
@@ -45,7 +45,7 @@ If you have an idea for an enhancement, please create an issue on GitHub with th
 2. Install dependencies: `npm install`
 3. Create a `.env` file with your credentials (see README.md)
 4. Build the project: `npm run build`
-5. Test the MCP server: `npm test`
+5. Verify the MCP server builds: `npm run build`
 
 ## Coding Standards
 
@@ -79,12 +79,12 @@ src/
 │   └── utils/ (shared tool utilities)
 ```
 
-## Testing
+## Validation
 
-Please ensure that all tests pass before submitting a Pull Request. You can run tests with:
+Please ensure the project builds successfully before submitting a Pull Request:
 
 ```bash
-npm test
+npm run build
 ```
 
 ## Documentation
