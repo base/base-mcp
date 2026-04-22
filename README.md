@@ -147,6 +147,10 @@ COINBASE_PROJECT_ID=your_project_id
 # You can obtain this from https://alchemy.com
 ALCHEMY_API_KEY=your_alchemy_api_key
 
+# Pinata JWT (required for some NFT tools)
+# You can obtain this from https://pinata.cloud
+PINATA_JWT=your_pinata_jwt_here
+
 # OpenRouter API Key (optional for buying OpenRouter credits)
 # You can obtain this from https://openrouter.ai/keys
 OPENROUTER_API_KEY=your_openrouter_api_key
