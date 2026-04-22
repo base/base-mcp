@@ -190,23 +190,27 @@ You can easily access this file via the Claude Desktop app by navigating to Clau
 2. Add the following configuration:
 
    ```json
-   {
-     "mcpServers": {
-       "base-mcp": {
-         "command": "npx",
-         "args": ["-y", "base-mcp@latest"],
-         "env": {
-           "COINBASE_API_KEY_NAME": "your_api_key_name",
-           "COINBASE_API_PRIVATE_KEY": "your_private_key",
-           "SEED_PHRASE": "your seed phrase here",
-           "COINBASE_PROJECT_ID": "your_project_id",
-           "ALCHEMY_API_KEY": "your_alchemy_api_key",
-           "PINATA_JWT": "your_pinata_jwt",
-           "OPENROUTER_API_KEY": "your_openrouter_api_key",
-           "CHAIN_ID": "optional_for_base_sepolia_testnet"
-         },
-         "disabled": false,
-         "autoApprove": []
+   
+     {
+  "mcpServers": {
+    "base-mcp": {
+      "command": "npx",
+      "args": ["-y", "base-mcp@latest"],
+      "env": {
+        "COINBASE_API_KEY_NAME": "your_api_key_name",
+        "COINBASE_API_PRIVATE_KEY": "your_private_key",
+        "SEED_PHRASE": "your seed phrase here",
+        "COINBASE_PROJECT_ID": "your_project_id",
+        "ALCHEMY_API_KEY": "your_alchemy_api_key",
+        "PINATA_JWT": "your_pinata_jwt",
+        "OPENROUTER_API_KEY": "your_openrouter_api_key",
+        "CHAIN_ID": "optional_for_base_sepolia_testnet"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
        }
      }
    }
