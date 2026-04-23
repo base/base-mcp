@@ -30,24 +30,29 @@ export class BaseMcpContractActionProvider extends ActionProvider<EvmWalletProvi
     walletProvider: EvmWalletProvider,
     args: z.infer<typeof CallContractSchema>,
   ) {
-    let abi: string | Abi = args.abi;
+    let abi: Abi;
     try {
-      abi = JSON.parse(abi) as Abi;
+      abi = JSON.parse(args.abi) as Abi;
     } catch (error) {
       throw new Error(`Invalid ABI: ${error}`);
+    }
+
+    if (!Array.isArray(abi)) {
+      throw new Error('Invalid ABI: expected a JSON array of ABI items');
     }
 
     if (!isAddress(args.contractAddress, { strict: false })) {
       throw new Error(`Invalid contract address: ${args.contractAddress}`);
     }
-    let functionAbi: AbiFunction | undefined;
 
-    try {
-      functionAbi = abi.find(
-        (item) => 'name' in item && item.name === args.functionName,
-      ) as AbiFunction;
-    } catch (error) {
-      throw new Error(`Invalid function name: ${args.functionName}. ${error}`);
+    const functionAbi = abi.find(
+      (item) => 'name' in item && item.name === args.functionName,
+    ) as AbiFunction | undefined;
+
+    if (!functionAbi) {
+      throw new Error(
+        `Function "${args.functionName}" not found in the provided ABI`,
+      );
     }
 
     const chain = chainIdToChain(Number(walletProvider.getNetwork().chainId));
