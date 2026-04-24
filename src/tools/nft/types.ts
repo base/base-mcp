@@ -1,7 +1,11 @@
 import type { EvmWalletProvider } from '@coinbase/agentkit';
 
 /**
- * Define a more specific type for NFT data
+ * NFT record from the Alchemy NFT API.
+ *
+ * Shapes both v2 and v3 responses: v3 returns `image` as an object with
+ * `cachedUrl` / `originalUrl` / ... , whereas v2 returned `media[].gateway`
+ * / `media[].raw` and a plain string `image`.
  */
 export type NftData = {
   contract?: { address?: string };
@@ -11,8 +15,17 @@ export type NftData = {
   name?: string;
   description?: string;
   tokenType?: string;
+  // v2
   media?: Array<{ gateway?: string; raw?: string }>;
-  image?: string;
+  // v3 returns an object here; v2 returned a plain string
+  image?:
+    | string
+    | {
+        cachedUrl?: string;
+        thumbnailUrl?: string;
+        pngUrl?: string;
+        originalUrl?: string;
+      };
   metadata?: Record<string, unknown>;
 };
 
