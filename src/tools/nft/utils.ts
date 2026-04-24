@@ -36,14 +36,26 @@ export function formatNftData({
 
   const ownedNfts = nftData.ownedNfts as Array<NftData>;
   return ownedNfts.map((nft) => {
+    const image = nft.image;
+    const imageUrl =
+      nft.media?.[0]?.gateway ||
+      nft.media?.[0]?.raw ||
+      (typeof image === 'string'
+        ? image
+        : (image?.cachedUrl ??
+          image?.originalUrl ??
+          image?.pngUrl ??
+          image?.thumbnailUrl ??
+          '')) ||
+      '';
+
     return {
       contractAddress: nft.contract?.address || '',
       tokenId: nft.tokenId || nft.id?.tokenId || '',
       title: nft.title || nft.name || 'Unnamed NFT',
       description: nft.description || '',
       tokenType: nft.tokenType || 'UNKNOWN',
-      imageUrl:
-        nft.media?.[0]?.gateway || nft.media?.[0]?.raw || nft.image || '',
+      imageUrl,
       metadata: nft.metadata || {},
     };
   });
