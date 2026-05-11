@@ -1,0 +1,14 @@
+.git
+.github
+.yarn
+.changeset
+node_modules
+build
+public
+ideas
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.*
+*.local

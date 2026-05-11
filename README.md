@@ -125,6 +125,29 @@ base-mcp --init
    npm link
    ```
 
+### Option 3: Run with Docker
+
+1. Build the image:
+
+   ```bash
+   docker build -t base-mcp .
+   ```
+
+2. Run the server:
+
+   ```bash
+   docker run --rm -i \
+     -e COINBASE_API_KEY_NAME=your_api_key_name \
+     -e COINBASE_API_PRIVATE_KEY=your_private_key \
+     -e SEED_PHRASE="your seed phrase here" \
+     -e COINBASE_PROJECT_ID=your_project_id \
+     -e ALCHEMY_API_KEY=your_alchemy_api_key \
+     -e NEYNAR_API_KEY=your_neynar_api_key \
+     base-mcp
+   ```
+
+   Add any other optional environment variables from the configuration section as needed.
+
 ## Configuration
 
 Create a `.env` file with your credentials:
