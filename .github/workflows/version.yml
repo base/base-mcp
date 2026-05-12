@@ -1,28 +1,35 @@
-name: Publish final deprecated version
+name: Version 🔖
 
 on:
   push:
     branches:
       - master
-    paths:
-      - '.github/workflows/publish-final.yml'
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  publish:
-    name: Publish base-mcp@1.0.14
+  version:
+    name: Release
     runs-on: ubuntu-latest
     environment: Production
     permissions:
+      contents: write
+      pull-requests: write
       id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Set auth token
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set deployment token
         run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
 
       - name: Publish
