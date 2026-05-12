@@ -1,83 +1,24 @@
 {
   "name": "base-mcp",
-  "version": "1.0.13",
-  "description": "A Model Context Protocol (MCP) server that provides onchain tools for Claude AI, allowing it to interact with the Base blockchain and Coinbase API",
+  "version": "1.0.14",
+  "description": "[DEPRECATED] See https://docs.base.org/ai-agents for the replacement.",
   "bin": {
-    "base-mcp": "build/index.js"
+    "base-mcp": "deprecated.js"
   },
-  "type": "module",
   "scripts": {
-    "run": "tsx src/index.ts",
-    "dev": "tsc --watch",
-    "build": "tsc && chmod +x ./build/index.js",
-    "lint": "eslint src",
-    "start": "node build/index.js",
-    "format": "prettier --write .",
-    "ci:format": "prettier --check .",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release:publish": "yarn build && changeset publish"
+    "postinstall": "node deprecated.js"
   },
   "files": [
-    "build"
+    "deprecated.js",
+    "README.md"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/base/base-mcp.git"
   },
-  "keywords": [
-    "mcp",
-    "claude",
-    "base",
-    "blockchain",
-    "coinbase",
-    "ethereum",
-    "web3",
-    "ai"
-  ],
   "author": "Dan Schlabach, Tina He",
   "license": "MIT",
-  "packageManager": "yarn@4.5.1",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@clack/prompts": "^0.10.0",
-    "@coinbase/agentkit": "^0.6.2",
-    "@coinbase/agentkit-model-context-protocol": "^0.2.0",
-    "@coinbase/coinbase-sdk": "^0.21.0",
-    "@coinbase/onchainkit": "^0.37.6",
-    "@inquirer/prompts": "^7.4.0",
-    "@modelcontextprotocol/sdk": "^1.6.1",
-    "@privy-io/public-api": "^2.20.5",
-    "chalk": "^5.4.1",
-    "dotenv": "^16.4.7",
-    "graphql": "^16.10.0",
-    "graphql-request": "^7.1.2",
-    "reflect-metadata": "^0.2.2",
-    "viem": "^2.23.9",
-    "zod": "^3.24.2"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.28.1",
-    "@eslint/js": "^9.22.0",
-    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-    "@types/express": "^4",
-    "@types/node": "^22.13.9",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@typescript-eslint/eslint-plugin": "^8.26.1",
-    "@typescript-eslint/parser": "^8.26.1",
-    "eslint": "^9.22.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-import": "^2.31.0",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.26.1",
-    "zod-to-json-schema": "^3.24.4"
   }
 }
