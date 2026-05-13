@@ -26,14 +26,11 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Upgrade npm for trusted publishing support
-        run: npm install -g npm@latest
-
       - name: Clear stale auth token for OIDC
         run: npm config delete '//registry.npmjs.org/:_authToken' || true
 
       - name: Publish with provenance
-        run: npm publish --access public --provenance
+        run: npx -y npm@11 publish --access public --provenance
 
       - name: Deprecate
-        run: npm deprecate base-mcp "This package has been deprecated. See https://docs.base.org/ai-agents for the new Base AI Agents docs."
+        run: npx -y npm@11 deprecate base-mcp "This package has been deprecated. See https://docs.base.org/ai-agents for the new Base AI Agents docs."
