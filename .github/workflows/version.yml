@@ -26,14 +26,8 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Set deployment token
-        run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-
-      - name: Publish
-        run: npm publish --access public
+      - name: Publish with provenance
+        run: npm publish --access public --provenance
 
       - name: Deprecate
         run: npm deprecate base-mcp "This package has been deprecated. See https://docs.base.org/ai-agents for the new Base AI Agents docs."
