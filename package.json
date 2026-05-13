@@ -19,6 +19,7 @@
   "author": "Dan Schlabach, Tina He",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }
