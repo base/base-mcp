@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/base/base-mcp.git"
+    "url": "https://github.com/base/base-mcp"
   },
   "author": "Dan Schlabach, Tina He",
   "license": "MIT",

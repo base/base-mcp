@@ -24,17 +24,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Clear stale auth token for OIDC
-        run: npm config delete '//registry.npmjs.org/:_authToken' || true
 
       - name: Publish with provenance
-        run: npx -y npm@11 publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ''
+        run: npm publish --access public --provenance
 
       - name: Deprecate
-        run: npx -y npm@11 deprecate base-mcp "This package has been deprecated. See https://docs.base.org/ai-agents for the new Base AI Agents docs."
-        env:
-          NODE_AUTH_TOKEN: ''
+        run: npm deprecate base-mcp "This package has been deprecated. See https://docs.base.org/ai-agents for the new Base AI Agents docs."
