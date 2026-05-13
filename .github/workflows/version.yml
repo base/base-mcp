@@ -24,9 +24,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          registry-url: https://registry.npmjs.org
 
       - name: Publish with provenance
-        run: npm publish --access public --provenance
+        run: npm publish
 
       - name: Deprecate
         run: npm deprecate base-mcp "This package has been deprecated. See https://docs.base.org/ai-agents for the new Base AI Agents docs."
