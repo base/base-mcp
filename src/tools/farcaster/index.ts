@@ -106,3 +106,5 @@ export class FarcasterActionProvider extends ActionProvider<EvmWalletProvider> {
     return network.chainId === String(base.id);
   }
 }
+
+export const farcasterActionProvider = () => new FarcasterActionProvider();
